@@ -40,11 +40,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
-            user_bio=validated_data['user_bio']
-            user_reputation=validated_data['user_reputation']
-            is_verified=validated_data['is_verified']
-            is_admin=validated_data['is_admin']
-            user_photo=validated_data['user_photo']
+            user_bio=validated_data['user_bio'],
+            user_reputation=validated_data['user_reputation'],
+            is_verified=validated_data['is_verified'],
+            is_admin=validated_data['is_admin'],
+            user_photo=validated_data['user_photo'],
             user_theme=validated_data['user_theme']
 
             # If added new columns through the User model, add them in this

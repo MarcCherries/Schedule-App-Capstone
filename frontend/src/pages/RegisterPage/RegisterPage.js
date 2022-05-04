@@ -10,11 +10,20 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
+    user_bio: "",
+    user_reputation: "",
+    is_verified: "",
+    is_admin: "",
+    user_photo: "",
+    user_theme: "",
   };
+
+  console.log(defaultValues)
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
     registerUser
   );
+  console.log(defaultValues)
 
   return (
     <div className="container">
@@ -56,11 +65,56 @@ const RegisterPage = () => {
           />
         </label>
         <label>
-          Password:{" "}
+          Bio:{" "}
           <input
             type="text"
-            name="password"
-            value={formData.password}
+            name="user_bio"
+            value={formData.user_bio}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Reputation Score:{" "}
+          <input
+            type="number"
+            name="user_reputation"
+            value={formData.user_reputation}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Verified?:{" "}
+          <input
+            type="checkbox"
+            name="is_verified"
+            value={formData.is_verified}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Admin?:{" "}
+          <input
+            type="checkbox"
+            name="is_admin"
+            value={formData.is_admin}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Photo:{" "}
+          <input
+            type="text"
+            name="user_photo"
+            value={formData.user_photo}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Theme:{" "}
+          <input
+            type="text"
+            name="user_theme"
+            value={formData.user_theme}
             onChange={handleInputChange}
           />
         </label>
