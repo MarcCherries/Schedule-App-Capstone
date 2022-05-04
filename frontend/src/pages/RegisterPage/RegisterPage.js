@@ -12,9 +12,9 @@ const RegisterPage = () => {
     lastName: "",
     user_bio: "",
     user_reputation: "",
-    is_verified: "",
-    is_admin: "",
-    user_photo: "",
+    is_verified: "False",
+    is_admin: "False",
+    user_photo: "C:\Users\Chris\Desktop\devCodeCamp\Schedule-App-Capstone\Capstone-Main\frontend\public\logo192.png",
     user_theme: "",
   };
 
@@ -61,6 +61,15 @@ const RegisterPage = () => {
             type="text"
             name="email"
             value={formData.email}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Password:{" "}
+          <input
+            type="text"
+            name="password"
+            value={formData.password}
             onChange={handleInputChange}
           />
         </label>
