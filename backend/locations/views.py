@@ -1,4 +1,4 @@
-from re import S
+
 from django.shortcuts import render
 from .models import Location
 from rest_framework.decorators import api_view, permission_classes
