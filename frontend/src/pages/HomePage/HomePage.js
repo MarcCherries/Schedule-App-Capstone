@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
 import axios from "axios";
+import DisplayEvents from "../../components/DisplayEvents/DisplayEvents";
+import AddEvent from "../../components/AddEvent/AddEvent";
 
-const HomePage = () => {
+const HomePage = (props) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
@@ -29,12 +31,11 @@ const HomePage = () => {
   return (
     <div className="container">
       <h1>Home Page for {user.username}!</h1>
-      {cars &&
-        cars.map((car) => (
-          <p key={car.id}>
-            {car.year} {car.make} {car.model}
-          </p>
-        ))}
+      <div>
+        <img width="150" height="200" src={require("./Images/default.jpg")}></img>
+        <DisplayEvents events={props.events} event={props.event} setEvent={props.setEvent} />
+        <AddEvent setEvent={props.setEvent}/>
+      </div>
     </div>
   );
 };
