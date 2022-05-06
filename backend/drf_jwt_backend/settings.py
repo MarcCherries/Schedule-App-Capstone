@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'events', 
     'locations',
     'comments',
-    'replies'
+    'replies',
+    'friends'
 ]
 
 MIDDLEWARE = [

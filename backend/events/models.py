@@ -11,4 +11,4 @@ class Event(models.Model):
     event_specialInstructions = models.CharField(max_length=255)
     experience_level = models.CharField(max_length=50)
 
-    models.Field
+   

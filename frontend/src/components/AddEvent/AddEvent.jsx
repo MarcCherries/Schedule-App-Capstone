@@ -36,9 +36,11 @@ const AddEvent = (props) => {
                 <input 
                 className='date-input'
                 type="datetime-local"
+                min="2022-05-05" max="2025-12-31"
                 name="date"
                 value={formData.date_time}
-                onChange={handleInputChange} >
+                onChange={handleInputChange} 
+               >
                 </input>
                 <input 
                 className='event-type-input'
@@ -47,7 +49,7 @@ const AddEvent = (props) => {
                 value={formData.event_type}
                 onChange={handleInputChange} >
                 </input>
-                <button>Create Event</button>
+                <button type='submit'>Create Event</button>
             </form>
         </div>
      );

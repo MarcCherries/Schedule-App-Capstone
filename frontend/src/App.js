@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ViewEventPage from "./pages/ViewEventPage/ViewEventPage";
+import ViewProfilePage from "./pages/ViewProfilePage/ViewProfilePage";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -17,7 +18,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import useCustomForm from "./hooks/useCustomForm";
+import CreateLocationPage from "./pages/CreateLocationPage/CreateLocationPage";
 
 
 
@@ -31,6 +32,8 @@ function App() {
   const [events, setEvents] = useState()
   const [event, setEvent] = useState()
   const [map, setMap] = useState()
+  const [currentUser, setCurrentUser] = useState()
+  const [users, setUsers] = useState()
 
 
 //all of my "get all" functions
@@ -49,6 +52,10 @@ function App() {
   async function getReplies(){
     let response = await axios.get('http://127.0.0.1:8000/api/replies/')
     setReplies(response.data)
+  }
+  async function getUsers(){
+    let response = await axios.get('http://127.0.0.1:8000/api/auth/users')
+    setUsers(response.data)
   }
 
 
@@ -79,17 +86,12 @@ function App() {
     setLocations(response.data)
     }
 
-  console.log(events)
-  console.log(locations)
-  console.log(comments)
-  console.log(replies)
-  console.log(event)
+ 
 
   //3rd part api calls start here
   async function fetchMap (){
     try {
-      let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCnfw-7C9jbiWW5ZEx_Z7GjbCt7HDWdXho
-      `)
+      let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAtIpDovZbehUwMIVCgY_r9bWHQNDtyU2U`)
       setMap(response.data)
       
     } catch (error) {
@@ -102,12 +104,19 @@ function App() {
     getComments();
     getLocations();
     getReplies();
+    getUsers();
     // fetchMap();
 
   
   },[]
   )
   console.log(map)
+  console.log(events)
+  console.log(locations)
+  console.log(comments)
+  console.log(replies)
+  console.log(event)
+  console.log(users)
 
   return (
     <div>
@@ -117,7 +126,7 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <HomePage events={events} event={event} setEvent={setEvent} />
+              <HomePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} />
             </PrivateRoute>
           }
         />
@@ -126,6 +135,22 @@ function App() {
           element={
             <PrivateRoute>
               <ViewEventPage events={events} event={event} setEvent={setEvent}/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/CreateLocation"
+          element={
+            <PrivateRoute>
+              <CreateLocationPage events={events} event={event} setEvent={setEvent}/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/ViewProfile/:userId"
+          element={
+            <PrivateRoute>
+              <ViewProfilePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
             </PrivateRoute>
           }
         />
