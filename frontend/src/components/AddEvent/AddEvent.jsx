@@ -7,8 +7,7 @@ const AddEvent = (props) => {
     const [user, token] = useAuth()
     let initialValues = {
         user: [(user.id)],
-        location: "",
-        date_time: "",
+        location_id: "",
         event_type: ""
 
     }
@@ -35,10 +34,20 @@ const AddEvent = (props) => {
                 </input>
                 <input 
                 className='date-input'
-                type="datetime-local"
+                type="date"
                 min="2022-05-05" max="2025-12-31"
                 name="date"
-                value={formData.date_time}
+                id="date"
+                value={formData.date}
+                onChange={handleInputChange} 
+               >
+                   </input>
+                <input 
+                className='time-input'
+                type="time"
+                name="time"
+                id="timme"
+                value={formData.time}
                 onChange={handleInputChange} 
                >
                 </input>
@@ -47,6 +56,27 @@ const AddEvent = (props) => {
                 type="text"
                 name="event_type"
                 value={formData.event_type}
+                onChange={handleInputChange} >
+                </input>
+                <input 
+                className='event-description-input'
+                type="textarea"
+                name="event_description"
+                value={formData.event_description}
+                onChange={handleInputChange} >
+                </input>
+                <input 
+                className='event-specialInstructions-input'
+                type="textarea"
+                name="event_specialInstructions"
+                value={formData.event_specialInstructions}
+                onChange={handleInputChange} >
+                </input>
+                <input 
+                className='experience-level-input'
+                type="text"
+                name="experience_level"
+                value={formData.experience_level}
                 onChange={handleInputChange} >
                 </input>
                 <button type='submit'>Create Event</button>

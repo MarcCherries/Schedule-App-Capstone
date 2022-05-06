@@ -7,10 +7,10 @@ from authentication.models import User
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['id', 'user','location',  'date_time', 'event_type', 'event_description', 'event_specialInstructions', 'experience_level', ]
+        fields = ['id', 'user', 'user_id', 'location','location_id','date', 'time', 'event_type', 'event_description', 'event_specialInstructions', 'experience_level', ]
         depth = 1
 
-        user = serializers.IntegerField(write_only=True)
-        location = serializers.IntegerField(write_only=True)
+    user_id = serializers.IntegerField(write_only=True)
+    location_id = serializers.IntegerField(write_only=True)
 
 

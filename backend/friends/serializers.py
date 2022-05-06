@@ -4,11 +4,11 @@ from .models import Friends
 
 from authentication.models import User
 
-class EventSerializer(serializers.ModelSerializer):
+class FriendsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friends
-        fields = ['id', 'friends', 'user']
+        fields = ['id', 'friends','friends_id', 'user', 'user_id']
         depth = 1
 
-        user = serializers.IntegerField(write_only=True)
-        friends = serializers.ManyRelatedField(write_only=True)
+    user_id = serializers.IntegerField(write_only=True)
+    friends_id = serializers.IntegerField(write_only=True)

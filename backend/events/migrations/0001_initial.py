@@ -19,7 +19,6 @@ class Migration(migrations.Migration):
             name='Event',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date_time', models.DateTimeField()),
                 ('event_type', models.CharField(max_length=50)),
                 ('event_description', models.CharField(max_length=255)),
                 ('event_specialInstructions', models.CharField(max_length=255)),

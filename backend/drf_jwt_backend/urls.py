@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/events/', include('events.urls')),
     path('api/comments/', include('comments.urls')),
     path('api/replies/', include('replies.urls')),
+    path('api/friends/', include('friends.urls')),
 ]
