@@ -19,12 +19,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import CreateLocationPage from "./pages/CreateLocationPage/CreateLocationPage";
+import useAuth from "./hooks/useAuth";
 
 
 
 
 function App() {
-
+  const [user, token] = useAuth()
   const [userId, setUserId] = useState()
   const [comments, setComments] = useState()
   const [replies, setReplies] = useState()
@@ -34,6 +35,7 @@ function App() {
   const [map, setMap] = useState()
   const [currentUser, setCurrentUser] = useState()
   const [users, setUsers] = useState()
+  const [location, setLocation] = useState()
 
 
 //all of my "get all" functions
@@ -98,6 +100,29 @@ function App() {
       console.log(error.message)      
     }
   }
+  async function fetchLocation(){
+    try {
+        let response = await axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAsgBy4_ICzUg3Qg6hSHmqRq-fRqFrzJXQ')
+        setLocation(response.data)
+    } catch (error) {
+        console.log(error.message)
+    }
+ 
+}
+
+function handleClick(){
+  let thisUser = users && users.filter((item)=>{
+    console.log(item.username)
+    console.log(currentUser)
+      if (item.username == currentUser.username){
+      return true
+      }}
+  
+    )
+    setCurrentUser(thisUser)
+    console.log(thisUser)
+   
+}
 
   useEffect(()=>{
     getEvents();
@@ -105,18 +130,22 @@ function App() {
     getLocations();
     getReplies();
     getUsers();
+    fetchLocation();
+  
     // fetchMap();
 
   
   },[]
   )
+
   console.log(map)
   console.log(events)
-  console.log(locations)
+  console.log(location)
   console.log(comments)
   console.log(replies)
   console.log(event)
   console.log(users)
+  console.log(currentUser)
 
   return (
     <div>
@@ -126,7 +155,7 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <HomePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+              <HomePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} />
             </PrivateRoute>
           }
         />
@@ -142,7 +171,7 @@ function App() {
           path="/CreateLocation"
           element={
             <PrivateRoute>
-              <CreateLocationPage events={events} event={event} setEvent={setEvent}/>
+              <CreateLocationPage events={events} event={event} setEvent={setEvent} location={location}/>
             </PrivateRoute>
           }
         />
@@ -150,7 +179,7 @@ function App() {
           path="/ViewProfile/:userId"
           element={
             <PrivateRoute>
-              <ViewProfilePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+              <ViewProfilePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} />
             </PrivateRoute>
           }
         />

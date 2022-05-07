@@ -6,14 +6,22 @@ import axios from 'axios';
 const AddEvent = (props) => {
     const [user, token] = useAuth()
     let initialValues = {
-        user: [(user.id)],
-        location_id: "",
-        event_type: ""
+      
+        date: "",
+        time:"",
+        event_type:"",
+        event_description:"",
+        event_specialInstructions:"",
+        experience_level:""
+
+   
+      
 
     }
   
     const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(initialValues, createEvent)    
-
+    formData.user = user.id
+    formData.location = 1
 
   
 
@@ -25,13 +33,13 @@ const AddEvent = (props) => {
     return ( 
         <div>
             <form onSubmit={handleSubmit}>
-                <input 
+                {/* <input 
                 className='location-input'
                 type="number"
-                name="location"
-                value={formData.location}
+                name="location_id"
+                value={formData.location_id}
                 onChange={handleInputChange} >
-                </input>
+                </input> */}
                 <input 
                 className='date-input'
                 type="date"
