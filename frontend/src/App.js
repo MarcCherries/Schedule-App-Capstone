@@ -36,6 +36,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState()
   const [users, setUsers] = useState()
   const [location, setLocation] = useState()
+  const [newLocation, setNewLocation] = useState()
 
 
 //all of my "get all" functions
@@ -111,7 +112,7 @@ function App() {
 }
 
 function handleClick(){
-  let thisUser = users && users.filter((item)=>{
+  let thisUser = currentUser && users.filter((item)=>{
     console.log(item.username)
     console.log(currentUser)
       if (item.username == currentUser.username){
@@ -146,6 +147,8 @@ function handleClick(){
   console.log(event)
   console.log(users)
   console.log(currentUser)
+  console.log(newLocation)
+ 
 
   return (
     <div>
@@ -163,7 +166,7 @@ function handleClick(){
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage events={events} event={event} setEvent={setEvent}/>
+              <ViewEventPage events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser}/>
             </PrivateRoute>
           }
         />
@@ -171,12 +174,12 @@ function handleClick(){
           path="/CreateLocation"
           element={
             <PrivateRoute>
-              <CreateLocationPage events={events} event={event} setEvent={setEvent} location={location}/>
+              <CreateLocationPage events={events} event={event} setEvent={setEvent} location={location} setNewLocation={setNewLocation} newLocation={newLocation} createLocation={createLocation}/>
             </PrivateRoute>
           }
         />
         <Route
-          path="/ViewProfile/:userId"
+          path="/ViewProfile/:username"
           element={
             <PrivateRoute>
               <ViewProfilePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} />

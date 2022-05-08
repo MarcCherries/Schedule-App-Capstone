@@ -10,7 +10,7 @@ const ViewEventPage = (props) => {
     return ( 
      
         <div>
-              <DisplayAttendees event={props.event}/>
+              <DisplayAttendees event={props.event} setCurrentUser={props.setCurrentUser}/>
             {props.event &&
             <div>Event ID:<span>{" "}</span>
             {props.event.id}    

@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import axios from 'axios';
 
 const ViewProfilePage = (props) => {
       const [user, token]= useAuth()
-    const {userId} = useParams()
+    const {username} = useParams()
+    const [friends, setFriends] = useState()
 
-    console.log(props.currentUser)
+  useEffect(()=>{
+      const fetchfriends = async () => {
+          try {
+              let response = await axios.get(`http://127.0.0.1:8000/api/friends?username=${username}`)
+              setFriends(response.data)
+          } catch (error) {
+              console.log(error.message)
+          }
+      }
+      fetchfriends()
+  },[])
+  console.log(friends)
 
-    useEffect(()=>{
-        props.handleClick();
-  
-    },[token])
+
    
     return ( 
         <div>

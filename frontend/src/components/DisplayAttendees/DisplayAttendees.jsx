@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 
 const DisplayAttendees = (props) => {
     console.log(props.event)
+
     return ( 
         <div>
           {props.event && props.event.user.map((item)=>{
               return(
-                <Link to={`/ViewProfile/${item.id}` } >
+                <Link to={`/ViewProfile/${item.username}`} onClick={()=>props.setCurrentUser(item)} >
               <p key={item.id}> 
                   <p>{item.username}</p>
              </p>

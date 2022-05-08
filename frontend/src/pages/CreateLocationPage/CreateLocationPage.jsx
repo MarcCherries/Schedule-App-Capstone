@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import DisplaySearchResults from '../../components/DisplaySearchResults/DisplaySearchResults';
 
 const CreateLocationPage = (props) => {
     const [places, setPlaces] = useState()
@@ -22,16 +23,29 @@ async function handleSubmit(event){
     }
  
 }
-
-console.log(places)
+function handleClick(event){
+    event.preventDefault()
+    let postLocation = {
+        location_name: props.newLocation.name,
+        latitude: props.newLocation.geometry.location.lat,
+        longitude: props.newLocation.geometry.location.lng,
+        location_info: "none"
+    }
+    props.createLocation(postLocation)
+}
+console.log()
 
     return ( 
         <div>
+            {props.newLocation && 
+            <button onClick={handleClick}>Create {props.newLocation.name}</button>
+            }
             <form onSubmit={handleSubmit}>
                 <input type="text" name="searchTerm"     onChange={(event) => setSearchTerm(event.target.value)}/>
                 <button type="submit">submit</button>
-              
+            
             </form>
+            <DisplaySearchResults places={places} setNewLocation={props.setNewLocation}/>
         </div>
      );
 
