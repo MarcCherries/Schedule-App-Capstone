@@ -7,6 +7,8 @@ import DisplayEvents from "../../components/DisplayEvents/DisplayEvents";
 import AddEvent from "../../components/AddEvent/AddEvent";
 import { Link, unstable_HistoryRouter } from "react-router-dom";
 import './HomePage.css'
+import Dropdown from '../../components/Dropdown/Dropdown.jsx'
+
 
 const HomePage = (props) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -14,6 +16,7 @@ const HomePage = (props) => {
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
   const [cars, setCars] = useState([]);
+  const [addLocation, setAddLocation] = useState()
   // const [currentUser, setCurrentUser] = useState()
 
  
@@ -61,7 +64,9 @@ const HomePage = (props) => {
      
         
         <div className="add-event">
-        <AddEvent setEvent={props.setEvent}/>
+        <Dropdown locations={props.locations} addLocation={addLocation} setAddLocation={setAddLocation}/>
+      
+        <AddEvent setEvent={props.setEvent} setAddLocation={setAddLocation} addLocation={addLocation}/>
         <Link to={'/CreateLocation'}><button></button></Link>
         </div>
         </div>

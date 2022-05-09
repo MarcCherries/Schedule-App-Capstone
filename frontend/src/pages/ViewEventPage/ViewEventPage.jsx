@@ -3,19 +3,27 @@ import { useParams } from 'react-router-dom';
 import DisplayAttendees from '../../components/DisplayAttendees/DisplayAttendees';
 import './ViewEventPage.css'
 import DisplayComments from '../../components/DisplayComments/DisplayComments';
+import axios from 'axios'
+import useAuth from '../../hooks/useAuth.js'
 
 
 
 const ViewEventPage = (props) => {
     const {eventId} = useParams ()
+    const [user, token] = useAuth()
     console.log(eventId)
     console.log(props.event)
+
+    async function joinEvent (){
+    
+      let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}/?id=${user.id}`)
+    }
 
     return ( 
      
         <div>
             <div className='join-button' >
-                <button >Joyn Event</button>
+                <button onClick={joinEvent}>Joyn Event</button>
                 </div>
           <div className='event-page-container'>
     

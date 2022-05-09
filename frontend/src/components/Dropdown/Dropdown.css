@@ -1,0 +1,11 @@
+.children-inactive{
+    display: none;
+
+}
+.children-active{
+    display: block;
+    position: absolute;
+    z-index: 5;
+    background-color: white;
+    
+}

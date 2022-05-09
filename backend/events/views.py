@@ -5,8 +5,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .models import Event
+from authentication.models import User
 from .serializers import EventSerializer
-
 
 
 @api_view(['GET', 'POST'])
@@ -19,14 +19,24 @@ def get_all_events(request):
     elif (request.method == 'POST'):
         serializer = EventSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['GET','PUT', 'DELETE'])
+@api_view(['GET','PUT', 'DELETE', 'PATCH'])
 @permission_classes([AllowAny])
 def get_event_detail(request, pk):
     event = get_object_or_404(Event, pk=pk)
+    user_param = request.query_params.get('id')
+    userToAdd = User.objects.filter(id=user_param).first()
+    if (user_param):
+        if (request.method == 'PATCH'):
+            event.user.add(userToAdd)
+            print(userToAdd)
+            serializer = EventSerializer(event, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
     if (request.method == 'GET'):
         serializer = EventSerializer(event)
         return Response(serializer.data, status=status.HTTP_200_OK)
