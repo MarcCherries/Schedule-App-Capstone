@@ -11,6 +11,11 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
 def get_all_locations(request):
+    param = request.query_params.get('keyword')
+    if (param):
+        location_results = Location.objects.filter(location_name__contains=param)
+        serializer = LocationSerializer(location_results, many=True)
+        return Response(serializer.data)
     if (request.method == 'GET'):
         locations = Location.objects.all()
         serializer = LocationSerializer(locations, many=True)

@@ -6,6 +6,7 @@ import axios from "axios";
 import DisplayEvents from "../../components/DisplayEvents/DisplayEvents";
 import AddEvent from "../../components/AddEvent/AddEvent";
 import { Link, unstable_HistoryRouter } from "react-router-dom";
+import './HomePage.css'
 
 const HomePage = (props) => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -41,16 +42,36 @@ const HomePage = (props) => {
   console.log(user)
   console.log(props.currentUser)
   return (
-    <div className="container">
+    
+    <div >
+      <div className="homepage-container">
+      <div className="homepage-headline">
       <h1>Home Page for {user.username}!</h1>
-      <Link to={'/CreateLocation'}><button></button></Link>
-      <div>
-        <Link to={`/ViewProfile/${user.id}` } >
-        <img width="150" height="200" src={require("./Images/default.jpg")}></img>
-        </Link>
-        <DisplayEvents events={props.events} event={props.event} setEvent={props.setEvent} />
-        <AddEvent setEvent={props.setEvent}/>
       </div>
+      <div className="body-container">
+        <div className="left-col">
+      <div className="pic-create-event-col">
+        <Link to={`/ViewProfile/${user.id}` } >
+        <img className="profile-pic" width="250" height="300" src={require("./Images/default.jpg")}></img>
+        </Link>
+        <div className="display-friends"></div>
+        </div>
+    
+      
+     
+        
+        <div className="add-event">
+        <AddEvent setEvent={props.setEvent}/>
+        <Link to={'/CreateLocation'}><button></button></Link>
+        </div>
+        </div>
+
+        <div className="display-events">
+        <DisplayEvents events={props.events} event={props.event} setEvent={props.setEvent} />
+        </div>
+        </div>
+        
+        </div>
     </div>
   );
 };

@@ -9,16 +9,18 @@ const DisplayEvents = (props) => {
     <div>
         {props.events && props.events.map((event)=>{
             return(
-                <Link onClick={()=>props.setEvent(event)}to={`/EventPage/${event.id}`}>
+               
+                <Link className='Link' onClick={()=>props.setEvent(event)}to={`/EventPage/${event.id}`}>
                 <div className='event-entry'>
-                    <h3>{event.event_type}</h3>
+                    <h3 className='event-headline'>{event.event_type}</h3>
                     <body>{event.event_description}
                         {event.event_specialInstructions} 
                         {event.location.location_info} 
                         
                             </body>
-                </div>
+                            </div>
                 </Link>
+               
 
             )
         })}

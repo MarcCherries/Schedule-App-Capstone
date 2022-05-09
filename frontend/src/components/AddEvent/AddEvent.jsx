@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import useCustomForm from '../../hooks/useCustomForm';
 import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
+import "./AddEvent.css"
 
 const AddEvent = (props) => {
     const [user, token] = useAuth()
+    const [locationSearch, setLocationSearch] = useState()
+    const [searchLocations, setSearchLocations] = useState()
     let initialValues = {
-      
+        location_id: 11,
+        user_id: 1,
         date: "",
         time:"",
         event_type:"",
@@ -20,26 +24,31 @@ const AddEvent = (props) => {
     }
   
     const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(initialValues, createEvent)    
-    formData.user = user.id
-    formData.location = 1
-
+  
+   
+    async function handleLocationSubmit(event){
+        event.preventDefault()
+        let response = await axios.get(`http://127.0.0.1:8000/api/locations?keyword=${locationSearch}`)
+        setSearchLocations(response.data)
+      }
   
 
     async function createEvent(){
         let response = await axios.post('http://127.0.0.1:8000/api/events/', formData)
         props.setEvents(response.data)
         }
-
+    console.log(searchLocations)
+    console.log(locationSearch)
     return ( 
         <div>
-            <form onSubmit={handleSubmit}>
-                {/* <input 
+            <form className="create-event"onSubmit={handleSubmit}>
+                <input 
                 className='location-input'
                 type="number"
                 name="location_id"
-                value={formData.location_id}
+                value={formData.location}
                 onChange={handleInputChange} >
-                </input> */}
+                </input>
                 <input 
                 className='date-input'
                 type="date"
@@ -87,8 +96,13 @@ const AddEvent = (props) => {
                 value={formData.experience_level}
                 onChange={handleInputChange} >
                 </input>
-                <button type='submit'>Create Event</button>
+                <button className="submit-event" type='submit'>Create Event</button>
             </form>
+            <div>
+                <form onSubmit={handleLocationSubmit}>
+                    <input type="text" name="locationSearch" onChange={(event)=>setLocationSearch(event.target.value)}></input>
+                </form>
+            </div>
         </div>
      );
 }

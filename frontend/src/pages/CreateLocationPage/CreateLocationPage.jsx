@@ -29,9 +29,12 @@ function handleClick(event){
         location_name: props.newLocation.name,
         latitude: props.newLocation.geometry.location.lat,
         longitude: props.newLocation.geometry.location.lng,
-        location_info: "none"
+        location_info: props.newLocation.formatted_address
     }
     props.createLocation(postLocation)
+
+
+    
 }
 console.log()
 

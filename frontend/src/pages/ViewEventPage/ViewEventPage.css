@@ -1,0 +1,62 @@
+.event-page-container{
+ 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+   
+}
+
+.display-attendees-map{
+  
+   
+}
+
+.display-comments {
+    margin-right: 0
+}
+
+.attendee-item  a {
+ 
+    text-decoration: none;
+  
+    color: black;
+
+   
+   
+}
+
+.left-col{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    width: 20rem;
+    margin-right: 3rem;
+}
+
+.left-col-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.leader-container {
+    margin-bottom: 5rem;
+    border: 2px solid rgba(0, 0, 255, 0.342);
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.join-button{
+    width: 100%;
+  
+}
+.join-button button{
+    width: 35rem;
+    margin-left: 38rem;
+    background-color: blueviolet;
+}

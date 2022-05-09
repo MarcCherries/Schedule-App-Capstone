@@ -37,6 +37,8 @@ function App() {
   const [users, setUsers] = useState()
   const [location, setLocation] = useState()
   const [newLocation, setNewLocation] = useState()
+  const [image, setImage] = useState()
+  const [imageURL, setImageURL] = useState()
 
 
 //all of my "get all" functions
@@ -158,7 +160,7 @@ function handleClick(){
           path="/"
           element={
             <PrivateRoute>
-              <HomePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} />
+              <HomePage imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} />
             </PrivateRoute>
           }
         />
@@ -166,7 +168,7 @@ function handleClick(){
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser}/>
+              <ViewEventPage events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments}/>
             </PrivateRoute>
           }
         />
@@ -174,7 +176,7 @@ function handleClick(){
           path="/CreateLocation"
           element={
             <PrivateRoute>
-              <CreateLocationPage events={events} event={event} setEvent={setEvent} location={location} setNewLocation={setNewLocation} newLocation={newLocation} createLocation={createLocation}/>
+              <CreateLocationPage events={events} event={event} setEvent={setEvent} location={location} setLocation={setLocation}setNewLocation={setNewLocation} newLocation={newLocation} createLocation={createLocation}/>
             </PrivateRoute>
           }
         />
@@ -186,7 +188,7 @@ function handleClick(){
             </PrivateRoute>
           }
         />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/register" element={<RegisterPage image={image} setImage={setImage} imageURL={imageURL} setImageURL={setImageURL} />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
       <Footer />

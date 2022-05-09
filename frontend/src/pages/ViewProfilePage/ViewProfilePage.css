@@ -1,0 +1,16 @@
+.bio-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-list-profile {
+    width: 20rem;
+    height: 30rem;
+    border: 2px solid black;
+}
+
+.top-row-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

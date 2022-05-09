@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 
-const RegisterPage = () => {
+const RegisterPage = (props) => {
   const { registerUser } = useContext(AuthContext);
   const defaultValues = {
     username: "",
@@ -14,7 +14,7 @@ const RegisterPage = () => {
     user_reputation: "",
     is_verified: "False",
     is_admin: "False",
-    user_photo: "C:\Users\Chris\Desktop\devCodeCamp\Schedule-App-Capstone\Capstone-Main\frontend\public\logo192.png",
+    user_photo: "",
     user_theme: "",
   };
 
@@ -25,6 +25,16 @@ const RegisterPage = () => {
   );
   console.log(defaultValues)
 
+
+  // useEffect(()=>{
+  //     if (props.image){
+        
+  //       let newURL = URL.createObjectURL(props.image)
+  //       props.setImageURL(newURL)
+  //     }
+  // },[props.image])
+    
+  
   return (
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
@@ -112,10 +122,13 @@ const RegisterPage = () => {
         <label>
           Photo:{" "}
           <input
-            type="text"
+            type="file"
             name="user_photo"
+            id="user_photo"
+         
             value={formData.user_photo}
             onChange={handleInputChange}
+            
           />
         </label>
         <label>

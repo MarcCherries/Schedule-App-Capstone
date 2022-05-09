@@ -1,0 +1,53 @@
+.body-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.homepage-headline {
+    width: 20 rem;
+    margin: 0;
+    padding: 0;
+    margin-left: 30rem;
+    margin-bottom: 2rem;
+   
+}
+
+.left-col {
+    border: none;
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.display-friends {
+    border: 2px solid black;
+    height: 18.75rem;
+    width: 15rem;
+    margin-left: 2rem;
+}
+.pic-create-event-col {
+    display: flex;
+    flex-direction: row;
+    flex-direction: wrap;
+    margin-left: 2rem;
+}
+
+.display-events {
+    width: 50%;
+    margin: auto;
+    text-decoration: none;
+    color: black
+ 
+}
+
+.add-event {
+    width: 32.7rem;
+    margin-left: 2rem;
+}
+
+
+
+.profile-pic {
+    border: 5px solid blue;
+}
