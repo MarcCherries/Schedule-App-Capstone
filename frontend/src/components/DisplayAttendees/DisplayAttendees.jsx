@@ -10,7 +10,7 @@ const DisplayAttendees = (props) => {
           {props.event && props.event.user.map((item)=>{
               return(
                 <div className='attendee-item'>
-                <Link to={`/ViewProfile/${item.username}`} onClick={()=>props.setCurrentUser(item)} >
+                <Link to={`/ViewProfile/${item.id}`} onClick={()=>props.setCurrentUser(item)} >
           
                   <p>{item.username}</p>
            

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import './DisplayComments.css'
+import AddComment from '../AddComment/AddComment.jsx'
 
 const DisplayComments = (props) => {
-    const [eventComments, setEventcomments] = useState();
+    
+    const [hideShow, setHideShow] = useState('hide')
 
     function fetchEventComments(){
         let newComments = props.comments && props.comments.filter((comment)=>{
@@ -10,22 +13,40 @@ const DisplayComments = (props) => {
             }
           
         })
-        setEventcomments(newComments)
+        props.setEventComments(newComments)
     }
-    console.log(eventComments)
-
+    
 
 
     useEffect(()=>{
       fetchEventComments();
     },[])
 
+    function handleClick (){
+        if (hideShow == 'hide'){
+            setHideShow('show')
 
-
+        }
+        else{
+            setHideShow('hide')
+        }
+    }
     console.log(props.comments)
+   
     return ( 
         <div>
-            {eventComments && eventComments.map((item)=>{
+            <div className='comment-head'>
+                <div className='top-row-comment'>
+            <h3>Event Comments</h3><button className='comment-button' onClick={handleClick}>Add Comment</button>
+            </div>
+          
+
+            
+           </div>
+           <div className={hideShow}>
+            <AddComment setEventComments={props.setEventComments} getComments={props.getComments} setComments={props.setComments} eventId={props.eventId} comments={props.comments} eventComments={props.eventComments}/>
+            </div>
+            {props.eventComments && props.eventComments.map((item)=>{
                 return(
                     <div>
                         <h5>{item.user.username}:</h5>

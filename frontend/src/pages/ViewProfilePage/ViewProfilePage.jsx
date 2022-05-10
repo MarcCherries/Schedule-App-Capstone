@@ -3,10 +3,12 @@ import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
 import "./ViewProfilePage.css"
+import DisplayEvents from '../../components/DisplayEvents/DisplayEvents';
 
 const ViewProfilePage = (props) => {
-      const [user, token]= useAuth()
-    const {username} = useParams()
+    const [userEvent, setUserEvent] = useState()
+    const [user, token]= useAuth()
+    const {userId} = useParams()
     const [buddies, setBuddies] = useState({
         "id": 1,
         "friends": [
@@ -27,122 +29,43 @@ const ViewProfilePage = (props) => {
                 "is_verified": false,
                 "is_admin": false,
                 "user_photo": "None",
-                "user_theme": "default",
-                "groups": [],
-                "user_permissions": []
+                
             },
-            {
-                "id": 2,
-                "password": "muffin123",
-                "last_login": "2022-05-03T00:45:38Z",
-                "is_superuser": false,
-                "username": "BlueberryMuffin",
-                "first_name": "Muffin",
-                "last_name": "Cat",
-                "email": "Muffin@cat.com",
-                "is_staff": false,
-                "is_active": true,
-                "date_joined": "2022-05-04T00:45:27Z",
-                "user_bio": "\"I am a cat\"",
-                "user_reputation": "50.0",
-                "is_verified": false,
-                "is_admin": false,
-                "user_photo": "vincent-van-zalinge-GvSLkDH7XdI-unsplash.jpg",
-                "user_theme": "default",
-                "groups": [],
-                "user_permissions": []
-            },
-            {
-                "id": 5,
-                "password": "password",
-                "last_login": "2022-05-06T01:59:32Z",
-                "is_superuser": false,
-                "username": "StarWarsFan93",
-                "first_name": "Mike",
-                "last_name": "Smith",
-                "email": "HanSolo@gmail.com",
-                "is_staff": false,
-                "is_active": true,
-                "date_joined": "2022-05-06T01:59:26Z",
-                "user_bio": "Bacon ipsum dolor amet shankle picanha capicola ribeye sausage bacon. Hamburger ribeye fatback ground round boudin short ribs. Kielbasa pig capicola turducken, jowl meatball ham rump swine ribeye. Chuck kielbasa burgdoggen, pastrami beef ribs leberkas bac",
-                "user_reputation": "50.0",
-                "is_verified": false,
-                "is_admin": false,
-                "user_photo": "none",
-                "user_theme": "default",
-                "groups": [],
-                "user_permissions": []
-            },
-            {
-                "id": 7,
-                "password": "password",
-                "last_login": "2022-05-06T02:01:41Z",
-                "is_superuser": false,
-                "username": "RudyRudy99",
-                "first_name": "Rudy",
-                "last_name": "Ruddiger",
-                "email": "Dame4Life@aol.com",
-                "is_staff": false,
-                "is_active": true,
-                "date_joined": "2022-05-06T02:01:35Z",
-                "user_bio": "Ground round strip steak capicola, flank alcatra brisket frankfurter turkey salami pancetta jowl. Ground round picanha tri-tip jerky cow filet mignon leberkas ball tip hamburger. Pork loin turducken ham hock, corned beef shank buffalo tri-tip. Flank cow c",
-                "user_reputation": "50.0",
-                "is_verified": false,
-                "is_admin": false,
-                "user_photo": "none",
-                "user_theme": "default",
-                "groups": [],
-                "user_permissions": []
-            },
-            {
-                "id": 8,
-                "password": "password",
-                "last_login": "2022-05-06T02:02:54Z",
-                "is_superuser": false,
-                "username": "RebeccaBrownEyes",
-                "first_name": "Rebecca",
-                "last_name": "Friemond",
-                "email": "RFMad@aol.com",
-                "is_staff": false,
-                "is_active": true,
-                "date_joined": "2022-05-06T02:02:46Z",
-                "user_bio": "Rump meatloaf porchetta bresaola tenderloin pig capicola sausage. Swine tenderloin meatball, tail fatback bacon boudin alcatra andouille chislic tongue chicken shoulder capicola. Frankfurter tail buffalo pig picanha tongue shank prosciutto burgdoggen bres",
-                "user_reputation": "50.0",
-                "is_verified": false,
-                "is_admin": false,
-                "user_photo": "none",
-                "user_theme": "default",
-                "groups": [],
-                "user_permissions": []
-            }
+          
         ],
         "user": {
             "id": 3,
-            "password": "pbkdf2_sha256$320000$Z0T51YEk4HFz4NejhICXIh$gUfM0OaYDiDnPK+lZB6nRcKmrfzOkB0dI0OOkfzEN8U=",
-            "last_login": null,
-            "is_superuser": false,
-            "username": "Jerry123",
-            "first_name": "Jerry",
-            "last_name": "Seinfeld",
-            "email": "Jerry@seinfeld.com",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2022-05-04T15:36:40Z",
-            "user_bio": "I dont wanna be a pirate!",
-            "user_reputation": "50.0",
-            "is_verified": false,
-            "is_admin": false,
-            "user_photo": "\"./Images/default.jpg\"",
-            "user_theme": "default",
-            "groups": [],
-            "user_permissions": []
+       
         }
     })
+    console.log(props.events)
+  function getUserEvents(){
+      let count = props.events && (props.events.length -1)
+      console.log(count)
+    
+      while (count >= 0){
+        
+      let newEvents = props.events && props.events[count].user.filter((item)=>{
+        let intUser = item.id
+        let string = intUser.toString()
+     
+      
+     if (string == userId){
+         console.log("yay!!")
+         console.log(string)
+         console.log(intUser)
+         return [props.events[count]]
+   }
+}  )
+count --;
+console.log(newEvents)
+  }
 
+}
   useEffect(()=>{
       const fetchfriends = async () => {
           try {
-              let response = await axios.get(`http://127.0.0.1:8000/api/friends?username=${username}`)
+              let response = await axios.get(`http://127.0.0.1:8000/api/friends?id=${userId}`)
         
               setBuddies(response.data)
               
@@ -150,7 +73,7 @@ const ViewProfilePage = (props) => {
               console.log(error.message)
           }
       }
-      
+      getUserEvents()
       fetchfriends()
   },[])
   console.log(buddies)
@@ -163,13 +86,23 @@ const ViewProfilePage = (props) => {
             <h1 className='profile-head'>Profile Page for {props.currentUser && props.currentUser.username}!</h1>
             <div>
             <div className='top-row-container'>
-            <img className='profile-image' height="200" width="150" src={require("../HomePage/Images/default.jpg")}></img>
+            <img className='profile-image' height="300" width="225" src={require("../HomePage/Images/default.jpg")}></img>
             <div className='friend-list-profile'>
-                {/* {buddies && buddies.friends.map((friend)=>{
+                {!buddies.friends &&
+                <div>
+                    <h5>{`${props.currentUser && props.currentUser.username} doesn't have any friends yet!` }</h5>
+                     </div>
+            }
+                {buddies.friends && buddies.friends.map((friend)=>{
                     return (
+                        <div>
+                      
                         <h5>{friend.username}</h5>
+                        </div>
+                        
                     )
-                })} */}
+                })}
+                <DisplayEvents events={userEvent}/>
             </div>
             </div>
             <div className='bio-container'>

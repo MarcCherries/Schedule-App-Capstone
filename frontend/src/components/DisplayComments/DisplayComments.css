@@ -1,0 +1,43 @@
+.comment-head{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+
+    border: 2px solid black;
+    width: 37rem;
+    margin-top: 2rem;
+    height: 3.5rem;
+    
+}
+
+.top-container {
+    display: flex;
+    flex-direction: column;
+}
+.comment-button {
+    height: 2.5rem;
+    padding: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inline;
+    z-index: 100;
+}
+
+.top-row-comment {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.comment-text {
+
+    height: 3rem;
+} 

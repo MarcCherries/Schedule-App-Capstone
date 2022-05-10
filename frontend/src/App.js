@@ -138,7 +138,7 @@ function handleClick(){
     // fetchMap();
 
   
-  },[]
+  },[token]
   )
 
   console.log(map)
@@ -168,7 +168,7 @@ function handleClick(){
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments}/>
+              <ViewEventPage  getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments}/>
             </PrivateRoute>
           }
         />
@@ -181,10 +181,10 @@ function handleClick(){
           }
         />
         <Route
-          path="/ViewProfile/:username"
+          path="/ViewProfile/:userId"
           element={
             <PrivateRoute>
-              <ViewProfilePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} />
+              <ViewProfilePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} userId={userId} />
             </PrivateRoute>
           }
         />

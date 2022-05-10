@@ -32,7 +32,8 @@
     flex-direction: column;
     border: 2px solid black;
     width: 20rem;
-    margin-right: 3rem;
+    margin-right: 2.5rem;
+    margin-top: 2rem;
 }
 
 .left-col-container{
@@ -45,10 +46,11 @@
 .leader-container {
     margin-bottom: 5rem;
     border: 2px solid rgba(0, 0, 255, 0.342);
-    width: 20rem;
+    width: 19.83rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: aqua;
 }
 
 .join-button{

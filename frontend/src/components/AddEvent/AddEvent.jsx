@@ -37,7 +37,7 @@ const AddEvent = (props) => {
        
         formData.location_id=props.addLocation.id
         let response = await axios.post('http://127.0.0.1:8000/api/events/', formData)
-        props.setEvents(response.data)
+        props.setEvent(response.data)
         }
     
         console.log(props.addLocation)

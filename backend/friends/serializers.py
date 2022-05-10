@@ -8,7 +8,7 @@ class FriendsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friends
         fields = ['id', 'friends', 'user']
-     
-    
+        depth=1
+
    
     

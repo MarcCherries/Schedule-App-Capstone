@@ -16,7 +16,7 @@ from .serializers import FriendsSerializer
 def get_all_friends(request):
     type_param = request.query_params.get('id')
     friend_param = request.query_params.get('pk')
-    current_user = Friends.objects.filter(user__username=type_param).first()
+    current_user = Friends.objects.filter(user__id=type_param).first()
     user_friends = User.objects.filter(id=type_param).first()
     user_id = user_friends.id
     if (type_param):

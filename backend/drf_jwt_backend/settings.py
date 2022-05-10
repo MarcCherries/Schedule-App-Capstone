@@ -27,6 +27,8 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'authentication.User'
 
+MEDIA_ROOT = 'C:/Users/Chris/Desktop/devCodeCamp/Schedule-App-Capstone/Capstone-Main/frontend/src/pages/HomePage/Images'
+
 
 # Application definition
 
@@ -35,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    
+    
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',

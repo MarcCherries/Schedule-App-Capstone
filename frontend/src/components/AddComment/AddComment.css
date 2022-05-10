@@ -1,0 +1,11 @@
+.comment-form {
+    display: flex;
+    flex-direction:column;
+}
+
+.comment-button1 {
+    align-self: flex-end;
+    width: auto;
+    height: auto;
+   padding: 1px;
+}

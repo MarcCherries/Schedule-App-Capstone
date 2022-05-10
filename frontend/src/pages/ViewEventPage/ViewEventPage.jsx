@@ -11,6 +11,7 @@ import useAuth from '../../hooks/useAuth.js'
 const ViewEventPage = (props) => {
     const {eventId} = useParams ()
     const [user, token] = useAuth()
+    const [eventComments, setEventComments] = useState()
     console.log(eventId)
     console.log(props.event)
 
@@ -42,7 +43,7 @@ const ViewEventPage = (props) => {
               </div>
               </div>
               <div className='display-comments'>
-                <DisplayComments comments={props.comments} setComments={props.setComments} eventId={eventId}/>
+                <DisplayComments eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
               </div>
               </div>
            

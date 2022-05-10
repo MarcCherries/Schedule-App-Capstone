@@ -51,7 +51,7 @@ console.log()
                 <button type="submit">submit</button>
             
             </form>
-            <DisplaySearchResults places={places} setNewLocation={props.setNewLocation}/>
+            <DisplaySearchResults places={places} setNewLocation={props.setNewLocation} newLocation={props.newLocation}/>
             <DisplaySearchItem displayInfo={displayInfo} newLocation={props.newLocation}/>
         </div>
      );
