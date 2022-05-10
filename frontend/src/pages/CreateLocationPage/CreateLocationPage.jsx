@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DisplaySearchResults from '../../components/DisplaySearchResults/DisplaySearchResults';
+import DisplaySearchItem from '../../components/DisplaySearchItem/DisplaySearchItem';
 
 const CreateLocationPage = (props) => {
     const [places, setPlaces] = useState()
     const [searchTerm, setSearchTerm] = useState('gym')
+    const [displayInfo, setDisplayInfo ] = useState()
  
 
 
@@ -32,6 +34,7 @@ function handleClick(event){
         location_info: props.newLocation.formatted_address
     }
     props.createLocation(postLocation)
+   
 
 
     
@@ -49,6 +52,7 @@ console.log()
             
             </form>
             <DisplaySearchResults places={places} setNewLocation={props.setNewLocation}/>
+            <DisplaySearchItem displayInfo={displayInfo} newLocation={props.newLocation}/>
         </div>
      );
 

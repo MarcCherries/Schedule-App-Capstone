@@ -17,7 +17,7 @@ const HomePage = (props) => {
   const [user, token] = useAuth();
   const [cars, setCars] = useState([]);
   const [addLocation, setAddLocation] = useState()
-  // const [currentUser, setCurrentUser] = useState()
+
 
  
 
@@ -25,23 +25,19 @@ const HomePage = (props) => {
 
 
   useEffect(() => {
-    const fetchCars = async () => {
+    const checkFriends = async () => {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        setCars(response.data);
+        let response = await axios.post(`http://127.0.0.1:8000/api/friends/?id=${user.id}`)
+
       } catch (error) {
         console.log(error.message);
       }
     };
-    fetchCars();
+    checkFriends();
   
-  }, [token]);
+  }, []);
 
- 
+
   console.log(user)
   console.log(props.currentUser)
   return (
@@ -66,8 +62,8 @@ const HomePage = (props) => {
         <div className="add-event">
         <Dropdown locations={props.locations} addLocation={addLocation} setAddLocation={setAddLocation}/>
       
-        <AddEvent setEvent={props.setEvent} setAddLocation={setAddLocation} addLocation={addLocation}/>
-        <Link to={'/CreateLocation'}><button></button></Link>
+        <AddEvent setEvent={props.setEvent} setAddLocation={setAddLocation} addLocation={addLocation} newLocation={props.newLocation}/>
+        <Link to={'/CreateLocation'}><button>Create Location</button></Link>
         </div>
         </div>
 

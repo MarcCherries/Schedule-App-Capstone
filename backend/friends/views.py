@@ -11,12 +11,14 @@ from .serializers import FriendsSerializer
 
 
 
-@api_view(['GET', 'PATCH'])
+@api_view(['GET', 'POST', 'PATCH'])
 @permission_classes([AllowAny])
 def get_all_friends(request):
-    type_param = request.query_params.get('username')
+    type_param = request.query_params.get('id')
     friend_param = request.query_params.get('pk')
     current_user = Friends.objects.filter(user__username=type_param).first()
+    user_friends = User.objects.filter(id=type_param).first()
+    user_id = user_friends.id
     if (type_param):
         if (request.method == 'GET'):
             serializer = FriendsSerializer(current_user)
@@ -24,9 +26,15 @@ def get_all_friends(request):
 
         elif (request.method == 'PATCH'):
             current_user.friends.add(friend_param)
+
             serializer = FriendsSerializer(current_user, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        elif (request.method == 'POST'):
+            serializer = FriendsSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save(user=user_friends)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 

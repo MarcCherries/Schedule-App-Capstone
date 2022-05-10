@@ -16,7 +16,7 @@ const ViewEventPage = (props) => {
 
     async function joinEvent (){
     
-      let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}/?id=${user.id}`)
+      let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}?id=${user.id}`)
     }
 
     return ( 
@@ -28,12 +28,12 @@ const ViewEventPage = (props) => {
           <div className='event-page-container'>
     
             <div className='left-col-container'>
-            <div className='left-col'>
+            <div className='left-col-event'>
             <div className='leader-container'>
               <h1>Event Leader: </h1>
             
               <img width="150" height="200" src={require("../HomePage/Images/default.jpg")}></img>
-              <p>{props.event && props.event.user[0].username}</p>
+              <p>{props.event.user[0] && props.event.user[0].username}</p>
   
             </div>
 

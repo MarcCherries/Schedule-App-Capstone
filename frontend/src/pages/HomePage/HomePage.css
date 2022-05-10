@@ -15,9 +15,9 @@
 
 .left-col {
     border: none;
-    width: 35rem;
+    width: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: column
 }
 
 .display-friends {
@@ -27,6 +27,7 @@
     margin-left: 2rem;
 }
 .pic-create-event-col {
+    width: 40rem;
     display: flex;
     flex-direction: row;
     flex-direction: wrap;
@@ -37,7 +38,7 @@
     width: 50%;
     margin: auto;
     text-decoration: none;
-    color: black
+    color: red
  
 }
 

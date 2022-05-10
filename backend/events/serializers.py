@@ -11,7 +11,7 @@ class EventSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-    user_id = serializers.IntegerField(write_only=True)
+    user_id = serializers.IntegerField(read_only=True)
     location_id = serializers.IntegerField(write_only=True)
 
  

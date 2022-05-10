@@ -160,7 +160,7 @@ function handleClick(){
           path="/"
           element={
             <PrivateRoute>
-              <HomePage imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} />
+              <HomePage imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} />
             </PrivateRoute>
           }
         />

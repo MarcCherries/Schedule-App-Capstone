@@ -9,7 +9,7 @@ const AddEvent = (props) => {
     const [locationSearch, setLocationSearch] = useState()
     const [searchLocations, setSearchLocations] = useState()
     let initialValues = {
-        location_id: 1,
+        location_id: 5,
         user_id: 1,
         date: "",
         time:"",
@@ -34,13 +34,15 @@ const AddEvent = (props) => {
   
 
     async function createEvent(){
-        // let loc_obj = props.addLocation
-        // formData.location=loc_obj
+       
+        formData.location_id=props.addLocation.id
         let response = await axios.post('http://127.0.0.1:8000/api/events/', formData)
         props.setEvents(response.data)
         }
     
         console.log(props.addLocation)
+       
+        console.log(formData.location_id)
     return ( 
         <div>
             <form className="create-event"onSubmit={handleSubmit}>
