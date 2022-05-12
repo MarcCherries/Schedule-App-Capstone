@@ -40,6 +40,7 @@ function App() {
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
   const [friends, setFriends] = useState()
+  const [trigger, setTrigger] = useState(true)
 
 
 //all of my "get all" functions
@@ -131,6 +132,16 @@ function handleClick(){
     console.log(thisUser)
    
 }
+useEffect(()=>{
+
+  getLocations();
+
+
+
+},[trigger]
+
+)
+
 
   useEffect(()=>{
     getEvents();
@@ -143,7 +154,8 @@ function handleClick(){
     // fetchMap();
 
   
-  },[token]
+  },[]
+
   )
 
   console.log(map)
@@ -166,7 +178,7 @@ function handleClick(){
           path="/"
           element={
             <PrivateRoute>
-              <HomePage imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends}/>
+              <HomePage trigger={trigger} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} getLocations={getLocations} />
             </PrivateRoute>
           }
         />
@@ -182,7 +194,7 @@ function handleClick(){
           path="/CreateLocation"
           element={
             <PrivateRoute>
-              <CreateLocationPage events={events} event={event} setEvent={setEvent} location={location} setLocation={setLocation}setNewLocation={setNewLocation} newLocation={newLocation} createLocation={createLocation}/>
+              <CreateLocationPage trigger={trigger} setTrigger={setTrigger} getLocations={getLocations} events={events} event={event} setEvent={setEvent} location={location} setLocation={setLocation}setNewLocation={setNewLocation} newLocation={newLocation} createLocation={createLocation}/>
             </PrivateRoute>
           }
         />

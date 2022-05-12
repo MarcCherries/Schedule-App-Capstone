@@ -28,7 +28,7 @@ const AddComment = (props) => {
     
     return ( 
         <div>
-            <div className={props.hideShow}>
+            <div className={props.showHide}>
            <form onSubmit={handleSubmit}>
                <div className='comment-form'>
                <input type="text" size="80" height="100" name="comment_text" className='comment-text' value={formData.comment_text} onChange={handleInputChange}>

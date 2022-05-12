@@ -40,7 +40,11 @@ const HomePage = (props) => {
     buildFriendsList()
   }
 }
+useEffect(() => {
+ 
+  props.getLocations()
 
+},[props.trigger] );
 
 
   useEffect(() => {

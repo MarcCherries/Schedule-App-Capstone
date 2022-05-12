@@ -1,10 +1,12 @@
 import { useState } from "react";
+import AddReply from "../AddReply/AddReply";
 import DisplayReplies from "../DisplayReplies/DisplayReplies";
 import './Comment.css'
 
 const Comment = (props) => {
 
     const [showHide, setShowHide] =useState('hide')
+    const [hideShow, setHideShow] =useState('hide')
     
 
 console.log(props.showHide)
@@ -19,6 +21,17 @@ function handleClick (){
     }
 }
  
+
+function handleClickAdd (){
+    if (hideShow == 'hide'){
+        setHideShow('show')
+
+    }
+    else{
+        setHideShow('hide')
+    }
+}
+ 
     return ( 
         <div>
             
@@ -27,17 +40,22 @@ function handleClick (){
             
         
                 
-                    <div>
-                   
+                    <div >
+                            <div className="comment-font">
                         <h5>{props.item.user.username}:</h5>
                         <p>{props.item.comment_text}</p>
-                        <div className={props.showHide}>
+                        </div>
+                      
                         <button onClick={handleClick}>View Replies</button>
-                        <button>Add Reply</button>
+                        <button onClick={handleClickAdd}>Add Reply</button>
+                        <div className={hideShow}>
+                        
+                        <AddReply comment={props.item}/>
+                        </div>
                         <div className={showHide}>
                         <DisplayReplies comment={props.item} setCommentReplies={props.setCommentReplies} replies={props.replies} item={props.item}/>
                         </div>
-                        </div>
+                        
                       
                     </div>
         </div>

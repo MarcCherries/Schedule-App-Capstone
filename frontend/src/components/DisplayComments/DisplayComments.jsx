@@ -80,9 +80,9 @@ console.log (props.eventComments)
 
             
            </div>
-           <div className={hideShow}>
-            <AddComment setEventComments={props.setEventComments} getComments={props.getComments} setComments={props.setComments} eventId={props.eventId} comments={props.comments} eventComments={props.eventComments}/>
-            </div>
+         
+            <AddComment setEventComments={props.setEventComments} getComments={props.getComments} setComments={props.setComments} eventId={props.eventId} comments={props.comments} eventComments={props.eventComments} showHide={showHide}/>
+  
            
                    
                    

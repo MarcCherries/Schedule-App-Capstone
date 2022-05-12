@@ -24,6 +24,12 @@ const ViewEventPage = (props) => {
      
         <div>
             <div className='join-button' >
+              <div className='join-info'>
+                  <h4>Event Type: {props.event.event_type} </h4>
+                  <h4>Experience Level:{props.event.experience_level} </h4>
+                  <h4>Date/Time: {props.event.date}@{props.event.time}</h4>
+                  </div>
+
                 <button onClick={joinEvent}>Joyn Event</button>
                 </div>
           <div className='event-page-container'>
@@ -51,15 +57,15 @@ const ViewEventPage = (props) => {
 
           
             <div className="display-attendees-map">
-              <h3>{props.event && props.event.location.location_name}</h3>
+              <h3>Location: {props.event && props.event.location.location_name}</h3>
       <iframe width='350' height='400' src={`https://maps.google.com/maps?q=${props.event && props.event.location.latitude},${props.event && props.event.location.longitude}&hl=eng&z=14&amp;output=embed`}>
 
       </iframe>
       <div className='location-table'>
         <h5>Location Notes:</h5>
-        <p>{props.event && props.event.location.location_info}</p>
+        <p className='notes'>{props.event && props.event.location.location_info}</p>
         <h5>Event Notes:</h5>
-        <p>{props.event && props.event.location.location_info}</p>
+        <p className='notes'>{props.event && props.event.event_specialInstructions}</p>
       </div>
       </div>
     

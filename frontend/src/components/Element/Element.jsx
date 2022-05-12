@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import './Element.css'
 
 const Element = (props) => {
-    console.log(props.addLocation)
+    
  
-    function handleclick(){
-
-    }
+ 
     return ( 
         <div>
             {props.locations && props.locations.map((item)=>{

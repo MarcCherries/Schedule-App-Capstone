@@ -9,3 +9,10 @@
     height: auto;
    padding: 1px;
 }
+
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}

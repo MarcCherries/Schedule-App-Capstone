@@ -1,12 +1,41 @@
-.bio-container {
-    display: flex;
-    flex-direction: column;
+.buddy-list{
+    border: 2px solid black;
+    height: 10rem;
+    width:fit-content;
+    padding: 8px;
+    margin-left: 1rem;
 }
 
-
+.left-image-info{
+    width: 15rem;
+}
 
 .top-row-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+
+.left-image-buddy{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.joyn {
+    font-size: 1.5rem;
+}
+.joyn-up{
+  
+    display: flex;
+    flex-direction: column;
+}
+.left-side-top{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: none;
+    justify-content: flex-start;
 }

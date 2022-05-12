@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DisplaySearchResults from '../../components/DisplaySearchResults/DisplaySearchResults';
 import DisplaySearchItem from '../../components/DisplaySearchItem/DisplaySearchItem';
+import './CreateLocationPage.css'
+import {useNavigate, Link} from 'react-router-dom'
 
 const CreateLocationPage = (props) => {
     const [places, setPlaces] = useState()
+  
     const [searchTerm, setSearchTerm] = useState('gym')
     const [displayInfo, setDisplayInfo ] = useState()
+    const navigate = useNavigate()
  
 
 
@@ -25,8 +29,9 @@ async function handleSubmit(event){
     }
  
 }
-function handleClick(event){
-    event.preventDefault()
+function handleClick(){
+
+   
     let postLocation = {
         location_name: props.newLocation.name,
         latitude: props.newLocation.geometry.location.lat,
@@ -34,25 +39,45 @@ function handleClick(event){
         location_info: props.newLocation.formatted_address
     }
     props.createLocation(postLocation)
+ 
    
+ 
 
 
     
 }
+
+function handleClickBack(){
+    if (props.trigger == true){
+    props.setTrigger(false)
+
+    }
+    else {
+        props.setTrigger(true)
+    }
+}
+
 console.log()
 
     return ( 
         <div>
+            <div className='create-container'>
+            <div className='search-div'>
             {props.newLocation && 
             <button onClick={handleClick}>Create {props.newLocation.name}</button>
             }
+            <Link to={'/'}>
+            <button onPointerOver={handleClickBack}>Back</button>
+            </Link>
             <form onSubmit={handleSubmit}>
                 <input type="text" name="searchTerm"     onChange={(event) => setSearchTerm(event.target.value)}/>
                 <button type="submit">submit</button>
             
             </form>
             <DisplaySearchResults places={places} setNewLocation={props.setNewLocation} newLocation={props.newLocation}/>
+            </div>
             <DisplaySearchItem displayInfo={displayInfo} newLocation={props.newLocation}/>
+            </div>
         </div>
      );
 
