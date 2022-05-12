@@ -14,16 +14,16 @@ const RegisterPage = (props) => {
     user_reputation: "",
     is_verified: "False",
     is_admin: "False",
-    user_photo: "",
+    user_photo: "none",
     user_theme: "",
   };
 
-  console.log(defaultValues)
+  
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
     registerUser
   );
-  console.log(defaultValues)
+  
 
 
   // useEffect(()=>{
@@ -122,7 +122,7 @@ const RegisterPage = (props) => {
         <label>
           Photo:{" "}
           <input
-            type="image"
+            type="text"
             name="user_photo"
             id="user_photo"
          

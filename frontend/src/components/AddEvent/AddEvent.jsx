@@ -23,7 +23,7 @@ const AddEvent = (props) => {
 
     }
   
-    const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(initialValues, createEvent)    
+    const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(initialValues, props.createEvent)    
   
    
     async function handleLocationSubmit(event){
@@ -33,16 +33,9 @@ const AddEvent = (props) => {
       }
   
 
-    async function createEvent(){
+   
+   
        
-        formData.location_id=props.addLocation.id
-        let response = await axios.post('http://127.0.0.1:8000/api/events/', formData)
-        props.setEvent(response.data)
-        }
-    
-        console.log(props.addLocation)
-       
-        console.log(formData.location_id)
     return ( 
         <div>
             <form className="create-event"onSubmit={handleSubmit}>

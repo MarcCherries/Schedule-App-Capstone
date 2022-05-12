@@ -16,7 +16,7 @@ const HomePage = (props) => {
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
  
-  const [addLocation, setAddLocation] = useState()
+
 
 
 
@@ -28,14 +28,14 @@ const HomePage = (props) => {
  }
 
  function checkFriendsList(){
-  console.log(props.friends)
+  
   let friendsList = props.friends && props.friends.filter((item)=>{
     if (item.user == user.id){
       return true
     }
   
   })
-  console.log(friendsList)
+  
   if (friendsList && !friendsList[0]){
     buildFriendsList()
   }
@@ -51,11 +51,10 @@ useEffect(() => {
  
     checkFriendsList();
   
-  }, [token]);
+  }, []);
 
 
-  console.log(user)
-  console.log(props.currentUser)
+  
   return (
     
     <div >
@@ -76,9 +75,9 @@ useEffect(() => {
      
         
         <div className="add-event">
-        <Dropdown locations={props.locations} addLocation={addLocation} setAddLocation={setAddLocation}/>
+        <Dropdown locations={props.locations} addLocation={props.addLocation} setAddLocation={props.setAddLocation}/>
       
-        <AddEvent setEvent={props.setEvent} setAddLocation={setAddLocation} addLocation={addLocation} newLocation={props.newLocation}/>
+        <AddEvent createEvent={props.createEvent} events={props.events}setEvent={props.setEvent} setAddLocation={props.setAddLocation} addLocation={props.addLocation} newLocation={props.newLocation}/>
         <Link to={'/CreateLocation'}><button>Create Location</button></Link>
         </div>
         </div>

@@ -25,9 +25,7 @@ const DisplayComments = (props) => {
         let newStr = strEvent.toString()
       
             if (newStr == props.eventId){
-                console.log(newStr)
-                console.log(props.eventId)
-                console.log("yay!")
+              
                 return true
             }
           
@@ -40,7 +38,7 @@ const DisplayComments = (props) => {
     useEffect(()=>{
       fetchEventComments();
     },[])
-console.log (props.eventComments)
+
     function handleClick (){
         if (showHide == 'hide'){
             setShowHide('show')
@@ -94,7 +92,7 @@ console.log (props.eventComments)
                             <table>
                             <tr>
                             
-                        <Comment showHide={props.showHide}replies={props.replies} setCommentReplies ={setCommentReplies}setEventReplies={props.setEventReplies}item={item} eventComments={props.eventComments}/>
+                        <Comment   setCurrentComment={props.setCurrentComment} getCommentReplies={props.getCommentReplies} addReply={props.addReply} commentReplies={props.commentReplies} showHide={props.showHide}replies={props.replies} setCommentReplies ={setCommentReplies}setEventReplies={props.setEventReplies}item={item} eventComments={props.eventComments}/>
                         
                       
                     

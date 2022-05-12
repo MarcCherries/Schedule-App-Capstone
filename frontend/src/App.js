@@ -1,5 +1,5 @@
 // General Imports
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import "./App.css";
 
 // Pages Imports
@@ -24,6 +24,8 @@ import useAuth from "./hooks/useAuth";
 
 
 
+
+
 function App() {
   const [user, token] = useAuth()
   const [userId, setUserId] = useState()
@@ -41,8 +43,45 @@ function App() {
   const [imageURL, setImageURL] = useState()
   const [friends, setFriends] = useState()
   const [trigger, setTrigger] = useState(true)
+  const [trigger1, setTrigger1] = useState(true)
+  const [addLocation, setAddLocation] = useState()
+  const [currentComment, setCurrentComment] = useState()
+  const {eventId} = useParams ()
+  const[commentReplies, setCommentReplies] = useState([
+    {
+        "id": 24,
+        "comment": {
+            "id": 28,
+            "comment_text": "Testing this new comment component",
+            "user": 3,
+            "event": 1
+        },
+        "user": {
+            "id": 3,
+            "password": "pbkdf2_sha256$320000$Z0T51YEk4HFz4NejhICXIh$gUfM0OaYDiDnPK+lZB6nRcKmrfzOkB0dI0OOkfzEN8U=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "Jerry123",
+            "first_name": "Jerry",
+            "last_name": "Seinfeld",
+            "email": "Jerry@seinfeld.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-05-04T15:36:40Z",
+            "user_bio": "I dont wanna be a pirate!",
+            "user_reputation": "50.0",
+            "is_verified": false,
+            "is_admin": false,
+            "user_photo": "/media/images/Screenshot_1.png",
+            "user_theme": "default",
+            "groups": [],
+            "user_permissions": []
+        },
+        "reply_text": "yoafjasdf"
+    }
+])
 
-
+  
 //all of my "get all" functions
   async function getEvents(){
     let response = await axios.get('http://127.0.0.1:8000/api/events/')
@@ -118,18 +157,28 @@ function App() {
     }
  
 }
+async function createEvent(formData){
+ 
+  formData.location_id=addLocation.id
+  let response = await axios.post('http://127.0.0.1:8000/api/events/', formData)
+  let newEvent = [response.data, ...events]
+  setEvents(newEvent)
+  }
+
+ 
+
+
 
 function handleClick(){
   let thisUser = currentUser && users.filter((item)=>{
-    console.log(item.username)
-    console.log(currentUser)
+  
       if (item.username == currentUser.username){
       return true
       }}
   
     )
     setCurrentUser(thisUser)
-    console.log(thisUser)
+  
    
 }
 useEffect(()=>{
@@ -139,6 +188,15 @@ useEffect(()=>{
 
 
 },[trigger]
+
+)
+useEffect(()=>{
+
+  getEvents();
+
+
+
+},[trigger1]
 
 )
 
@@ -168,7 +226,8 @@ useEffect(()=>{
   console.log(currentUser)
   console.log(newLocation)
   console.log(friends)
- 
+
+
 
   return (
     <div>
@@ -178,7 +237,7 @@ useEffect(()=>{
           path="/"
           element={
             <PrivateRoute>
-              <HomePage trigger={trigger} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} getLocations={getLocations} />
+              <HomePage  addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} getLocations={getLocations} />
             </PrivateRoute>
           }
         />
@@ -186,7 +245,7 @@ useEffect(()=>{
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage  replies={replies} setReplies={setReplies} getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments}/>
+              <ViewEventPage  setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies} getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
             </PrivateRoute>
           }
         />
@@ -215,3 +274,36 @@ useEffect(()=>{
 }
 
 export default App;
+
+//   {
+//       "id": 67,
+//       "comment": {
+//           "id": 73,
+//           "comment_text": "blah blah blah blah",
+//           "user": 17,
+//           "event": 1
+//       },
+//       "user": {
+//           "id": 17,
+//           "password": "pbkdf2_sha256$320000$m14uzJYBmkYETf30us0shk$07CCjLhq/K6wiLtRznaOFXGLyiP2SJBwBHvxRRGOvrc=",
+//           "last_login": null,
+//           "is_superuser": false,
+//           "username": "blah",
+//           "first_name": "blah",
+//           "last_name": "blah",
+//           "email": "blah@blah.com",
+//           "is_staff": false,
+//           "is_active": true,
+//           "date_joined": "2022-05-12T17:32:14.338280Z",
+//           "user_bio": "Once we’ve constructed our URL string, we access and parse the information using a mix of basic coding and web scrapes. Below is how I approached it but there are likely more efficient ways to pull it. You’ll need the requests, json, and time packages.",
+//           "user_reputation": "50.0",
+//           "is_verified": false,
+//           "is_admin": false,
+//           "user_photo": "none",
+//           "user_theme": "default",
+//           "groups": [],
+//           "user_permissions": []
+//       },
+//       "reply_text": "blah blah blah"
+//   }
+// ]

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './DisplayAttendees.css'
 
 const DisplayAttendees = (props) => {
-    console.log(props.event)
+
 
     return ( 
         <div>

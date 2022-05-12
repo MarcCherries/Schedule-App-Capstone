@@ -57,7 +57,7 @@ function handleClickBack(){
     }
 }
 
-console.log()
+
 
     return ( 
         <div>

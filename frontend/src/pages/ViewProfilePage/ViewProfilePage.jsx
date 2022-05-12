@@ -42,7 +42,7 @@ const ViewProfilePage = (props) => {
        
         }
     })
-    console.log(props.events)
+    
   
   async function fetchRecentEvents(){
       let response = await axios.get(`http://127.0.0.1:8000/api/events/${userId}`)
@@ -63,7 +63,7 @@ const ViewProfilePage = (props) => {
       fetchRecentEvents()
       fetchfriends()
   },[])
-  console.log(buddies)
+
 
 
 
@@ -90,7 +90,7 @@ const ViewProfilePage = (props) => {
 
             </div>
             <div className='buddy-list'>
-             <h4>Friends:</h4><br />
+             <h4>{`${buddies.friends && buddies.friends.length}`}</h4><br />
                 {buddies.friends && buddies.friends.map((friend)=>{
                     return (
                         <div>

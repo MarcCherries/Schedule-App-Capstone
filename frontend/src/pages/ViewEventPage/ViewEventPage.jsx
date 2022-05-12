@@ -12,8 +12,7 @@ const ViewEventPage = (props) => {
     const {eventId} = useParams ()
     const [user, token] = useAuth()
     const [eventComments, setEventComments] = useState()
-    console.log(eventId)
-    console.log(props.event)
+    
 
     async function joinEvent (){
     
@@ -25,7 +24,7 @@ const ViewEventPage = (props) => {
         <div>
             <div className='join-button' >
               <div className='join-info'>
-                  <h4>Event Type: {props.event.event_type} </h4>
+                  <h4>Event Type: {props.event && props.event.event_type} </h4>
                   <h4>Experience Level:{props.event.experience_level} </h4>
                   <h4>Date/Time: {props.event.date}@{props.event.time}</h4>
                   </div>
@@ -50,7 +49,7 @@ const ViewEventPage = (props) => {
               </div>
               </div>
               <div className='display-comments'>
-                <DisplayComments replies={props.replies} setReplies={props.setReplies} eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
+                <DisplayComments  setCurrentComment={props.setCurrentComment} getCommentReplies={props.getCommentReplies} addReply={props.addReply} commentReplies={props.commentReplies} setCommentReplies={props.setCommentReplies}replies={props.replies} setReplies={props.setReplies} eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
               </div>
               </div>
            

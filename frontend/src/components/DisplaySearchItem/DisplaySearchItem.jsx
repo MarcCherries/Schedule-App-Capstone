@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './DisplaySearchItem.css'
 
 const DisplaySearchItem = (props) => {
-    console.log(props.newLocation)
+
   
     return ( 
         <div>
