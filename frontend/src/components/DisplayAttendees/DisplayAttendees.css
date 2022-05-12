@@ -1,3 +1,6 @@
 .attendee-item {
     text-decoration: none;
 }
+.attendee-item:hover {
+    text-decoration: underline;
+}

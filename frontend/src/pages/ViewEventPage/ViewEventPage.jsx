@@ -32,18 +32,19 @@ const ViewEventPage = (props) => {
             <div className='left-col-event'>
             <div className='leader-container'>
               <h1>Event Leader: </h1>
-            
-              <img width="150" height="200" src={require("../HomePage/Images/default.jpg")}></img>
               <p>{props.event.user[0] && props.event.user[0].username}</p>
+
+              <img width="150" height="200" src={require("../HomePage/Images/default.jpg")}></img>
   
             </div>
 
             <div className='display-attendees'>
+              <h4>Confirmed Attendees: </h4>
               <DisplayAttendees  event={props.event} setCurrentUser={props.setCurrentUser} />
               </div>
               </div>
               <div className='display-comments'>
-                <DisplayComments eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
+                <DisplayComments replies={props.replies} setReplies={props.setReplies} eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
               </div>
               </div>
            

@@ -7,6 +7,7 @@ const DisplayAttendees = (props) => {
 
     return ( 
         <div>
+          
           {props.event && props.event.user.map((item)=>{
               return(
                 <div className='attendee-item'>
@@ -16,6 +17,7 @@ const DisplayAttendees = (props) => {
            
              </Link>
              </div>
+            
               )
           }
 

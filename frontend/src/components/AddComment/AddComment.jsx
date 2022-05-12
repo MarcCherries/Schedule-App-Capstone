@@ -32,8 +32,10 @@ const AddComment = (props) => {
            <form onSubmit={handleSubmit}>
                <div className='comment-form'>
                <input type="text" size="80" height="100" name="comment_text" className='comment-text' value={formData.comment_text} onChange={handleInputChange}>
+              
              
                </input>
+             
                <button className='comment-button1' type='submit'>Post</button>
                </div>
               

@@ -15,27 +15,39 @@ const HomePage = (props) => {
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
-  const [cars, setCars] = useState([]);
+ 
   const [addLocation, setAddLocation] = useState()
 
 
- 
 
+
+
+ async function buildFriendsList(){
+ 
+   let response = await axios.post(`http://127.0.0.1:8000/api/friends/?id=${user.id}`)
+ }
+
+ function checkFriendsList(){
+  console.log(props.friends)
+  let friendsList = props.friends && props.friends.filter((item)=>{
+    if (item.user == user.id){
+      return true
+    }
+  
+  })
+  console.log(friendsList)
+  if (friendsList && !friendsList[0]){
+    buildFriendsList()
+  }
+}
 
 
 
   useEffect(() => {
-    const checkFriends = async () => {
-      try {
-        let response = await axios.post(`http://127.0.0.1:8000/api/friends/?id=${user.id}`)
-
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    checkFriends();
+ 
+    checkFriendsList();
   
-  }, []);
+  }, [token]);
 
 
   console.log(user)
@@ -51,7 +63,7 @@ const HomePage = (props) => {
         <div className="left-col">
       <div className="pic-create-event-col">
         <Link to={`/ViewProfile/${user.id}` } >
-        <img className="profile-pic" width="250" height="300" src={require("./Images/default.jpg")}></img>
+        {/* <img className="profile-pic" width="250" height="300" src={require(props.currentUser && props.currentUser.user_photo.url)}></img> */}
         </Link>
         <div className="display-friends"></div>
         </div>

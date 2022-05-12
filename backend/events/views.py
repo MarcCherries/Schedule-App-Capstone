@@ -27,9 +27,13 @@ def get_all_events(request):
 @permission_classes([AllowAny])
 def get_event_detail(request, pk):
     event = get_object_or_404(Event, pk=pk)
+ 
+    event_objs = Event.objects.filter(user__id=pk)
     user_param = request.query_params.get('id')
     userToAdd = User.objects.filter(id=user_param).first()
     if (user_param):
+      
+            
         if (request.method == 'PATCH'):
             event.user.add(userToAdd)
             print(userToAdd)
@@ -38,8 +42,8 @@ def get_event_detail(request, pk):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     if (request.method == 'GET'):
-        serializer = EventSerializer(event)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            serializer = EventSerializer(event_objs, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
     elif (request.method == 'PUT'):
         serializer = EventSerializer(event, data=request.data)
         serializer.is_valid(raise_exception=True)

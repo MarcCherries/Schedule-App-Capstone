@@ -4,11 +4,13 @@ import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
 import "./ViewProfilePage.css"
 import DisplayEvents from '../../components/DisplayEvents/DisplayEvents';
+import AddFriend from '../../components/AddFriend/AddFriend';
 
 const ViewProfilePage = (props) => {
     const [userEvent, setUserEvent] = useState()
     const [user, token]= useAuth()
     const {userId} = useParams()
+    const [recentEvents, setRecentEvents] = useState()
     const [buddies, setBuddies] = useState({
         "id": 1,
         "friends": [
@@ -39,29 +41,12 @@ const ViewProfilePage = (props) => {
         }
     })
     console.log(props.events)
-  function getUserEvents(){
-      let count = props.events && (props.events.length -1)
-      console.log(count)
-    
-      while (count >= 0){
-        
-      let newEvents = props.events && props.events[count].user.filter((item)=>{
-        let intUser = item.id
-        let string = intUser.toString()
-     
-      
-     if (string == userId){
-         console.log("yay!!")
-         console.log(string)
-         console.log(intUser)
-         return [props.events[count]]
-   }
-}  )
-count --;
-console.log(newEvents)
+  
+  async function fetchRecentEvents(){
+      let response = await axios.get(`http://127.0.0.1:8000/api/events/${userId}`)
+      setRecentEvents(response.data)
   }
 
-}
   useEffect(()=>{
       const fetchfriends = async () => {
           try {
@@ -73,26 +58,23 @@ console.log(newEvents)
               console.log(error.message)
           }
       }
-      getUserEvents()
+      fetchRecentEvents()
       fetchfriends()
   },[])
   console.log(buddies)
+  console.log(recentEvents)
 
 
    
     return ( 
         <div>
-          
+          <AddFriend currentUser={props.currentUser}/>
             <h1 className='profile-head'>Profile Page for {props.currentUser && props.currentUser.username}!</h1>
             <div>
             <div className='top-row-container'>
             <img className='profile-image' height="300" width="225" src={require("../HomePage/Images/default.jpg")}></img>
             <div className='friend-list-profile'>
-                {!buddies.friends &&
-                <div>
-                    <h5>{`${props.currentUser && props.currentUser.username} doesn't have any friends yet!` }</h5>
-                     </div>
-            }
+             
                 {buddies.friends && buddies.friends.map((friend)=>{
                     return (
                         <div>
@@ -102,7 +84,7 @@ console.log(newEvents)
                         
                     )
                 })}
-                <DisplayEvents events={userEvent}/>
+                <DisplayEvents setEvent={props.setEvent} events={recentEvents}/>
             </div>
             </div>
             <div className='bio-container'>

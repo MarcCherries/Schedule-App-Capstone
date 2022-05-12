@@ -18,7 +18,7 @@ def get_all_friends(request):
     friend_param = request.query_params.get('pk')
     current_user = Friends.objects.filter(user__id=type_param).first()
     user_friends = User.objects.filter(id=type_param).first()
-    user_id = user_friends.id
+  
     if (type_param):
         if (request.method == 'GET'):
             serializer = FriendsSerializer(current_user)
@@ -36,6 +36,10 @@ def get_all_friends(request):
             serializer.is_valid(raise_exception=True)
             serializer.save(user=user_friends)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+    elif (request.method == 'GET'):
+        friends = Friends.objects.all()
+        serializer = FriendsSerializer(friends, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET','PUT', 'DELETE'])
@@ -50,3 +54,7 @@ def get_friend_by_user(request, pk):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+    elif (request.method == 'DELETE'):
+        friends.delete()
+        return Response(status=status.HTTP_200_OK)

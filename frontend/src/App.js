@@ -39,6 +39,7 @@ function App() {
   const [newLocation, setNewLocation] = useState()
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
+  const [friends, setFriends] = useState()
 
 
 //all of my "get all" functions
@@ -61,6 +62,10 @@ function App() {
   async function getUsers(){
     let response = await axios.get('http://127.0.0.1:8000/api/auth/users')
     setUsers(response.data)
+  }
+  async function getFriends(){
+    let response = await axios.get('http://127.0.0.1:8000/api/friends')
+    setFriends(response.data)
   }
 
 
@@ -134,7 +139,7 @@ function handleClick(){
     getReplies();
     getUsers();
     fetchLocation();
-  
+    getFriends();
     // fetchMap();
 
   
@@ -150,6 +155,7 @@ function handleClick(){
   console.log(users)
   console.log(currentUser)
   console.log(newLocation)
+  console.log(friends)
  
 
   return (
@@ -160,7 +166,7 @@ function handleClick(){
           path="/"
           element={
             <PrivateRoute>
-              <HomePage imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} />
+              <HomePage imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends}/>
             </PrivateRoute>
           }
         />
@@ -168,7 +174,7 @@ function handleClick(){
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage  getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments}/>
+              <ViewEventPage  replies={replies} setReplies={setReplies} getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments}/>
             </PrivateRoute>
           }
         />

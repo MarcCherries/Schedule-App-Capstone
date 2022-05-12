@@ -29,6 +29,22 @@
     display: inline;
     z-index: 100;
 }
+.hide-reply {
+    display: none;
+}
+
+.show-reply {
+    display: inline;
+    z-index: 100;
+}
+.hide-reply-input {
+    display: none;
+}
+
+.show-reply-input {
+    display: inline;
+    z-index: 100;
+}
 
 .top-row-comment {
     display: flex;
@@ -41,3 +57,18 @@
 
     height: 3rem;
 } 
+
+.comment-container{
+    border: 2px solid black
+}
+
+.comment-item-1{    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+.display-reply:hover{
+    background-color: rgb(43, 153, 226);
+}
