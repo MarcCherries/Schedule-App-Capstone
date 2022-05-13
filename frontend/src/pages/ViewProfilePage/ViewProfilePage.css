@@ -1,7 +1,7 @@
 .buddy-list{
-    border: 2px solid black;
-    height: 10rem;
-    width:fit-content;
+    border: 5px solid orange;
+    height: 19rem;
+    width:10rem;
     padding: 8px;
     margin-left: 1rem;
 }
@@ -10,6 +10,11 @@
     width: 15rem;
 }
 
+.buddy-headline{
+    height: 2rem;
+    border-bottom: 2px solid rgba(218, 218, 27, 0.993);
+    margin-bottom: 1rem;
+}
 .top-row-container {
     display: flex;
     flex-direction: row;

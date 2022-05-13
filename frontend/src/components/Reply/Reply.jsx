@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import './Reply.css'
 
 const Reply = (props) => {
     return ( 
         <div>
              <div className={props.showHide}>
-           <p> Reply by:{props.reply.user.username}:</p>
-            <p>{props.reply.reply_text}</p>
+                 <div className='reply-box-full'>
+           <p className='reply-box-name'> Reply by:{props.reply.user.username}:</p>
+            <p className='reply-box-text'>{props.reply.reply_text}</p>
+            </div>
             </div>
         </div>
      );

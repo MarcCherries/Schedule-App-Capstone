@@ -21,9 +21,9 @@ const DisplayReplies = (props) => {
                    <table>
                        <tr>
                            
-                   
+                   <div className='reply-box'>
                    <Reply showHide={props.showHide} reply={reply}/>
-                   
+                   </div>
             
                    </tr>
                    </table>

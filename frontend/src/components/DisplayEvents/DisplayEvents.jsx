@@ -3,6 +3,7 @@ import "./DisplayEvents.css"
 import {Link} from 'react-router-dom'
 
 const DisplayEvents = (props) => {
+    console.log(props.events)
     
     return ( 
 
@@ -13,11 +14,11 @@ const DisplayEvents = (props) => {
                 <Link className='Link' onClick={()=>props.setEvent(event)}to={`/EventPage/${event.id}`}>
                 <div className='event-entry'>
                     <h3 className='event-headline'>{event.event_type}</h3>
-                    <body>{event.event_description}
-                        {event.event_specialInstructions} 
-                        {event.location.location_info} 
+                    <p>{event.event_description}</p><br></br>
+                       <p> {event.event_specialInstructions} </p>
                         
-                            </body>
+                        
+                            
                             </div>
                 </Link>
                

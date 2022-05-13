@@ -166,6 +166,21 @@ async function createEvent(formData){
   }
 
  
+function setUser(){
+  let thisUser = user && users.filter((item)=>{
+    console.log(item.username)
+  
+    if (item.username == user.username){
+    return true
+    }
+    
+  }
+    
+  )
+  setCurrentUser(thisUser)
+}
+console.log(currentUser)
+
 
 
 
@@ -209,13 +224,17 @@ useEffect(()=>{
     getUsers();
     fetchLocation();
     getFriends();
-    // fetchMap();
+    
+  
 
   
   },[]
 
   )
 
+  // useEffect(()=>{
+  //   setUser()
+  // },[token])
   console.log(map)
   console.log(events)
   console.log(location)
@@ -226,6 +245,7 @@ useEffect(()=>{
   console.log(currentUser)
   console.log(newLocation)
   console.log(friends)
+  console.log(user)
 
 
 
@@ -237,7 +257,7 @@ useEffect(()=>{
           path="/"
           element={
             <PrivateRoute>
-              <HomePage  addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} getLocations={getLocations} />
+              <HomePage  addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} setLocations={setLocations} getLocations={getLocations} />
             </PrivateRoute>
           }
         />
@@ -268,42 +288,10 @@ useEffect(()=>{
         <Route path="/register" element={<RegisterPage image={image} setImage={setImage} imageURL={imageURL} setImageURL={setImageURL} />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
-      <Footer />
+    
     </div>
   );
 }
 
 export default App;
 
-//   {
-//       "id": 67,
-//       "comment": {
-//           "id": 73,
-//           "comment_text": "blah blah blah blah",
-//           "user": 17,
-//           "event": 1
-//       },
-//       "user": {
-//           "id": 17,
-//           "password": "pbkdf2_sha256$320000$m14uzJYBmkYETf30us0shk$07CCjLhq/K6wiLtRznaOFXGLyiP2SJBwBHvxRRGOvrc=",
-//           "last_login": null,
-//           "is_superuser": false,
-//           "username": "blah",
-//           "first_name": "blah",
-//           "last_name": "blah",
-//           "email": "blah@blah.com",
-//           "is_staff": false,
-//           "is_active": true,
-//           "date_joined": "2022-05-12T17:32:14.338280Z",
-//           "user_bio": "Once we’ve constructed our URL string, we access and parse the information using a mix of basic coding and web scrapes. Below is how I approached it but there are likely more efficient ways to pull it. You’ll need the requests, json, and time packages.",
-//           "user_reputation": "50.0",
-//           "is_verified": false,
-//           "is_admin": false,
-//           "user_photo": "none",
-//           "user_theme": "default",
-//           "groups": [],
-//           "user_permissions": []
-//       },
-//       "reply_text": "blah blah blah"
-//   }
-// ]

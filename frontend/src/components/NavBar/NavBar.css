@@ -9,27 +9,47 @@ li {
 }
 
 .navBar {
-  background:#F4D58D;
+  background:orange;
   box-shadow: 4px 2px 5px gray;
   color: white;
   margin-bottom: 2rem;
   padding: 1.5rem 2rem;
 }
 
-.navBar button {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 0.4rem 0.5rem;
-}
 
-.navBar button:hover {
-  background: white;
-  color: steelblue;
-  cursor: pointer;
-}
 
 .brand {
   cursor: pointer;
   font-size: 2rem;
+}
+
+.show-options{
+  border: none;
+  width: 10rem;
+  top: 3.5rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  background-color: orange;
+
+}
+.show-options li{
+  width: 20rem;
+ 
+
+}
+
+.hide-options{
+  display: none;
+}
+
+.navigate-button {
+  width: 10rem;
+  height: auto;
+}
+
+.nav-container{
+  display: flex;
+  flex-direction: column;
 }

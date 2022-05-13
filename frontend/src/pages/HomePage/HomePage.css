@@ -1,8 +1,16 @@
+
+
+
+body {
+   
+    
+}
 .body-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+    background-image: './Images/autumn-light-bg.jpg'
 }
 .homepage-headline {
     width: 20 rem;
@@ -37,8 +45,9 @@
 .display-events {
     width: 50%;
     margin: auto;
-    text-decoration: none;
-    color: red
+    border: none
+  
+   
  
 }
 
@@ -47,8 +56,20 @@
     margin-left: 2rem;
 }
 
+.create-location-button{
+    height: 5rem;
+    background-color: #bf0603dc;
+    color: white;
+   
+}
+.create-location-button:hover{
+    width: auto;
+    background-color: #03bf22ab;
+    color: white;
+}
+
 
 
 .profile-pic {
-    border: 5px solid blue;
+    border: 5px solid orange;
 }

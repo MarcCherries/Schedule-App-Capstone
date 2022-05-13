@@ -10,6 +10,7 @@ const CreateLocationPage = (props) => {
   
     const [searchTerm, setSearchTerm] = useState('gym')
     const [displayInfo, setDisplayInfo ] = useState()
+    const [showMap, setShowMap] = useState(false)
     const navigate = useNavigate()
  
 
@@ -23,6 +24,8 @@ async function handleSubmit(event){
     try {
         let response = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchTerm}&location=${props.location && props.location.location.lat},${props.location && props.location.location.lng}&radius=2000&region=us&type=park,gym&key=AIzaSyAsgBy4_ICzUg3Qg6hSHmqRq-fRqFrzJXQ`)
         setPlaces(response.data)
+        setShowMap(true)
+        setSearchTerm('')
       
     } catch (error) {
         console.log(error.message)
@@ -69,14 +72,14 @@ function handleClickBack(){
             <Link to={'/'}>
             <button onPointerOver={handleClickBack}>Back</button>
             </Link>
-            <form onSubmit={handleSubmit}>
+            <form onSubmitCapture={handleSubmit} >
                 <input type="text" name="searchTerm"     onChange={(event) => setSearchTerm(event.target.value)}/>
                 <button type="submit">submit</button>
             
             </form>
             <DisplaySearchResults places={places} setNewLocation={props.setNewLocation} newLocation={props.newLocation}/>
             </div>
-            <DisplaySearchItem displayInfo={displayInfo} newLocation={props.newLocation}/>
+            <DisplaySearchItem showMap={showMap} displayInfo={displayInfo} newLocation={props.newLocation}/>
             </div>
         </div>
      );

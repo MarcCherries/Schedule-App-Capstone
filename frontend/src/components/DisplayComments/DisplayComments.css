@@ -3,10 +3,11 @@
     display: flex;
     flex-direction: column;
 
-    border: 2px solid black;
+    border: 4px solid orange;
     width: 37rem;
     margin-top: 2rem;
     height: 3.5rem;
+    background-color: rgba(218, 218, 27, 0.63);
     
 }
 

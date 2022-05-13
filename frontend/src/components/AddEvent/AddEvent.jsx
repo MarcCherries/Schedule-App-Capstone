@@ -13,10 +13,10 @@ const AddEvent = (props) => {
         user_id: 1,
         date: "",
         time:"",
-        event_type:"",
-        event_description:"",
-        event_specialInstructions:"",
-        experience_level:""
+        event_type:"Event Type",
+        event_description:"Description",
+        event_specialInstructions:"Special Instructions",
+        experience_level:"Experience Level"
 
    
       
@@ -38,14 +38,18 @@ const AddEvent = (props) => {
        
     return ( 
         <div>
-            <form className="create-event"onSubmit={handleSubmit}>
+
+            <form className="create-event"onSubmitCapture={handleSubmit}   onSubmit={reset}>
+                <h4 className='create-header'>Create New Event</h4>
          
                 <input 
+            
                 className='date-input'
                 type="date"
                 min="2022-05-05" max="2025-12-31"
                 name="date"
                 id="date"
+                
                 value={formData.date}
                 onChange={handleInputChange} 
                >
@@ -57,12 +61,14 @@ const AddEvent = (props) => {
                 id="timme"
                 value={formData.time}
                 onChange={handleInputChange} 
+               x
                >
                 </input>
                 <input 
                 className='event-type-input'
                 type="text"
                 name="event_type"
+                
                 value={formData.event_type}
                 onChange={handleInputChange} >
                 </input>
@@ -79,20 +85,21 @@ const AddEvent = (props) => {
                 name="event_specialInstructions"
                 value={formData.event_specialInstructions}
                 onChange={handleInputChange} >
+                    
                 </input>
                 <input 
+                
                 className='experience-level-input'
                 type="text"
                 name="experience_level"
                 value={formData.experience_level}
                 onChange={handleInputChange} >
+              
                 </input>
                 <button className="submit-event" type='submit'>Create Event</button>
             </form>
             <div>
-                <form onSubmit={handleLocationSubmit}>
-                    <input type="text" name="locationSearch" onChange={(event)=>setLocationSearch(event.target.value)}></input>
-                </form>
+                
             </div>
         </div>
      );

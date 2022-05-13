@@ -42,7 +42,7 @@
     margin-top: 2rem;
     height: fit-content;
     padding: 8px;
-    background-color: #f4d58dbd;
+    background-color: rgba(255, 166, 0, 0.849);
 }
 
 .left-col-container{
@@ -71,7 +71,7 @@
     display: flex;
     flex-direction: column;
    
-    background-color: #708d817a;
+    background-color: rgba(235, 75, 1, 0.884);
 }
 
 .join-button{
@@ -85,8 +85,24 @@
    
   
 }
+
 .join-button button{
-    width: 35rem;
+    width: 5rem;
+    color: white;
     
-    background-color: #BF0603
+    background-color: #bf0603dc
+}
+.join-button button:hover{
+    width: 5rem;
+    color: black;
+    
+    background-color: #03bf22ab
+}
+
+.confirm-text{
+    font-size: .9rem;
+    width: 50%;
+    margin-left: 28rem;
+    color: green;
+    font-weight: bold;
 }

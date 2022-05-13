@@ -12,6 +12,7 @@ function setUserObject(user) {
     return null;
   }
   return {
+    user_photo: user.user_photo,
     username: user.username,
     id: user.user_id,
     first_name: user.first_name,
