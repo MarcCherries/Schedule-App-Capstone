@@ -28,6 +28,7 @@ import useAuth from "./hooks/useAuth";
 
 function App() {
   const [user, token] = useAuth()
+  const [showConfirm, setShowConfirm] = useState()
   const [userId, setUserId] = useState()
   const [comments, setComments] = useState()
   const [replies, setReplies] = useState()
@@ -46,6 +47,7 @@ function App() {
   const [trigger1, setTrigger1] = useState(true)
   const [addLocation, setAddLocation] = useState()
   const [currentComment, setCurrentComment] = useState()
+  const [recentEvents, setRecentEvents] = useState()
   const {eventId} = useParams ()
   const[commentReplies, setCommentReplies] = useState([
     {
@@ -247,8 +249,27 @@ useEffect(()=>{
   console.log(friends)
   console.log(user)
 
+  async function joinEvent (eventId){
+    
+    let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}?id=${user.id}`)
+    setShowConfirm(true)
+    setEvent(response.data)
+    
+  }
 
+async function fetchRecentEvents(userId){
+    let response = await axios.get(`http://127.0.0.1:8000/api/events/user?id=${userId}`)
+    setRecentEvents(response.data)
+}
+  async function handleClickFriend(userId){
+    try {
+        await axios.patch(`http://127.0.0.1:8000/api/friends/?id=${user.id}&pk=${userId}`)
+        
 
+    } catch (error) {
+        console.log(error.message)
+    }
+}
   return (
     <div>
       <Navbar />
@@ -265,7 +286,7 @@ useEffect(()=>{
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage  setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies} getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
+              <ViewEventPage showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies} getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
             </PrivateRoute>
           }
         />
@@ -281,7 +302,7 @@ useEffect(()=>{
           path="/ViewProfile/:userId"
           element={
             <PrivateRoute>
-              <ViewProfilePage events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} userId={userId} />
+              <ViewProfilePage fetchRecentEvents={fetchRecentEvents}handleClickFriend={handleClickFriend} recentEvents={recentEvents} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} userId={userId} />
             </PrivateRoute>
           }
         />

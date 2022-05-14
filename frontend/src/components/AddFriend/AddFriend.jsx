@@ -10,21 +10,13 @@ const AddFriend = (props) => {
 
 
 
-    async function handleClick(){
-        try {
-            await axios.patch(`http://127.0.0.1:8000/api/friends/?id=${user.id}&pk=${props.currentUser.id}`)
-            
-
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
+ 
 
 
 
     return ( 
         <div>
-            <button onClick={handleClick}>Add Friend!</button>
+            <button onClick={()=>props.handleClickFriend(props.userId)}>Add Friend!</button>
         </div>
      );
 }

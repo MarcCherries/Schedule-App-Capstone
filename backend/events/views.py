@@ -52,3 +52,15 @@ def get_event_detail(request, pk):
     elif (request.method == 'DELETE'):
         event.delete()
         return Response(status=status.HTTP_200_OK)
+
+@api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
+def get_all_events_by_user_id(request):
+    user_param = request.query_params.get('id')
+    events = Event.objects.filter(user__id=user_param)
+    if (user_param):
+
+        if (request.method == 'GET'):
+            
+            serializer = EventSerializer(events, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)

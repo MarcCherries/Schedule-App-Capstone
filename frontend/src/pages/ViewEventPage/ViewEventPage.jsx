@@ -12,13 +12,9 @@ const ViewEventPage = (props) => {
     const {eventId} = useParams ()
     const [user, token] = useAuth()
     const [eventComments, setEventComments] = useState()
-    const [showConfirm, setShowConfirm]= useState(false)    
+      
 
-    async function joinEvent (){
-    
-      let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}?id=${user.id}`)
-      setShowConfirm(true)
-    }
+  
 
     return ( 
      
@@ -30,9 +26,9 @@ const ViewEventPage = (props) => {
                   <h4>Date/Time: {props.event.date}@{props.event.time}</h4>
                   </div>
 
-                <button onClick={joinEvent}>Joyn Event</button>
+                <button onClick={()=>props.joinEvent(eventId)}>Joyn Event</button>
                 </div>
-                {showConfirm && 
+                {props.showConfirm && 
                 <p className='confirm-text'>{`Congratulations! You have joyned ${props.event.event_type} @ ${props.event.location.location_name}!`} </p>
 }
           <div className='event-page-container'>

@@ -4,6 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
 import "./ViewProfilePage.css"
 import DisplayEvents from '../../components/DisplayEvents/DisplayEvents';
+import DisplayFriends from '../../components/DisplayFriends/DisplayFriends';
 import AddFriend from '../../components/AddFriend/AddFriend';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ const ViewProfilePage = (props) => {
     const [userEvent, setUserEvent] = useState()
     const [user, token]= useAuth()
     const {userId} = useParams()
-    const [recentEvents, setRecentEvents] = useState()
+   
     const [buddies, setBuddies] = useState({
         "id": 1,
         "friends": [
@@ -44,10 +45,7 @@ const ViewProfilePage = (props) => {
     })
     
   
-  async function fetchRecentEvents(){
-      let response = await axios.get(`http://127.0.0.1:8000/api/events/${userId}`)
-      setRecentEvents(response.data)
-  }
+ 
 
   useEffect(()=>{
       const fetchfriends = async () => {
@@ -60,9 +58,9 @@ const ViewProfilePage = (props) => {
               console.log(error.message)
           }
       }
-      fetchRecentEvents()
+      props.fetchRecentEvents(userId)
       fetchfriends()
-  },[])
+  },[props.currentUser])
 
 
 
@@ -86,28 +84,16 @@ const ViewProfilePage = (props) => {
             <div className='reputation'>
                 <h3>Reputation Score:</h3>
                 <h1>{props.currentUser && props.currentUser.user_reputation}</h1>
-                <AddFriend currentUser={props.currentUser}/>
+                <AddFriend handleClickFriend={props.handleClickFriend}currentUser={props.currentUser} userId={userId}/>
 
             </div>
-            <div className='buddy-list'>
-             <h4>{`${buddies.friends && buddies.friends.length}`}</h4><br />
-                {buddies.friends && buddies.friends.map((friend)=>{
-                    return (
-                        <div>
-                                     <Link to={`/ViewProfile/${friend.id}`} onClick={()=>props.setCurrentUser(friend)} >
-                        <h5>{friend.username}</h5>
-                        </Link>
-                        </div>
-                        
-                    )
-                })}
-                </div>
+            <DisplayFriends setCurrentUser={props.setCurrentUser} buddies={buddies}/>
                 </div>
                 </div>
                 </div>
                 <div className='joyn-up'>
                 <h4 className='joyn'>Recent JoynUps</h4>
-                <DisplayEvents setEvent={props.setEvent} events={recentEvents}/>
+                <DisplayEvents setEvent={props.setEvent} events={props.recentEvents}/>
                 </div>
             </div>
          
