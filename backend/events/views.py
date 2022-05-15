@@ -41,8 +41,8 @@ def get_event_detail(request, pk):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-    if (request.method == 'GET'):
-            serializer = EventSerializer(event_objs, many=True)
+    elif (request.method == 'GET'):
+            serializer = EventSerializer(event)
             return Response(serializer.data, status=status.HTTP_200_OK)
     elif (request.method == 'PUT'):
         serializer = EventSerializer(event, data=request.data)

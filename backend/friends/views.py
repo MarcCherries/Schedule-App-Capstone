@@ -25,7 +25,7 @@ def get_all_friends(request):
             return Response(serializer.data)
 
         elif (request.method == 'PATCH'):
-            current_user.friends.add(friend_param)
+            current_user.pending.add(friend_param)
 
             serializer = FriendsSerializer(current_user, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)

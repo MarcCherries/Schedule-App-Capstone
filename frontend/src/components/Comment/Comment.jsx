@@ -10,6 +10,7 @@ const Comment = (props) => {
     const [showHide, setShowHide] =useState('hide')
     const [hideShow, setHideShow] =useState('hide')
     const [commentReplies, setCommentReplies] = useState()
+    const [replyCount, setReplyCount] = useState(0)
     const [user, token] = useAuth()
 
     async function addReply (formData){
@@ -61,7 +62,16 @@ function handleClickAdd (){
         setHideShow('hide')
     }
 }
- 
+console.log(commentReplies)
+
+function getReplyCount(){
+    let replies = commentReplies
+    let lengthRep = replies.length
+    
+    setReplyCount(lengthRep)
+}
+
+
     return ( 
         <div>
             
@@ -76,15 +86,17 @@ function handleClickAdd (){
                         <p>{props.item.comment_text}</p>
                         </div>
                       
-                        <button onClick={handleClick}>View Replies</button>
+                        <button onClick={handleClick}>View Replies({replyCount})</button>
                         <button onClick={handleClickAdd}>Add Reply</button>
                         <div className={hideShow}>
                         
                         <AddReply   setCurrentComment={props.setCurrentComment}getCommentReplies={props.getCommentReplies} addReply={addReply} comment={props.item}/>
                         </div>
+                        {commentReplies &&
                         <div className={showHide}>
-                        <DisplayReplies comment={props.item} setCommentReplies={setCommentReplies} commentReplies={commentReplies} replies={props.replies} getCommentReplies={props.getCommentReplies}/>
+                        <DisplayReplies getReplyCount={getReplyCount} comment={props.item} setCommentReplies={setCommentReplies} commentReplies={commentReplies} replies={props.replies} getCommentReplies={props.getCommentReplies}/>
                         </div>
+}
                         
                       
                     </div>

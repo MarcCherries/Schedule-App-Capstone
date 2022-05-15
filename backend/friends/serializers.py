@@ -7,7 +7,7 @@ from authentication.models import User
 class FriendsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friends
-        fields = ['id', 'friends', 'user']
+        fields = ['id','denied', 'pending', 'friends', 'user']
         depth=1
 
    

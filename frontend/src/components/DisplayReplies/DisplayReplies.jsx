@@ -3,9 +3,10 @@ import Reply from '../Reply/Reply';
 
 const DisplayReplies = (props) => {
   
-    const[replyCount, setReplyCount] = useState()
-    const [repliesCount, setRepliesCount] = useState()
-
+    
+    useEffect(()=>{
+        props.getReplyCount()
+    },[props.commentReplies])
 
 
 
@@ -15,7 +16,7 @@ const DisplayReplies = (props) => {
     return ( 
         <div>
            
-            {props.commentReplies && props.commentReplies.map((reply)=>{
+            {props.commentReplies.map((reply)=>{
                 return (
                     <div>
                    <table>

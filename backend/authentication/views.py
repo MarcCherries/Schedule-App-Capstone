@@ -29,3 +29,10 @@ def get_all_users(request):
         return Response(serializer.data)
 
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_user_by_id(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    serializer = RegistrationSerializer(user)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
