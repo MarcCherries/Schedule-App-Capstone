@@ -5,6 +5,8 @@ import './ViewEventPage.css'
 import DisplayComments from '../../components/DisplayComments/DisplayComments';
 import axios from 'axios'
 import useAuth from '../../hooks/useAuth.js'
+import DisplayAttendanceRequests from '../../components/DisplayAttendanceRequests/DisplayAttendanceRequests';
+
 
 
 
@@ -13,8 +15,28 @@ const ViewEventPage = (props) => {
     const [user, token] = useAuth()
     const [eventComments, setEventComments] = useState()
 
+    const [eventReq, setEventReq]  = useState()
+
+    useEffect(()=>{
+let newEventReq = props.newEvents && props.newEvents.filter((event)=>{
+    // make sure to finish this, by making a backend filter to return a single object
+    if (event.id == eventId)
+    return true
+})
+console.log(props.newEvents)
+console.log(newEventReq)
+let pendingList = newEventReq && newEventReq[0] && newEventReq[0].pending
+
+setEventReq(pendingList)
+    },[])
+    
+   console.log(eventReq)
+
  useEffect(()=>{
-   props.getEvent(eventId)
+  props.getEvent(eventId)
+  return ()=>{
+  props.source.cancel("Request Aborted!")
+  }
  },[eventId])
     
  
@@ -48,14 +70,16 @@ const ViewEventPage = (props) => {
               <img width="150" height="200" src={require("../HomePage/Images/default.jpg")}></img>
   
             </div>
-
+            {eventReq &&
+            <DisplayAttendanceRequests eventId={eventId} acceptEvent={props.acceptEvent}event={eventReq}/>
+            }
             <div className='display-attendees'>
               <h4>Confirmed Attendees: </h4>
               <DisplayAttendees  event={props.event} setCurrentUser={props.setCurrentUser} />
               </div>
               </div>
               <div className='display-comments'>
-                <DisplayComments  setCurrentComment={props.setCurrentComment} getCommentReplies={props.getCommentReplies} addReply={props.addReply} commentReplies={props.commentReplies} setCommentReplies={props.setCommentReplies}replies={props.replies} setReplies={props.setReplies} eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
+                <DisplayComments  getComments={props.getComments}setCurrentComment={props.setCurrentComment} getCommentReplies={props.getCommentReplies} addReply={props.addReply} commentReplies={props.commentReplies} setCommentReplies={props.setCommentReplies}replies={props.replies} setReplies={props.setReplies} eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
               </div>
               </div>
            

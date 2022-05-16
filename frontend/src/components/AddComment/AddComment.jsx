@@ -22,6 +22,7 @@ const AddComment = (props) => {
         let response = await axios.post('http://127.0.0.1:8000/api/comments/', formData)
         let newComments = [response.data, ...props.eventComments]
         props.setEventComments(newComments)
+        await props.getComments()
 
         
     }
@@ -29,7 +30,7 @@ const AddComment = (props) => {
     return ( 
         <div>
             <div className={props.showHide}>
-           <form onSubmit={handleSubmit}>
+           <form onSubmit={reset} onSubmitCapture={handleSubmit}>
                <div className='comment-form'>
                <input type="text" size="80" height="100" name="comment_text" className='comment-text' value={formData.comment_text} onChange={handleInputChange}>
               

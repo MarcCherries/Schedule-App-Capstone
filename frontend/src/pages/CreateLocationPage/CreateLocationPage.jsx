@@ -8,7 +8,7 @@ import {useNavigate, Link} from 'react-router-dom'
 const CreateLocationPage = (props) => {
     const [places, setPlaces] = useState()
   
-    const [searchTerm, setSearchTerm] = useState('gym')
+    const [searchTerm, setSearchTerm] = useState('')
     const [displayInfo, setDisplayInfo ] = useState()
     const [showMap, setShowMap] = useState(false)
     const navigate = useNavigate()
@@ -72,8 +72,8 @@ function handleClickBack(){
             <Link to={'/'}>
             <button onPointerOver={handleClickBack}>Back</button>
             </Link>
-            <form onSubmitCapture={handleSubmit} >
-                <input type="text" name="searchTerm"     onChange={(event) => setSearchTerm(event.target.value)}/>
+            <form onSubmitCapture={handleSubmit}  onSubmit={()=> setSearchTerm('')}>
+                <input type="text" name="searchTerm"   onChange={(event) => setSearchTerm(event.target.value)}/>
                 <button type="submit">submit</button>
             
             </form>

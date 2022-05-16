@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./DisplayFriendRequests.css"
 
 const DisplayFriendRequests = (props) => {
     console.log(props.friends)
@@ -10,14 +11,18 @@ const DisplayFriendRequests = (props) => {
             {props.friends.pending && props.friends.pending.map((item)=>{
                 return (
                     <div>
-                  
+                     <div className="friend-request">
                     <Link to={`ViewProfile/${item.id}`}>
-                    <div>
-                    <p>{item.username}</p>
-                    <p>{item.first_name}</p>
-                    <p>{item.user_reputation}</p>
-                    </div>
+                 
+                    <div>{item.username}</div>
+                    <div>{item.first_name}</div>
+                    <div>{item.user_reputation}</div>
+                    <button>Accept</button>
+                    <button>Decline</button>
+                   
+                   
                     </Link>
+                    </div>
                     </div>
                 )
             })}

@@ -1,3 +1,4 @@
+from turtle import st
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -63,4 +64,43 @@ def get_all_events_by_user_id(request):
         if (request.method == 'GET'):
             
             serializer = EventSerializer(events, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['PATCH'])
+@permission_classes([AllowAny])
+def request_event_entry(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+ 
+    user_param = request.query_params.get('id')
+    userToAdd = User.objects.filter(id=user_param).first()
+    if (user_param):
+      
+            
+        if (request.method == 'PATCH'):
+            event.pending.add(userToAdd)
+            print(userToAdd)
+            serializer = EventSerializer(event, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['PATCH'])
+@permission_classes([AllowAny])
+def accept_event_entry(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+ 
+    user_param = request.query_params.get('id')
+    userToAdd = User.objects.filter(id=user_param).first()
+    if (user_param):
+      
+            
+        if (request.method == 'PATCH'):
+            event.pending.remove(userToAdd)
+            event.user.add(userToAdd)
+            print(userToAdd)
+            serializer = EventSerializer(event, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

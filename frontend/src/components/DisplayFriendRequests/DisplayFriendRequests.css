@@ -1,0 +1,19 @@
+.friend-request a{
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+}
+
+.friend-request a{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-right: 2rem;
+    justify-content: space-between;
+    width: 20rem;
+    border : 2px solid black;
+}
+
+.friend-request a:hover{
+    background-color: gray;
+}

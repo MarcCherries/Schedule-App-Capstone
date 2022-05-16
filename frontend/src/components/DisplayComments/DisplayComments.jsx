@@ -79,7 +79,7 @@ const DisplayComments = (props) => {
             
            </div>
          
-            <AddComment setEventComments={props.setEventComments} getComments={props.getComments} setComments={props.setComments} eventId={props.eventId} comments={props.comments} eventComments={props.eventComments} showHide={showHide}/>
+            <AddComment getComments={props.getComments}setEventComments={props.setEventComments}  setComments={props.setComments} eventId={props.eventId} comments={props.comments} eventComments={props.eventComments} showHide={showHide}/>
   
            
                    

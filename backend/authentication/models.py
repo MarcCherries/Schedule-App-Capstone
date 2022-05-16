@@ -10,3 +10,4 @@ class User(AbstractUser):
     is_admin = models.BooleanField()
     user_photo = models.CharField(max_length=255)
     user_theme = models.CharField(max_length=50)
+   

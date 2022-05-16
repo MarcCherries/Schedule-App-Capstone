@@ -13,6 +13,8 @@ const ViewProfilePage = (props) => {
     const [userEvent, setUserEvent] = useState()
     const [user, token]= useAuth()
     const {userId} = useParams()
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
    
     const [buddies, setBuddies] = useState({
         "id": 1,
@@ -50,7 +52,7 @@ const ViewProfilePage = (props) => {
   useEffect(()=>{
       const fetchfriends = async () => {
           try {
-              let response = await axios.get(`http://127.0.0.1:8000/api/friends?id=${userId}`)
+              let response = await axios.get(`http://127.0.0.1:8000/api/friends?id=${userId}`,{cancelToken: source.token,})
         
               setBuddies(response.data)
               
@@ -58,9 +60,22 @@ const ViewProfilePage = (props) => {
               console.log(error.message)
           }
       }
-      props.fetchRecentEvents(userId)
+   
       fetchfriends()
+
+      return ()=>{
+      source.cancel("Request Aborted!")
+      }
   },[props.currentUser])
+
+  useEffect(()=>{
+    props.fetchRecentEvents(userId)
+    return ()=>{
+        props.source.cancel("Request Aborted!")
+        }
+
+
+  }, [props.currentUser])
 
 
 

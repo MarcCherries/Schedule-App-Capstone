@@ -48,65 +48,37 @@ function App() {
   const [addLocation, setAddLocation] = useState()
   const [currentComment, setCurrentComment] = useState()
   const [recentEvents, setRecentEvents] = useState()
-  const {eventId} = useParams ()
-  const[commentReplies, setCommentReplies] = useState([
-    {
-        "id": 24,
-        "comment": {
-            "id": 28,
-            "comment_text": "Testing this new comment component",
-            "user": 3,
-            "event": 1
-        },
-        "user": {
-            "id": 3,
-            "password": "pbkdf2_sha256$320000$Z0T51YEk4HFz4NejhICXIh$gUfM0OaYDiDnPK+lZB6nRcKmrfzOkB0dI0OOkfzEN8U=",
-            "last_login": null,
-            "is_superuser": false,
-            "username": "Jerry123",
-            "first_name": "Jerry",
-            "last_name": "Seinfeld",
-            "email": "Jerry@seinfeld.com",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2022-05-04T15:36:40Z",
-            "user_bio": "I dont wanna be a pirate!",
-            "user_reputation": "50.0",
-            "is_verified": false,
-            "is_admin": false,
-            "user_photo": "/media/images/Screenshot_1.png",
-            "user_theme": "default",
-            "groups": [],
-            "user_permissions": []
-        },
-        "reply_text": "yoafjasdf"
-    }
-])
+  const [newEvents, setNewEvents] = useState()
+  const [eventNew, setEventNew] = useState()
 
+  const[commentReplies, setCommentReplies] = useState()
+  const cancelToken = axios.CancelToken;
+  const source = cancelToken.source();
   
 //all of my "get all" functions
   async function getEvents(){
-    let response = await axios.get('http://127.0.0.1:8000/api/events/')
-    setEvents(response.data)
+
+  let response = await axios.get('http://127.0.0.1:8000/api/events/', {cancelToken: source.token,})
+  setEvents(response.data)
   }
   async function getLocations(){
-    let response = await axios.get('http://127.0.0.1:8000/api/locations/')
+    let response = await axios.get('http://127.0.0.1:8000/api/locations/' , {cancelToken: source.token,})
     setLocations(response.data)
   }
   async function getComments(){
-    let response = await axios.get('http://127.0.0.1:8000/api/comments/')
+    let response = await axios.get('http://127.0.0.1:8000/api/comments/' , {cancelToken: source.token,})
     setComments(response.data)
   }
   async function getReplies(){
-    let response = await axios.get('http://127.0.0.1:8000/api/replies/')
+    let response = await axios.get('http://127.0.0.1:8000/api/replies/' , {cancelToken: source.token,})
     setReplies(response.data)
   }
   async function getUsers(){
-    let response = await axios.get('http://127.0.0.1:8000/api/auth/users')
+    let response = await axios.get('http://127.0.0.1:8000/api/auth/users' , {cancelToken: source.token,})
     setUsers(response.data)
   }
   async function getFriends(){
-    let response = await axios.get('http://127.0.0.1:8000/api/friends')
+    let response = await axios.get(`http://127.0.0.1:8000/api/friends/?id=${user.id}` , {cancelToken: source.token,})
     setFriends(response.data)
   }
 
@@ -116,43 +88,35 @@ function App() {
 
     
   async function createLocation(newLocation){
-    let response = await axios.post('http://127.0.0.1:8000/api/locations/', newLocation)
+    let response = await axios.post('http://127.0.0.1:8000/api/locations/', newLocation , {cancelToken: source.token,})
     setLocations(response.data)
     }
   async function createComment(newComment){
-    let response = await axios.post('http://127.0.0.1:8000/api/comments/', newComment)
+    let response = await axios.post('http://127.0.0.1:8000/api/comments/', newComment , {cancelToken: source.token,})
     setComments(response.data)
     }
   async function createReply(newReply){
-    let response = await axios.post('http://127.0.0.1:8000/api/replies/', newReply)
+    let response = await axios.post('http://127.0.0.1:8000/api/replies/', newReply , {cancelToken: source.token,})
     setReplies(response.data)
     }
 
   //all of my "update" functions
   async function updateEvent(id){
-    let response = await axios.put(`http://127.0.0.1:8000/api/events/${id}`)
+    let response = await axios.put(`http://127.0.0.1:8000/api/events/${id}` , {cancelToken: source.token,})
     setEvents(response.data)
     }
   async function updateLocation(id){
-    let response = await axios.put(`http://127.0.0.1:8000/api/locations/${id}`)
+    let response = await axios.put(`http://127.0.0.1:8000/api/locations/${id}` , {cancelToken: source.token,})
     setLocations(response.data)
     }
 
  
 
   //3rd part api calls start here
-  async function fetchMap (){
-    try {
-      let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAtIpDovZbehUwMIVCgY_r9bWHQNDtyU2U`)
-      setMap(response.data)
-      
-    } catch (error) {
-      console.log(error.message)      
-    }
-  }
+
   async function fetchLocation(){
     try {
-        let response = await axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAsgBy4_ICzUg3Qg6hSHmqRq-fRqFrzJXQ')
+        let response = await axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAsgBy4_ICzUg3Qg6hSHmqRq-fRqFrzJXQ' , {cancelToken: source.token,})
         setLocation(response.data)
     } catch (error) {
         console.log(error.message)
@@ -162,11 +126,15 @@ function App() {
 async function createEvent(formData){
  
   formData.location_id=addLocation.id
-  let response = await axios.post('http://127.0.0.1:8000/api/events/', formData)
+  let response = await axios.post('http://127.0.0.1:8000/api/events/', formData , {cancelToken: source.token,})
   let newEvent = [response.data, ...events]
   setEvents(newEvent)
   }
 
+async function getEvent(eventId){
+  let response = await axios.get(`http://127.0.0.1:8000/api/events/${eventId}`, {cancelToken: source.token,})
+  setEvent(response.data)
+}
  
 function setUser(){
   let thisUser = user && users.filter((item)=>{
@@ -202,7 +170,9 @@ useEffect(()=>{
 
   getLocations();
 
-
+  return ()=>{
+    source.cancel("Request Aborted!")
+  }
 
 },[trigger]
 
@@ -210,29 +180,23 @@ useEffect(()=>{
 useEffect(()=>{
 
   getEvents();
+  getComments();
+  getLocations();
+  getReplies();
+  getUsers();
+  fetchLocation();
+  getFriends();
 
 
-
-},[trigger1]
+  return ()=>{
+    source.cancel("Request Aborted!")
+  }
+},[]
 
 )
 
 
-  useEffect(()=>{
-    getEvents();
-    getComments();
-    getLocations();
-    getReplies();
-    getUsers();
-    fetchLocation();
-    getFriends();
-    
-  
 
-  
-  },[]
-
-  )
 
   // useEffect(()=>{
   //   setUser()
@@ -249,21 +213,87 @@ useEffect(()=>{
   console.log(friends)
   console.log(user)
 
+     const [eventReq, setEventReq]  = useState()
+
+//     useEffect(()=>{
+// let newEventReq = props.events && props.events.filter((event)=>{
+//     if (event.id == props.eventId)
+//     return true
+// })
+// setEventReq(newEventReq)
+//     },[])
+
+
+
+  async function acceptEvent(eventId, userId){
+    let response = await axios.patch(`http://127.0.0.1:8000/api/events/accept/${eventId}?id=${userId}`)
+    setEvents(response.data)
+  }
+
+
+  function checkEvents (){
+    let eventRequests = events && events.filter((event)=>{
+     
+        if (event.user[0] && event.user[0].id == user.id){
+         
+          return true
+        }
+  
+    }
+    )
+    setNewEvents(eventRequests)
+  }
+  console.log(newEvents)
+  
+  
+  useEffect(()=>{
+    checkEvents()
+  },[event])
+  
+
   async function joinEvent (eventId){
     
-    let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}?id=${user.id}`)
+    let check = await axios.get(`http://127.0.0.1:8000/api/events/${eventId}`)
+    let userList = check.data.user && check.data.user.map((item)=>{
+        return item.id
+    } 
+      )
+    
+    let deniedList = check.data.denied && check.data.denied.map((item)=>{
+        return item.id
+    } 
+      )
+    
+   
+   
+ 
+    console.log (check.data)
+    if(!check.data.user[0]){
+    
+    let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}?id=${user.id}`, {cancelToken: source.token,})
     setShowConfirm(true)
     setEvent(response.data)
-    
+    }
+    else if (userList.includes(user.id)){
+      alert("You are already signed up for this event!")
+    }
+    else if(deniedList.includes(user.id)){
+      alert("Sorry, this event is closed!")
+
+    }
+    else{
+      let check = await axios.patch(`http://127.0.0.1:8000/api/events/pending/${eventId}?id=${user.id}`)
+
+    }
   }
 
 async function fetchRecentEvents(userId){
-    let response = await axios.get(`http://127.0.0.1:8000/api/events/user?id=${userId}`)
+    let response = await axios.get(`http://127.0.0.1:8000/api/events/user?id=${userId}`, {cancelToken: source.token,})
     setRecentEvents(response.data)
 }
   async function handleClickFriend(userId){
     try {
-        await axios.patch(`http://127.0.0.1:8000/api/friends/?id=${user.id}&pk=${userId}`)
+        await axios.patch(`http://127.0.0.1:8000/api/friends/?id=${user.id}&pk=${userId}`, {cancelToken: source.token,})
         
 
     } catch (error) {
@@ -274,22 +304,27 @@ async function fetchRecentEvents(userId){
     <div>
       <Navbar />
       <Routes>
+      {friends && 
         <Route
           path="/"
           element={
             <PrivateRoute>
-              <HomePage  addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} setLocations={setLocations} getLocations={getLocations} />
+            
+              <HomePage newEvents={newEvents}source={source} addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} setLocations={setLocations} getLocations={getLocations} />
             </PrivateRoute>
           }
         />
+        }
+        {events && 
         <Route
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies} getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
+              <ViewEventPage eventNew={eventNew} acceptEvent={acceptEvent} newEvents={newEvents}getComments={getComments}source={source} getEvent={getEvent} showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies} getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
             </PrivateRoute>
           }
         />
+}
         <Route
           path="/CreateLocation"
           element={
@@ -302,7 +337,7 @@ async function fetchRecentEvents(userId){
           path="/ViewProfile/:userId"
           element={
             <PrivateRoute>
-              <ViewProfilePage fetchRecentEvents={fetchRecentEvents}handleClickFriend={handleClickFriend} recentEvents={recentEvents} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} userId={userId} />
+              <ViewProfilePage source={source} fetchRecentEvents={fetchRecentEvents}handleClickFriend={handleClickFriend} recentEvents={recentEvents} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} userId={userId} />
             </PrivateRoute>
           }
         />
