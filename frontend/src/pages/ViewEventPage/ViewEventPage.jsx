@@ -28,7 +28,7 @@ console.log(newEventReq)
 let pendingList = newEventReq && newEventReq[0] && newEventReq[0].pending
 
 setEventReq(pendingList)
-    },[])
+    },[eventId])
     
    console.log(eventReq)
 
@@ -70,8 +70,9 @@ setEventReq(pendingList)
               <img width="150" height="200" src={require("../HomePage/Images/default.jpg")}></img>
   
             </div>
+      
             {eventReq &&
-            <DisplayAttendanceRequests eventId={eventId} acceptEvent={props.acceptEvent}event={eventReq}/>
+            <DisplayAttendanceRequests toggleReq={props.toggleReq}eventId={eventId} acceptEvent={props.acceptEvent}event={eventReq}/>
             }
             <div className='display-attendees'>
               <h4>Confirmed Attendees: </h4>

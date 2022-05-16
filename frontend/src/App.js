@@ -50,6 +50,8 @@ function App() {
   const [recentEvents, setRecentEvents] = useState()
   const [newEvents, setNewEvents] = useState()
   const [eventNew, setEventNew] = useState()
+  const [bump, setBump] = useState()
+  const [toggleReq, setToggleReq] = useState(true)
 
   const[commentReplies, setCommentReplies] = useState()
   const cancelToken = axios.CancelToken;
@@ -191,7 +193,7 @@ useEffect(()=>{
   return ()=>{
     source.cancel("Request Aborted!")
   }
-},[]
+},[bump]
 
 )
 
@@ -227,8 +229,12 @@ useEffect(()=>{
 
   async function acceptEvent(eventId, userId){
     let response = await axios.patch(`http://127.0.0.1:8000/api/events/accept/${eventId}?id=${userId}`)
-    setEvents(response.data)
+    setEvent(response.data)
+    setToggleReq(false)
+    console.log(response.data)
+  
   }
+
 
 
   function checkEvents (){
@@ -320,7 +326,7 @@ async function fetchRecentEvents(userId){
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage eventNew={eventNew} acceptEvent={acceptEvent} newEvents={newEvents}getComments={getComments}source={source} getEvent={getEvent} showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies} getComments={getComments} events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
+              <ViewEventPage toggleReq={toggleReq}eventNew={eventNew} acceptEvent={acceptEvent} newEvents={newEvents}getComments={getComments}source={source} getEvent={getEvent} showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies}  events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
             </PrivateRoute>
           }
         />
