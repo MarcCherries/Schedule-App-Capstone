@@ -81,13 +81,17 @@ function getReplyCount(){
         
                 
                     <div >
+                        <div className="comment-box">
                             <div className="comment-font">
                         <h5>{props.item.user.username}:</h5>
                         <p>{props.item.comment_text}</p>
                         </div>
-                      
-                        <button onClick={handleClick}>View Replies({replyCount})</button>
-                        <button onClick={handleClickAdd}>Add Reply</button>
+
+                        <div>
+                        <button className='comments-btn' onClick={handleClick}>View Replies({replyCount})</button>
+                        <button className='comments-btn' onClick={handleClickAdd}>Add Reply</button>
+                        </div>
+                        </div>
                         <div className={hideShow}>
                         
                         <AddReply   setCurrentComment={props.setCurrentComment}getCommentReplies={props.getCommentReplies} addReply={addReply} comment={props.item}/>

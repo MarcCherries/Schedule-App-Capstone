@@ -66,20 +66,21 @@ const DisplayComments = (props) => {
             setHideShowReply('hide-reply')
         }
     }
+    
  
    
     return ( 
         <div>
             <div className='comment-head'>
                 <div className='top-row-comment'>
-            <h3>Event Comments</h3><button className='comment-button' onClick={handleClick}>Add Comment</button>
+            <h3>Event Comments</h3><button className='comment-button' onClick={handleClick} on>Add Comment</button>
             </div>
           
 
             
            </div>
          
-            <AddComment getComments={props.getComments}setEventComments={props.setEventComments}  setComments={props.setComments} eventId={props.eventId} comments={props.comments} eventComments={props.eventComments} showHide={showHide}/>
+            <AddComment disable={props.disable}getComments={props.getComments}setEventComments={props.setEventComments}  setComments={props.setComments} eventId={props.eventId} comments={props.comments} eventComments={props.eventComments} showHide={showHide}/>
   
            
                    
@@ -90,8 +91,9 @@ const DisplayComments = (props) => {
             {props.eventComments && props.eventComments.map((item)=>{
                         return(
                             <table>
-                            <tr>
+                            <tr key={item.id}>
                             
+
                         <Comment   setCurrentComment={props.setCurrentComment} getCommentReplies={props.getCommentReplies} addReply={props.addReply} commentReplies={props.commentReplies} showHide={props.showHide}replies={props.replies} setCommentReplies ={setCommentReplies}setEventReplies={props.setEventReplies}item={item} eventComments={props.eventComments}/>
                         
                       

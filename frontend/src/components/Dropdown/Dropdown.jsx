@@ -18,9 +18,13 @@ const Dropdown = (props) => {
     return ( 
         <div>
             <button onClick={handleClick}>Select Location</button>
+            
             <div className={`${showList}`}>
+               {props.locations &&
             <Element locations={props.locations} addLocation={props.addLocation} setLocations={props.setLocations} setAddLocation={props.setAddLocation} setShowList={setShowList}/>
+               }
             </div>
+
         </div>
      );
 }

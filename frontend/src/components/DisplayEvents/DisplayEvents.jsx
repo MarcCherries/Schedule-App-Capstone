@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import "./DisplayEvents.css"
 import {Link} from 'react-router-dom'
+import Ticket from '../../components/Ticket/Ticket'
 
 const DisplayEvents = (props) => {
-    console.log(props.events)
+ 
     
     return ( 
 
-    <div>
+        <div>
+    <div className='display-events-container'>
+         <h2>Nearby Events</h2>
         {props.events && props.events.map((event)=>{
             return(
-               
+                      
+                <div className='event-ticket-container'>
                 <Link className='Link' onClick={()=>props.setEvent(event)}to={`/EventPage/${event.id}`}>
-                <div className='event-entry'>
-                    <h3 className='event-headline'>{event.event_type}</h3>
-                    <p>{event.event_description}</p><br></br>
-                       <p> {event.event_specialInstructions} </p>
-                        
-                        
-                            
-                            </div>
+         <Ticket event={event} />
                 </Link>
-               
+                </div>
+             
 
             )
         })}
+    </div>
     </div>
      );
 }

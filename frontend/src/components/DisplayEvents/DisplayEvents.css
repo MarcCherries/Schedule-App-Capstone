@@ -22,3 +22,14 @@
     text-decoration: underline;
     background-color: rgba(218, 218, 27, 0.733);
 }
+
+.event-ticket-container{
+    padding-bottom: 2rem;
+}
+
+.display-events-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}

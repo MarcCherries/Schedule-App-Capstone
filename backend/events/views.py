@@ -104,3 +104,22 @@ def accept_event_entry(request, pk):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['PATCH'])
+@permission_classes([AllowAny])
+def decline_event_entry(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+ 
+    user_param = request.query_params.get('id')
+    userToAdd = User.objects.filter(id=user_param).first()
+    if (user_param):
+      
+            
+        if (request.method == 'PATCH'):
+            event.pending.remove(userToAdd)
+            event.denied.add(userToAdd)
+            print(userToAdd)
+            serializer = EventSerializer(event, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)

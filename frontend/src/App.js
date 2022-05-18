@@ -45,7 +45,7 @@ function App() {
   const [friends, setFriends] = useState()
   const [trigger, setTrigger] = useState(true)
   const [trigger1, setTrigger1] = useState(true)
-  const [addLocation, setAddLocation] = useState()
+  const [addLocation, setAddLocation1] = useState()
   const [currentComment, setCurrentComment] = useState()
   const [recentEvents, setRecentEvents] = useState()
   const [newEvents, setNewEvents] = useState()
@@ -53,9 +53,14 @@ function App() {
   const [bump, setBump] = useState()
   const [toggleReq, setToggleReq] = useState(true)
 
+
   const[commentReplies, setCommentReplies] = useState()
   const cancelToken = axios.CancelToken;
   const source = cancelToken.source();
+
+function setAddLocation(item){
+  setAddLocation1(item)
+}
   
 //all of my "get all" functions
   async function getEvents(){
@@ -82,6 +87,8 @@ function App() {
   async function getFriends(){
     let response = await axios.get(`http://127.0.0.1:8000/api/friends/?id=${user.id}` , {cancelToken: source.token,})
     setFriends(response.data)
+    console.log(friends)
+    console.log(user.id)
   }
 
 
@@ -114,7 +121,7 @@ function App() {
 
  
 
-  //3rd part api calls start here
+  //3rd party api calls start here
 
   async function fetchLocation(){
     try {
@@ -193,7 +200,7 @@ useEffect(()=>{
   return ()=>{
     source.cancel("Request Aborted!")
   }
-},[bump]
+},[user, userId]
 
 )
 
@@ -229,6 +236,13 @@ useEffect(()=>{
 
   async function acceptEvent(eventId, userId){
     let response = await axios.patch(`http://127.0.0.1:8000/api/events/accept/${eventId}?id=${userId}`)
+    setEvent(response.data)
+    setToggleReq(false)
+    console.log(response.data)
+  
+  }
+  async function declineEvent(eventId, userId){
+    let response = await axios.patch(`http://127.0.0.1:8000/api/events/decline/${eventId}?id=${userId}`)
     setEvent(response.data)
     setToggleReq(false)
     console.log(response.data)
@@ -273,12 +287,13 @@ useEffect(()=>{
    
    
  
-    console.log (check.data)
+   
     if(!check.data.user[0]){
     
     let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}?id=${user.id}`, {cancelToken: source.token,})
     setShowConfirm(true)
     setEvent(response.data)
+ 
     }
     else if (userList.includes(user.id)){
       alert("You are already signed up for this event!")
@@ -288,9 +303,28 @@ useEffect(()=>{
 
     }
     else{
-      let check = await axios.patch(`http://127.0.0.1:8000/api/events/pending/${eventId}?id=${user.id}`)
-
+      let response = await axios.patch(`http://127.0.0.1:8000/api/events/pending/${eventId}?id=${user.id}`)
+      setEvent(response.data)
     }
+  }
+
+
+  async function fetchCurrentUser(userId) {
+    try {
+        let response = await axios.get(`http://127.0.0.1:8000/api/auth/users/${userId}`,{cancelToken: source.token,})
+  
+        setCurrentUser(response.data)
+        
+    } catch (error) {
+        console.log(error.message)
+    }
+
+
+
+
+return ()=>{
+source.cancel("Request Aborted!")
+}
   }
 
 async function fetchRecentEvents(userId){
@@ -299,8 +333,29 @@ async function fetchRecentEvents(userId){
 }
   async function handleClickFriend(userId){
     try {
-        await axios.patch(`http://127.0.0.1:8000/api/friends/?id=${user.id}&pk=${userId}`, {cancelToken: source.token,})
+        await axios.patch(`http://127.0.0.1:8000/api/friends/pending/?id=${user.id}&pk=${userId}`, {cancelToken: source.token,})
         
+
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+  async function handleClickFriendDeny(userId){
+   
+    try {
+        let response = await axios.patch(`http://127.0.0.1:8000/api/friends/decline/?id=${user.id}&pk=${userId}`, {cancelToken: source.token,})
+        setFriends(response.data)
+
+
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+  async function handleClickFriendAccept(userId){
+    try {
+        
+        let response =await axios.patch(`http://127.0.0.1:8000/api/friends/?id=${user.id}&pk=${userId}`, {cancelToken: source.token,})
+        setFriends(response.data)
 
     } catch (error) {
         console.log(error.message)
@@ -316,7 +371,7 @@ async function fetchRecentEvents(userId){
           element={
             <PrivateRoute>
             
-              <HomePage newEvents={newEvents}source={source} addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} setLocations={setLocations} getLocations={getLocations} />
+              <HomePage handleClickFriendAccept={handleClickFriendAccept} handleClickFriendDeny={handleClickFriendDeny}newEvents={newEvents}source={source} addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} setLocations={setLocations} getLocations={getLocations} />
             </PrivateRoute>
           }
         />
@@ -326,7 +381,7 @@ async function fetchRecentEvents(userId){
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
-              <ViewEventPage toggleReq={toggleReq}eventNew={eventNew} acceptEvent={acceptEvent} newEvents={newEvents}getComments={getComments}source={source} getEvent={getEvent} showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies}  events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
+              <ViewEventPage  declineEvent={declineEvent}toggleReq={toggleReq}eventNew={eventNew} acceptEvent={acceptEvent} newEvents={newEvents}getComments={getComments}source={source} getEvent={getEvent} showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies}  events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments} commentReplies={commentReplies} setCommentReplies={setCommentReplies}/>
             </PrivateRoute>
           }
         />
@@ -343,7 +398,7 @@ async function fetchRecentEvents(userId){
           path="/ViewProfile/:userId"
           element={
             <PrivateRoute>
-              <ViewProfilePage source={source} fetchRecentEvents={fetchRecentEvents}handleClickFriend={handleClickFriend} recentEvents={recentEvents} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} userId={userId} />
+              <ViewProfilePage source={source} fetchCurrentUser={fetchCurrentUser}fetchRecentEvents={fetchRecentEvents}handleClickFriend={handleClickFriend} recentEvents={recentEvents} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} userId={userId} />
             </PrivateRoute>
           }
         />

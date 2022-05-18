@@ -8,17 +8,10 @@ import "./NavBar.css";
 
 const Navbar = () => {
   const { logoutUser, user } = useContext(AuthContext);
-  const [showOptions, setShowOptions] = useState('hide')
+  
   const navigate = useNavigate();
 
-  function handleShowOptions(){
-    if (showOptions == 'hide-options'){
-      setShowOptions('show-options')
-    }
-    else {
-      setShowOptions('hide-options')
-    }
-  }
+
   return (
     <div className="navBar">
       <ul>
@@ -30,8 +23,8 @@ const Navbar = () => {
         {/* <img height="75" width="150" src={require("../../images/dunk.png")}></img> */}
       
     <div className="nav-container">
-      <button className="navigate-button" onClick={handleShowOptions}>Navigate</button>
-      <div className={showOptions}>
+ 
+      <div className="nav-btn-container">
        
       
           <li><button onClick={()=> navigate('/')}>Home</button></li>

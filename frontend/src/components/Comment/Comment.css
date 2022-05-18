@@ -9,3 +9,17 @@
 .comment-font {
     font-family: 'Arrus BT';
 }
+
+.comment-box{
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 2px solid orange;
+    width: 37rem;
+    height: 5rem;
+}
+
+.comments-btn{
+    height: 100%;
+}

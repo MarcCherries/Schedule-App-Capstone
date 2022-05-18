@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const AddComment = (props) => {
     const [render, setRender] = useState(false)
+   
 
 
    let initialValues = {
@@ -32,7 +33,7 @@ const AddComment = (props) => {
             <div className={props.showHide}>
            <form onSubmit={reset} onSubmitCapture={handleSubmit}>
                <div className='comment-form'>
-               <input type="text" size="80" height="100" name="comment_text" className='comment-text' value={formData.comment_text} onChange={handleInputChange}>
+               <input disabled={`${props.disable}`} type="text" size="80" height="100" name="comment_text" className='comment-text' value={formData.comment_text} onChange={handleInputChange} >
               
              
                </input>

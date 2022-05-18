@@ -44,12 +44,29 @@ li {
   display: none;
 }
 
-.navigate-button {
-  width: 10rem;
-  height: auto;
+
+
+.nav-btn-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+ 
+  width: 20rem;
+
+  justify-content: space-between;
+  
+ 
+}
+.nav-btn-container button{
+  background-color: rgba(214, 181, 91, 0.938);
+  height: 4rem;
+  color: white;
+  width: 4rem;
+  border: 2px solid white;
+}
+.nav-btn-container button:hover{
+  border: 2px solid rgba(209, 49, 49, 0.89);
+  height: 4rem;
+  width: 4rem;
 }
 
-.nav-container{
-  display: flex;
-  flex-direction: column;
-}

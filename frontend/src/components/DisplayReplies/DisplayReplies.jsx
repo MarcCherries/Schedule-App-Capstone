@@ -22,7 +22,7 @@ const DisplayReplies = (props) => {
                    <table>
                        <tr>
                            
-                   <div className='reply-box'>
+                   <div key={reply.id}className='reply-box'>
                    <Reply showHide={props.showHide} reply={reply}/>
                    </div>
             

@@ -42,6 +42,8 @@ function handleClick(){
         location_info: props.newLocation.formatted_address
     }
     props.createLocation(postLocation)
+    handleClickBack()
+
  
    
  
@@ -69,9 +71,7 @@ function handleClickBack(){
             {props.newLocation && 
             <button onClick={handleClick}>Create {props.newLocation.name}</button>
             }
-            <Link to={'/'}>
-            <button onPointerOver={handleClickBack}>Back</button>
-            </Link>
+           
             <form onSubmitCapture={handleSubmit}  onSubmit={()=> setSearchTerm('')}>
                 <input type="text" name="searchTerm"   onChange={(event) => setSearchTerm(event.target.value)}/>
                 <button type="submit">submit</button>

@@ -1,15 +1,12 @@
 
 
 
-body {
-   
-    
-}
+
 .body-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     background-image: './Images/autumn-light-bg.jpg'
 }
 .homepage-headline {
@@ -29,21 +26,21 @@ body {
 }
 
 .display-friends {
-    border: 2px solid black;
+  
     height: 18.75rem;
     width: 15rem;
-    margin-left: 2rem;
+    
 }
 .pic-create-event-col {
-    width: 40rem;
+   
     display: flex;
     flex-direction: row;
     flex-direction: wrap;
-    margin-left: 2rem;
+ 
 }
 
 .display-events {
-    width: 50%;
+   
     margin: auto;
     border: none
   

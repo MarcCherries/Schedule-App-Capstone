@@ -12,16 +12,16 @@ const DisplayFriendRequests = (props) => {
                 return (
                     <div>
                      <div className="friend-request">
-                    <Link to={`ViewProfile/${item.id}`}>
+                    {/* <Link to={`ViewProfile/${item.id}`}> */}
                  
                     <div>{item.username}</div>
                     <div>{item.first_name}</div>
                     <div>{item.user_reputation}</div>
-                    <button>Accept</button>
-                    <button>Decline</button>
+                    <button onClickCapture={()=>props.handleClickFriendAccept(item.id)}>Accept</button>
+                    <button onClickCapture={()=>props.handleClickFriendDeny(item.id)}>Decline</button>
                    
                    
-                    </Link>
+                    {/* </Link> */}
                     </div>
                     </div>
                 )

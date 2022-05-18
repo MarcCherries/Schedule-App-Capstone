@@ -10,63 +10,38 @@ import { Link } from 'react-router-dom';
 
 
 const ViewProfilePage = (props) => {
-    const [userEvent, setUserEvent] = useState()
     const [user, token]= useAuth()
     const {userId} = useParams()
     const cancelToken = axios.CancelToken;
     const source = cancelToken.source();
    
-    const [buddies, setBuddies] = useState({
-        "id": 1,
-        "friends": [
-            {
-                "id": 1,
-                "password": "pbkdf2_sha256$320000$7K8moqbzsXulrglhLMGpAw$h7cshhYoZ9JkvOw8reraFcfDJsC0+73Ypt9Z4khHUnA=",
-                "last_login": "2022-05-04T00:33:11.711992Z",
-                "is_superuser": true,
-                "username": "chris",
-                "first_name": "",
-                "last_name": "",
-                "email": "chrisc1983@gmail.com",
-                "is_staff": true,
-                "is_active": true,
-                "date_joined": "2022-05-04T00:15:48.748944Z",
-                "user_bio": "None",
-                "user_reputation": "50.0",
-                "is_verified": false,
-                "is_admin": false,
-                "user_photo": "None",
-                
-            },
-          
-        ],
-        "user": {
-            "id": 3,
-       
-        }
-    })
-    
-  
+
+
+
+ useEffect(()=>{
+     props.fetchCurrentUser(userId)
+ }, [userId]) 
  
 
-  useEffect(()=>{
-      const fetchfriends = async () => {
-          try {
-              let response = await axios.get(`http://127.0.0.1:8000/api/friends?id=${userId}`,{cancelToken: source.token,})
+//   useEffect(()=>{
+//       const fetchfriends = async () => {
+//           try {
+//               let response = await axios.get(`http://127.0.0.1:8000/api/friends?id=${userId}`,{cancelToken: source.token,})
         
-              setBuddies(response.data)
+//               setBuddies(response.data)
               
-          } catch (error) {
-              console.log(error.message)
-          }
-      }
+//           } catch (error) {
+//               console.log(error.message)
+//           }
+//       }
    
-      fetchfriends()
+//       fetchfriends()
 
-      return ()=>{
-      source.cancel("Request Aborted!")
-      }
-  },[props.currentUser])
+//       return ()=>{
+//       source.cancel("Request Aborted!")
+//       }
+//   },[props.currentUser])
+
 
   useEffect(()=>{
     props.fetchRecentEvents(userId)
@@ -102,7 +77,7 @@ const ViewProfilePage = (props) => {
                 <AddFriend handleClickFriend={props.handleClickFriend}currentUser={props.currentUser} userId={userId}/>
 
             </div>
-            <DisplayFriends setCurrentUser={props.setCurrentUser} buddies={buddies}/>
+            {/* <DisplayFriends setCurrentUser={props.setCurrentUser} buddies={buddies}/> */}
                 </div>
                 </div>
                 </div>

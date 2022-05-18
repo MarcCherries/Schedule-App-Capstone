@@ -16,6 +16,7 @@ const ViewEventPage = (props) => {
     const [eventComments, setEventComments] = useState()
 
     const [eventReq, setEventReq]  = useState()
+    const [disable, setDisable] = useState('disable')
 
     useEffect(()=>{
 let newEventReq = props.newEvents && props.newEvents.filter((event)=>{
@@ -23,8 +24,7 @@ let newEventReq = props.newEvents && props.newEvents.filter((event)=>{
     if (event.id == eventId)
     return true
 })
-console.log(props.newEvents)
-console.log(newEventReq)
+
 let pendingList = newEventReq && newEventReq[0] && newEventReq[0].pending
 
 setEventReq(pendingList)
@@ -32,11 +32,35 @@ setEventReq(pendingList)
     
    console.log(eventReq)
 
+
+function getCommentStatus(){
+  console.log(props.event)
+  let check = props.event.user && props.event.user.map((item)=>{
+  
+    console.log(item.id)
+    return item.id
+  })
+  let access = check.filter((item)=>{
+    if (user.id == item){
+    return true
+    }
+  })
+    console.log(access)
+    console.log(access.length)
+    if (access.length > 0){
+    setDisable('')
+    }
+  }
+
+console.log(disable)
  useEffect(()=>{
+  getCommentStatus()
   props.getEvent(eventId)
   return ()=>{
   props.source.cancel("Request Aborted!")
+
   }
+  
  },[eventId])
     
  
@@ -72,15 +96,15 @@ setEventReq(pendingList)
             </div>
       
             {eventReq &&
-            <DisplayAttendanceRequests toggleReq={props.toggleReq}eventId={eventId} acceptEvent={props.acceptEvent}event={eventReq}/>
-            }
+            <DisplayAttendanceRequests declineEvent={props.declineEvent}toggleReq={props.toggleReq}eventId={eventId} acceptEvent={props.acceptEvent}event={eventReq}/>
+          }
             <div className='display-attendees'>
               <h4>Confirmed Attendees: </h4>
               <DisplayAttendees  event={props.event} setCurrentUser={props.setCurrentUser} />
               </div>
               </div>
               <div className='display-comments'>
-                <DisplayComments  getComments={props.getComments}setCurrentComment={props.setCurrentComment} getCommentReplies={props.getCommentReplies} addReply={props.addReply} commentReplies={props.commentReplies} setCommentReplies={props.setCommentReplies}replies={props.replies} setReplies={props.setReplies} eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
+                <DisplayComments  disable={disable}getComments={props.getComments}setCurrentComment={props.setCurrentComment} getCommentReplies={props.getCommentReplies} addReply={props.addReply} commentReplies={props.commentReplies} setCommentReplies={props.setCommentReplies}replies={props.replies} setReplies={props.setReplies} eventComments={eventComments} comments={props.comments} setEventComments={setEventComments} eventId={eventId} setComments={props.setComments}/>
               </div>
               </div>
            

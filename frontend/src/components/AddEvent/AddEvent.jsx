@@ -13,10 +13,10 @@ const AddEvent = (props) => {
         user_id: 1,
         date: "",
         time:"",
-        event_type:"Event Type",
-        event_description:"Description",
-        event_specialInstructions:"Special Instructions",
-        experience_level:"Experience Level"
+        event_type:"",
+        event_description:"",
+        event_specialInstructions:"",
+        experience_level:""
 
    
       
@@ -38,10 +38,11 @@ const AddEvent = (props) => {
        
     return ( 
         <div>
-
-            <form className="create-event"onSubmitCapture={handleSubmit}   onSubmit={reset}>
-                <h4 className='create-header'>Create New Event</h4>
-         
+            <h4>Selected Location:</h4>{props.addLocation && <p>{props.addLocation.location_name}</p>}
+             <h4 className='create-header'>Create New Event</h4>
+            <form  className="create-event"onSubmitCapture={handleSubmit}   onSubmit={reset}>
+               
+                <label for='date'>Date</label>
                 <input 
             
                 className='date-input'
@@ -49,6 +50,7 @@ const AddEvent = (props) => {
                 min="2022-05-05" max="2025-12-31"
                 name="date"
                 id="date"
+                
                 
                 value={formData.date}
                 onChange={handleInputChange} 

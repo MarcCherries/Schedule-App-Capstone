@@ -10,6 +10,7 @@ import './HomePage.css'
 import Dropdown from '../../components/Dropdown/Dropdown.jsx'
 import DisplayFriendRequests from '../../components/DisplayFriendRequests/DisplayFriendRequests'
 import DisplayAttendanceRequests from "../../components/DisplayAttendanceRequests/DisplayAttendanceRequests";
+import DisplayFriends from "../../components/DisplayFriends/DisplayFriends";
 
 
 const HomePage = (props) => {
@@ -29,19 +30,20 @@ const HomePage = (props) => {
    let response = await axios.post(`http://127.0.0.1:8000/api/friends/?id=${user.id}`,{cancelToken: source.token,})
  }
 
-//  function checkFriendsList(){
+ function checkFriendsList(){
+   console.log(props.friends)
   
-//   let friendsList = props.friends && props.friends.filter((item)=>{
-//     if (item.user == user.id){
-//       return true
-//     }
+  let friendsList = props.friends && props.friends[0] && props.friends.filter((item)=>{
+    if (item.user == user.id){
+      return true
+    }
   
-//   })
+  })
   
-//   if (friendsList && !friendsList[0]){
-//     buildFriendsList()
-//   }
-// }
+  if (friendsList && !friendsList[0]){
+    buildFriendsList()
+  }
+}
 useEffect(() => {
  
   props.getLocations()
@@ -52,11 +54,11 @@ useEffect(() => {
 },[props.trigger] );
 
 
-  // useEffect(() => {
+  useEffect(() => {
  
-  //   checkFriendsList();
+    checkFriendsList();
   
-  // }, []);
+  }, []);
 
 
   
@@ -68,36 +70,44 @@ useEffect(() => {
       <h1>Home Page for {user.username}!</h1>
       </div>
       <div className="body-container">
-        <div className="left-col">
+      
       <div className="pic-create-event-col">
         <Link to={`/ViewProfile/${user.id}` } >
-        {/* <img className="profile-pic" width="250" height="300" src={require(props.currentUser && props.currentUser.user_photo.url)}></img> */}
+        {/* <img className="profile-pic" width="250" height="300" src={require(user.user_photo.url)}></img> */}
         </Link>
-        <div className="display-friends"></div>
+        <div className="display-friends">
+          {props.friends.friends &&
+          <DisplayFriends buddies={props.friends}/>
+}
+        </div>
         </div>
     
       
      
-        
+     
         <div className="add-event">
+  
         <Dropdown locations={props.locations} addLocation={props.addLocation} setAddLocation={props.setAddLocation}/>
-      
-        <AddEvent createEvent={props.createEvent} events={props.events}setEvent={props.setEvent} setAddLocation={props.setAddLocation} addLocation={props.addLocation} newLocation={props.newLocation}/>
+    
+        <AddEvent handleLocationSubmit={props.handleLocationSubmit} createEvent={props.createEvent} events={props.events}setEvent={props.setEvent} setAddLocation={props.setAddLocation} addLocation={props.addLocation} />
         <Link to={'/CreateLocation'}><button>Create Location</button></Link>
         </div>
-        </div>
+     
 
         <div className="display-events">
         <DisplayEvents events={props.events} event={props.event} setEvent={props.setEvent} />
-        {props.friends.pending &&
-    <DisplayFriendRequests friends={props.friends} />
+    {props.friends.pending &&
+        <DisplayFriendRequests handleClickFriendAccept={props.handleClickFriendAccept} handleClickFriendDeny={props.handleClickFriendDeny}friends={props.friends}/>
+
+}
  
-        }
-           {/* <DisplayAttendanceRequests events={newEvents}/> */}
+        
+
         </div>
+        </div>
+
         </div>
         
-        </div>
     </div>
   );
 };
