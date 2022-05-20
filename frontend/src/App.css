@@ -11,13 +11,18 @@
   
 }
 
+.nav-app{
+  position: sticky;
+  top: 0
+}
+
 html {
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: cursive
 }
 
 body{
-  background-color: rgba(245, 245, 220, 0.541);
+  background-color: rgba(211, 179, 35, 0.39);
   background-image: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffree-photo%2Fmaple-leaf-border-background-orange-watercolor-autumn-season_53876-128735.jpg%3Fw%3D2000&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fautumn-background&tbnid=ZdPI7Frw-eYPKM&vet=12ahUKEwj_8qOIhdv3AhW8AjQIHQBLB7gQMygAegUIARDoAQ..i&docid=4mdatJkKv1SfjM&w=2000&h=1333&q=autumn%20background&ved=2ahUKEwj_8qOIhdv3AhW8AjQIHQBLB7gQMygAegUIARDoAQ";
 }
 

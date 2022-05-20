@@ -6,6 +6,7 @@ import "./NavBar.css";
 
 
 
+
 const Navbar = () => {
   const { logoutUser, user } = useContext(AuthContext);
   
@@ -20,7 +21,7 @@ const Navbar = () => {
             <b>JOYN-UP</b>
           </Link>
         </li>
-        {/* <img height="75" width="150" src={require("../../images/dunk.png")}></img> */}
+        <img className="group-logo"height="75" width="100" src={require("./images/group.png")}></img>
       
     <div className="nav-container">
  
@@ -37,7 +38,13 @@ const Navbar = () => {
           )}
         </li>
         </div>
+        {user &&
+        <div className="log-in-status">
        
+   <span>logged in:</span> <p className="user-name">{` ${user.username}`}</p>
+     
+        </div>
+            }
       </div>
       </ul>
     </div>

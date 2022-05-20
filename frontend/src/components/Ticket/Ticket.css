@@ -17,6 +17,12 @@
 .join-info-ticket{
     padding: 2px;
     background-color: orange;
+    
+}
+.join-info-ticket:hover{
+   border: 3px solid black;
+   background-color: rgba(197, 196, 107, 0.884);
+
 }
 
 .join-button-container{
@@ -25,13 +31,3 @@
     flex-wrap: wrap;
 }
 
-.hide-event-link{
-    display: none;
-    
-}
-.show-event-link{
-    display: block;
-    border: 2px solid black;
-    height: 4.9em;
-
-}

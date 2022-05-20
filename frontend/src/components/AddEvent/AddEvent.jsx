@@ -13,10 +13,10 @@ const AddEvent = (props) => {
         user_id: 1,
         date: "",
         time:"",
-        event_type:"",
-        event_description:"",
-        event_specialInstructions:"",
-        experience_level:""
+        event_type:"Event Type",
+        event_description:"Description",
+        event_specialInstructions:"Special Instructions",
+        experience_level:"Experience Level"
 
    
       
@@ -38,11 +38,12 @@ const AddEvent = (props) => {
        
     return ( 
         <div>
-            <h4>Selected Location:</h4>{props.addLocation && <p>{props.addLocation.location_name}</p>}
-             <h4 className='create-header'>Create New Event</h4>
+            
+            
             <form  className="create-event"onSubmitCapture={handleSubmit}   onSubmit={reset}>
-               
-                <label for='date'>Date</label>
+            <h4>Selected Location:</h4>{props.addLocation && <p className='green-title'>{props.addLocation.location_name}</p>}
+
+             
                 <input 
             
                 className='date-input'

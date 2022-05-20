@@ -4,24 +4,15 @@ import './Dropdown.css'
 
 const Dropdown = (props) => {
 
-    const [showList, setShowList] = useState('children-inactive');
-
-    function handleClick(){
-        if (showList == 'children-inactive'){
-            setShowList('children-active')
-        }
-        else {
-            setShowList('children-inactive')
-        }
-    }
+   
 
     return ( 
         <div>
-            <button onClick={handleClick}>Select Location</button>
+            <button className='locations-button' onClick={props.handleClickShowList}>Locations</button>
             
-            <div className={`${showList}`}>
+            <div className={`${props.showList}`}>
                {props.locations &&
-            <Element locations={props.locations} addLocation={props.addLocation} setLocations={props.setLocations} setAddLocation={props.setAddLocation} setShowList={setShowList}/>
+            <Element locations={props.locations} addLocation={props.addLocation} setLocations={props.setLocations} setAddLocation={props.setAddLocation} setShowList={props.setShowList}/>
                }
             </div>
 

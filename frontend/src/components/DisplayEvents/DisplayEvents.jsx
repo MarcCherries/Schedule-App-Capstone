@@ -10,12 +10,13 @@ const DisplayEvents = (props) => {
 
         <div>
     <div className='display-events-container'>
-         <h2>Nearby Events</h2>
+    <h3>Event Feed</h3>
         {props.events && props.events.map((event)=>{
             return(
                       
                 <div className='event-ticket-container'>
-                <Link className='Link' onClick={()=>props.setEvent(event)}to={`/EventPage/${event.id}`}>
+                   
+                <Link className='Link' onPointerOver={()=>props.getJumbotronEvent(event)}onClick={()=>props.setEvent(event)}to={`/EventPage/${event.id}`}>
          <Ticket event={event} />
                 </Link>
                 </div>

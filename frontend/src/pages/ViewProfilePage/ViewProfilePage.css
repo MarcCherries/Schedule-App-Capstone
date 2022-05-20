@@ -1,13 +1,21 @@
+.reputation{
+    margin: 0;
+    width: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
 .buddy-list{
-    border: 5px solid orange;
+    border: 5px solid rgb(252, 252, 252);
     height: 19rem;
     width:10rem;
     padding: 8px;
     margin-left: 1rem;
+    background-color: rgba(255, 166, 0, 0.521);
 }
 
 .left-image-info{
-    width: 15rem;
+    width:16rem;
 }
 
 .buddy-headline{
@@ -24,9 +32,11 @@
 }
 
 .left-image-buddy{
+    margin-right: 0;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+
+    justify-content: space-between;
 
 }
 
@@ -44,3 +54,16 @@
     flex-wrap: none;
     justify-content: flex-start;
 }
+
+.snapshot{
+ 
+    margin: 1rem;
+    margin-top: 0;
+    width: 25rem;
+    height: 30rem;
+    border: 2px solid black;
+ 
+ 
+    background-color: rgba(255, 255, 0, 0.671);
+}
+

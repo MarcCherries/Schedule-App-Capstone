@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const DisplayFriends = (props) => {
-    console.log(props.buddies)
+ 
     return (     
  
     <div className='buddy-list'>

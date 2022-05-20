@@ -6,41 +6,25 @@ import "./ViewProfilePage.css"
 import DisplayEvents from '../../components/DisplayEvents/DisplayEvents';
 import DisplayFriends from '../../components/DisplayFriends/DisplayFriends';
 import AddFriend from '../../components/AddFriend/AddFriend';
+import Jumbotron from '../../components/Jumbotron/Jumbotron';
 import { Link } from 'react-router-dom';
 
 
 const ViewProfilePage = (props) => {
-    const [user, token]= useAuth()
+    const [user, token] = useAuth()
     const {userId} = useParams()
-    const cancelToken = axios.CancelToken;
-    const source = cancelToken.source();
+   
    
 
 
 
  useEffect(()=>{
      props.fetchCurrentUser(userId)
+     props.getFriendsProfile(userId)
  }, [userId]) 
  
 
-//   useEffect(()=>{
-//       const fetchfriends = async () => {
-//           try {
-//               let response = await axios.get(`http://127.0.0.1:8000/api/friends?id=${userId}`,{cancelToken: source.token,})
-        
-//               setBuddies(response.data)
-              
-//           } catch (error) {
-//               console.log(error.message)
-//           }
-//       }
-   
-//       fetchfriends()
 
-//       return ()=>{
-//       source.cancel("Request Aborted!")
-//       }
-//   },[props.currentUser])
 
 
   useEffect(()=>{
@@ -50,7 +34,7 @@ const ViewProfilePage = (props) => {
         }
 
 
-  }, [props.currentUser])
+  }, [userId])
 
 
 
@@ -66,25 +50,36 @@ const ViewProfilePage = (props) => {
                 <div className='bio-container'>
                     <div className='left-image-buddy'>
                     <div className='left-image-info'>
-            <img className='profile-image' height="300" width="225" src={require("../HomePage/Images/default.jpg")}></img>
+                    <img className="profile-pic" width="250" height="300" src={`${props.currentUser && props.currentUser.user_photo}`}></img>
            
             <h5>Name: {props.currentUser && props.currentUser.first_name}</h5>
             <p>About Me: {props.currentUser && props.currentUser.user_bio}</p>
             </div>
             <div className='reputation'>
-                <h3>Reputation Score:</h3>
-                <h1>{props.currentUser && props.currentUser.user_reputation}</h1>
+                <h4>Reputation Score:</h4>
+                <h2>{props.currentUser && props.currentUser.user_reputation}</h2>
                 <AddFriend handleClickFriend={props.handleClickFriend}currentUser={props.currentUser} userId={userId}/>
+                </div>
+      
+            {props.friends &&
+            <DisplayFriends setCurrentUser={props.setCurrentUser} buddies={props.friends}/>
+}
+                </div>
+                </div>
+           
+                <div className='snapshot'>
+                {props.jumbotronEvent &&
+                    <Jumbotron event={props.jumbotronEvent}/>
+                }
+                </div>
 
-            </div>
-            {/* <DisplayFriends setCurrentUser={props.setCurrentUser} buddies={buddies}/> */}
-                </div>
-                </div>
-                </div>
+                
+
                 <div className='joyn-up'>
-                <h4 className='joyn'>Recent JoynUps</h4>
-                <DisplayEvents setEvent={props.setEvent} events={props.recentEvents}/>
+                 
+                <DisplayEvents  getJumbotronEvent={props.getJumbotronEvent} setEvent={props.setEvent} events={props.recentEvents}/>
                 </div>
+            </div>
             </div>
          
             </div>

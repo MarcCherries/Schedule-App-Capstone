@@ -1,0 +1,9 @@
+.add-friend-button{
+    width: 3rem;
+    height: 3rem;
+    background-color: rgba(216, 27, 27, 0.719);
+}
+.add-friend-button:hover{
+ 
+    background-color: rgba(27, 216, 43, 0.719);
+}

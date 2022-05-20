@@ -9,3 +9,14 @@
     background-color: white;
     
 }
+
+.locations-button{
+    padding: 2px;
+    margin-left: .75rem;
+    height: 2rem;
+    background-color: rgba(209, 155, 55, 0.753);
+}
+.locations-button:hover{
+
+    background-color: rgba(105, 211, 35, 0.753);
+}

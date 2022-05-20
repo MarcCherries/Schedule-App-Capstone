@@ -1,12 +1,11 @@
-import axios from 'axios';
+import './AddFriend.css'
 import React, { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 
 
 const AddFriend = (props) => {
-    const [user, token] = useAuth()
-    console.log(user.id)
-    console.log(props.currentUser)
+
+  
 
 
 
@@ -16,7 +15,7 @@ const AddFriend = (props) => {
 
     return ( 
         <div>
-            <button onClick={()=>props.handleClickFriend(props.userId)}>Add Friend!</button>
+            <button className="add-friend-button"onClick={()=>props.handleClickFriend(props.userId)}>Add Friend!</button>
         </div>
      );
 }
