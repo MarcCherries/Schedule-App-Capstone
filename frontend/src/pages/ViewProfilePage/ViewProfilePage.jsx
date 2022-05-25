@@ -7,6 +7,7 @@ import DisplayEvents from '../../components/DisplayEvents/DisplayEvents';
 import DisplayFriends from '../../components/DisplayFriends/DisplayFriends';
 import AddFriend from '../../components/AddFriend/AddFriend';
 import Jumbotron from '../../components/Jumbotron/Jumbotron';
+import ViewProfileAllow from '../../components/ViewProfileAllow/ViewProfileAllow'
 import { Link } from 'react-router-dom';
 
 
@@ -19,6 +20,8 @@ const ViewProfilePage = (props) => {
 
 
  useEffect(()=>{
+     props.checkFriendStatus(userId)
+     console.log(props.friendStatus)
      props.fetchCurrentUser(userId)
      props.getFriendsProfile(userId)
  }, [userId]) 
@@ -38,51 +41,14 @@ const ViewProfilePage = (props) => {
 
 
 
-
    
     return ( 
         <div>
-          
-            <h1 className='profile-head'>Profile Page for {props.currentUser && props.currentUser.username}!</h1>
-            <div>
-            <div className='top-row-container'>
-                <div className='left-side-top'>
-                <div className='bio-container'>
-                    <div className='left-image-buddy'>
-                    <div className='left-image-info'>
-                    <img className="profile-pic" width="250" height="300" src={`${props.currentUser && props.currentUser.user_photo}`}></img>
-           
-            <h5>Name: {props.currentUser && props.currentUser.first_name}</h5>
-            <p>About Me: {props.currentUser && props.currentUser.user_bio}</p>
-            </div>
-            <div className='reputation'>
-                <h4>Reputation Score:</h4>
-                <h2>{props.currentUser && props.currentUser.user_reputation}</h2>
-                <AddFriend handleClickFriend={props.handleClickFriend}currentUser={props.currentUser} userId={userId}/>
-                </div>
+                  {props.friendStatus === "not" ? <p>Sorry, You Must Be Friends To See This Profile</p> 
+             : (  
+           <ViewProfileAllow   friendReset={props.friendReset}friendStatus={props.friendStatus} checkFriendStatus={props.checkFriendStatus}getFriendsProfile={props.getFriendsProfile} jumbotronEvent={props.jumbotronEvent} getJumbotronEvent={props.getJumbotronEvent}friends={props.friends} source={props.source} fetchCurrentUser={props.fetchCurrentUser}fetchRecentEvents={props.fetchRecentEvents}handleClickFriend={props.handleClickFriend} recentEvents={props.recentEvents} event={props.event} setEvent={props.setEvent} currentUser={props.currentUser} setCurrentUser={props.setCurrentUser} handleClick={props.handleClick} />
+             )}
       
-            {props.friends &&
-            <DisplayFriends setCurrentUser={props.setCurrentUser} buddies={props.friends}/>
-}
-                </div>
-                </div>
-           
-                <div className='snapshot'>
-                {props.jumbotronEvent &&
-                    <Jumbotron event={props.jumbotronEvent}/>
-                }
-                </div>
-
-                
-
-                <div className='joyn-up'>
-                 
-                <DisplayEvents  getJumbotronEvent={props.getJumbotronEvent} setEvent={props.setEvent} events={props.recentEvents}/>
-                </div>
-            </div>
-            </div>
-         
-            </div>
         </div>
      );
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Reply.css'
 
 const Reply = (props) => {
+    console.log(props.showHide)
     return ( 
         <div>
              <div className={props.showHide}>

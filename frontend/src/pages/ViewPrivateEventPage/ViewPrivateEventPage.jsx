@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import DisplayAttendees from '../../components/DisplayAttendees/DisplayAttendees';
-import './ViewEventPage.css'
+
 import DisplayComments from '../../components/DisplayComments/DisplayComments';
 import axios from 'axios'
 import useAuth from '../../hooks/useAuth.js'
@@ -11,10 +11,12 @@ import Countdown from 'react-countdown'
 
 
 
-const ViewEventPage = (props) => {
+
+const ViewPrivateEventPage = (props) => {
     const {eventId} = useParams ()
     const [user, token]= useAuth()
     const [eventComments, setEventComments] = useState()
+ 
 
     function fetchEventComments(){
       let newComments = props.comments && props.comments.filter((comment)=>{
@@ -52,6 +54,7 @@ const ViewEventPage = (props) => {
     return ( 
      
         <div>
+            
           <div className='join-count-cont'>
             <h3>{props.event && props.event.event_type} @ {props.event && props.event.location.location_name}</h3>
             <div className='join-button' >
@@ -60,8 +63,11 @@ const ViewEventPage = (props) => {
                   <h4>Experience Level:{props.event && props.event.experience_level} </h4>
                   <h4>Date/Time: {props.event && props.event.date}@{props.event && props.event.time}</h4>
                   </div>
-
-                <button onClick={()=>props.joinEvent(eventId)}>Joyn Event</button>
+                  {props.eventUser &&
+            <div>
+                <Link to={`/Invite/${eventId}`}><button>Invite Friends!</button></Link>
+                </div>    
+}
                 </div>
                          <div className='countdown'>
                            <span> Event Begins In:</span> <Countdown date={props.event && props.event.date}/></div>
@@ -118,4 +124,4 @@ const ViewEventPage = (props) => {
      );
 }
  
-export default ViewEventPage;
+export default ViewPrivateEventPage;

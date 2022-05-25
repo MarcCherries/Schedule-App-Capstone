@@ -88,7 +88,7 @@ const DisplayComments = (props) => {
                            
                                 
         
-            {props.eventComments && props.eventComments.map((item)=>{
+            {props.eventComments.map((item)=>{
                         return(
                             <table>
                             <tr key={item.id}>

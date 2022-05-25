@@ -11,7 +11,7 @@ const DisplayFriends = (props) => {
            return (
                <div>
                             <Link to={`/ViewProfile/${friend.id}`}  >
-               <h5>{friend.username}</h5>
+               <h5 onClick={props.friendReset}>{friend.username}</h5>
                </Link>
                </div>
                

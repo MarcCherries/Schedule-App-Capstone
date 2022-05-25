@@ -7,7 +7,7 @@ import "./NavBar.css";
 
 
 
-const Navbar = () => {
+const Navbar = (props) => {
   const { logoutUser, user } = useContext(AuthContext);
   
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Navbar = () => {
        
       
           <li><button onClick={()=> navigate('/')}>Home</button></li>
-          <li><button onClick={()=> navigate(-1)}>Back</button></li>
+          <li><button onClickCapture={props.backReset}onClick={()=> navigate(-1)}>Back</button></li>
           <li>
           {user ? (
             <button onClick={logoutUser}>Logout</button>

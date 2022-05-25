@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-
+import Countdown from 'react-countdown'
 import axios from "axios";
 import DisplayEvents from "../../components/DisplayEvents/DisplayEvents";
 import AddEvent from "../../components/AddEvent/AddEvent";
@@ -11,6 +11,8 @@ import Dropdown from '../../components/Dropdown/Dropdown.jsx'
 import DisplayFriendRequests from '../../components/DisplayFriendRequests/DisplayFriendRequests'
 import DisplayAttendanceRequests from "../../components/DisplayAttendanceRequests/DisplayAttendanceRequests";
 import DisplayFriends from "../../components/DisplayFriends/DisplayFriends";
+import DisplayPrivateEvents from "../../components/DisplayPrivateEvents/DisplayPrivateEvents";
+import DisplayPrivateRequests from "../../components/DisplayPrivateRequests/DisplayPrivateRequests";
 
 
 const HomePage = (props) => {
@@ -25,7 +27,7 @@ const HomePage = (props) => {
 
 
 useEffect(() => {
- 
+  props.getPrivateEvents()
   props.getLocations()
   return ()=>{
   props.source.cancel("Request Aborted!")
@@ -40,7 +42,14 @@ useEffect(() => {
   
   }, [user]);
 
-  console.log(user.user_photo)
+  console.log(props.countdownEvent)
+
+ 
+useEffect(()=>{
+  props.getPrivateEventRequests()
+},[user])
+
+console.log(props.privateEventRequests)
 
   
   return (
@@ -60,15 +69,20 @@ useEffect(() => {
         <DisplayFriendRequests handleClickFriendAccept={props.handleClickFriendAccept} handleClickFriendDeny={props.handleClickFriendDeny}friends={props.friends}/>
 
 }
- 
+
+  <DisplayPrivateRequests acceptEvent={props.acceptEvent}declineEvent={props.declineEvent}event={props.privateEventRequests}/>
+
+
           {props.friends.friends &&
           <DisplayFriends buddies={props.friends}/>
+        
 }
         </div>
         </div>
     
-      
-     
+    
+        <DisplayPrivateEvents countdownEvent={props.countdownEvent}getJumbotronEvent={props.getJumbotronEvent}getCountdown={props.getCountdown} events={props.privateEvents} event={props.event} setEvent={props.setEvent} />
+    
     
         <div className="add-event">
         <Link to={'/CreateLocation'}><button className="create-loc-button">Create New Location</button></Link>
@@ -81,10 +95,11 @@ useEffect(() => {
       
         </div>
         
-
+ 
         <div className="display-events">
-        <DisplayEvents events={props.events} event={props.event} setEvent={props.setEvent} />
-   
+    
+        <DisplayEvents countdownEvent={props.countdownEvent}getJumbotronEvent={props.getJumbotronEvent}getCountdown={props.getCountdown}events={props.events} event={props.event} setEvent={props.setEvent} />
+       
         
 
         </div>

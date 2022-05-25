@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import "./DisplayEvents.css"
+import "./DisplayPrivateEvents.css"
 import {Link} from 'react-router-dom'
 import Ticket from '../../components/Ticket/Ticket'
 import Countdown from 'react-countdown'
 
-const DisplayEvents = (props) => {
+const DisplayPrivateEvents = (props) => {
+    console.log(props.events)
  
     
     return ( 
 
         <div>
     <div className='display-events-container'>
-    <h3>Event Feed</h3>
+    <h3>Private Events</h3>
         {props.events && props.events.map((event)=>{
             return(
                       
                 <div className='event-ticket-container'>
                    
-                <Link className='Link'onPointerOver={()=>props.getJumbotronEvent(event)}onClick={()=>props.setEvent(event)}to={`/EventPage/${event.id}`}>
+                <Link className='Link'onClick={()=>props.setEvent(event)}to={`/PrivateEventPage/${event.id}`}>
          <Ticket countdownEvent={props.countdownEvent}event={event} />
        
                 </Link>
@@ -31,4 +32,4 @@ const DisplayEvents = (props) => {
      );
 }
  
-export default DisplayEvents;
+export default DisplayPrivateEvents;

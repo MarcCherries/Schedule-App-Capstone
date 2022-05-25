@@ -4,7 +4,8 @@ import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
 import "./AddEvent.css"
 
-const AddEvent = (props) => {
+const   AddEvent = (props) => {
+    const [priv, setPrivate] = useState(false)
     const [user, token] = useAuth()
     const [locationSearch, setLocationSearch] = useState()
     const [searchLocations, setSearchLocations] = useState()
@@ -16,16 +17,18 @@ const AddEvent = (props) => {
         event_type:"Event Type",
         event_description:"Description",
         event_specialInstructions:"Special Instructions",
-        experience_level:"Experience Level"
+        experience_level:"Experience Level",
+        isPrivate: "False"
 
    
       
 
     }
+    
   
     const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(initialValues, props.createEvent)    
   
-   
+   console.log(priv)
     async function handleLocationSubmit(event){
         event.preventDefault()
         let response = await axios.get(`http://127.0.0.1:8000/api/locations?keyword=${locationSearch}`)
@@ -99,6 +102,21 @@ const AddEvent = (props) => {
                 onChange={handleInputChange} >
               
                 </input>
+                <input 
+                
+                className='private-input'
+                type="text"
+                name="isPrivate"
+
+         
+              
+                value={formData.isPrivate}
+                onChange={handleInputChange}
+                 >
+                
+              
+                </input>
+                <label for="isPrivate" ></label>
                 <button className="submit-event" type='submit'>Create Event</button>
             </form>
             <div>

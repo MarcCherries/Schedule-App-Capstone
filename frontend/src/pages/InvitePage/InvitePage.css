@@ -1,0 +1,13 @@
+.invite-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+.invite-card{
+    width: 20rem;
+    height: 20rem;
+    background-color: rgba(231, 218, 34, 0.699);
+}
