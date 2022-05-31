@@ -20,6 +20,7 @@ const LoginPage = () => {
 
   return (
     <div className="container">
+      <img width="500" height="200" src={require("./Images/volleyball.jpg")}></img>
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Username:{" "}

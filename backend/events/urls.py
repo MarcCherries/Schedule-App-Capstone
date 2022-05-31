@@ -11,4 +11,5 @@ urlpatterns = [
     path('accept/<int:pk>', views.accept_event_entry),
     path('decline/<int:pk>', views.decline_event_entry),
     path('request/', views.get_all_events_request_private),
+    path('location/', views.get_all_events_location)
     ]

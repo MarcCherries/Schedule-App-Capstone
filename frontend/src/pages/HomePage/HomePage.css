@@ -1,22 +1,25 @@
 .create-loc-button{
-    width: 5rem;
-    height: 4rem;
+    width: 4rem;
+    height: 2rem;
     font-weight: bold;
-    background-color: rgba(243, 173, 42, 0.76)
+    background-color: rgb(248, 232, 1)
 }
 .create-loc-button:hover{
     
-    background-color: rgba(49, 243, 42, 0.76)
+    background-color: rgba(49, 243, 42, 0.76);
+    border: 2px solid white;
 }
 
 .add-event{
-    background-color: rgba(219, 206, 26, 0.733);
+    background-color: rgba(32, 167, 39, 0.788);
     padding: 5px;
     border: 2px solid black;
-    height: 25rem;
+    height: 27.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 20px;
+    box-shadow: 3px 3px 7px;
   
 }
 
@@ -47,6 +50,13 @@
     flex-direction: column
 }
 
+.green-request{
+    color: green;
+    margin: 0;
+}
+.invite-header{
+    margin-left: .5rem;
+}
 .display-friends {
   
     height: 18.75rem;
@@ -83,11 +93,13 @@ div a{
 }
 .create-location-button:hover{
     width: auto;
-    background-color: #03bf22ab;
+    background-color: #c8dd07;
     color: white;
 }
 
-
+.create-header{
+    color: rgb(255, 255, 255);
+}
 
 .profile-pic {
     border: 5px solid orange;
@@ -100,5 +112,11 @@ div a{
 .add-event-cont{
     border: 2px solid black;
 
+}
+
+.private-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 

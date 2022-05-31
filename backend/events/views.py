@@ -28,10 +28,24 @@ def get_all_events(request):
 def get_all_events_request_private(request):
     params = request.query_params.get('isPrivate')
     user_params = request.query_params.get('id')
+  
     if(params):
 
         if (request.method == 'GET'):
             events = Event.objects.filter(isPrivate=params, pending__id = user_params)
+            serializer = EventSerializer(events, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_all_events_location(request):
+ 
+    user_params = request.query_params.get('id')
+  
+    if(user_params):
+
+        if (request.method == 'GET'):
+            events = Event.objects.filter(location__id=user_params)
             serializer = EventSerializer(events, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -135,9 +149,7 @@ def accept_event_entry(request, pk):
     user_param = request.query_params.get('id')
     userToAdd = User.objects.filter(id=user_param).first()
     if (user_param):
-      
-            
-        if (request.method == 'PATCH'):
+        if(event.event_leader):
             event.pending.remove(userToAdd)
             event.user.add(userToAdd)
             print(userToAdd)
@@ -145,8 +157,18 @@ def accept_event_entry(request, pk):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+      
+            
+        else:
+           
+            serializer = EventSerializer(event, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+            
+            
 
-@api_view(['PATCH'])
+@api_view(['PATCH', 'DELETE'])
 @permission_classes([AllowAny])
 def decline_event_entry(request, pk):
     event = get_object_or_404(Event, pk=pk)
@@ -164,3 +186,6 @@ def decline_event_entry(request, pk):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+    elif (request.method == 'DELETE'):
+        event.delete()
+        return Response(status=status.HTTP_200_OK)

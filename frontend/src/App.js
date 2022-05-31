@@ -12,6 +12,7 @@ import ViewLocationPage from "./pages/ViewLocationPage/ViewLocationPage";
 import ViewPrivateEventPage from "./pages/ViewPrivateEventPage/ViewPrivateEventPage";
 import InvitePage from "./pages/InvitePage/InvitePage"
 
+
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -63,43 +64,67 @@ function App() {
   const [userSearch, setUserSearch] = useState()
   const [inviteMessage, setInviteMessage] = useState(false)
   const [privateEventRequests, setPrivateEventRequests] = useState()
-  
-  
-  
+  const [locationEvents, setLocationEvents] = useState()
+  const [disable, setDisable] = useState()
   const cancelToken = axios.CancelToken;
   const source = cancelToken.source();
- 
- 
   const [eventReq, setEventReq]  = useState()
- 
-
- 
   const [showList, setShowList] = useState('children-inactive');
   const [friendsProfile, setFriendsProfile] = useState()
-
-
   const [eventUser, setEventUser] = useState(false)
-
-
   const [invitees, setInvitees] = useState([])
-  
-  function handleClickInvite(friend){
-    if(invitees){
-      let newInvite = [friend, ...invitees]
-      setInvitees(newInvite)
-    }
+  const [isPrivate, setIsPrivate] = useState("False")
+  const [eventAlready, setEventAlready] = useState(false)
+  const [eventSent, setEventSent] = useState(false)
+  const [eventDenied, setEventDenied] = useState(false)
+  const [friendSent, setFriendSent] = useState(false)
+  const [friendDenied, setFriendDenied] = useState(false)
+  const [friendPending, setFriendPending] = useState(false)
+  const [locationCreated, setLocationCreated] = useState(false)
+ 
+ function closeModal(){
+   setEventAlready(false)
+   setEventSent(false)
+   setEventDenied(false)
+   setFriendDenied(false)
+   setFriendPending(false)
+   setFriendSent(false)
+   setLocationCreated(false)
+ }
+
+
+  function removeInvitee(friend){
+    let newInvitees = invitees.pop(friend)
+    setInvitees(newInvitees)
+    
   }
+  
+  
+    function handleClickInvite(friend){
+
+      if(invitees){
+        let newInvite = [friend, ...invitees]
+        setInvitees(newInvite)
+      }
+   
+     
+      }
     function checkEvent(){
     
-        if(event && event.user[0] && event.user[0].username == user.username){
+        if(event && event.event_leader.username === user.username){
             setEventUser(true)
+        }
+        else{
+          setEventUser(false)
         }
     }
 
     useEffect(()=>{
         checkEvent()
     },[event])
-
+ 
+    console.log(eventUser)
+    console.log(event)
 
  
 
@@ -154,7 +179,7 @@ let newFriendArray = friendArray && friendArray.filter((item)=>{
 
 })
 
-if (newFriendArray[0]){
+if (newFriendArray && newFriendArray[0]){
   
   setFriendStatus("friend")
 }
@@ -187,8 +212,17 @@ function setAddLocation(item){
   }
   async function getLocations(){
     let response = await axios.get('http://127.0.0.1:8000/api/locations/' , {cancelToken: source.token,})
-    setLocations(response.data)
+    let sortedData = response.data.sort((a, b)=> a.location_name.localeCompare(b.location_name))
+    setLocations(sortedData)
+ 
   }
+
+ 
+  async function getLocationEvents(locationId){
+    let response = await axios.get(`http://127.0.0.1:8000/api/events/location?id=${locationId}`)
+    setLocationEvents(response.data)
+  }
+
   async function getComments(){
     let response = await axios.get('http://127.0.0.1:8000/api/comments/' , {cancelToken: source.token,})
     setComments(response.data)
@@ -200,6 +234,7 @@ function setAddLocation(item){
   async function getUsers(){
     let response = await axios.get('http://127.0.0.1:8000/api/auth/users' , {cancelToken: source.token,})
     setUsers(response.data)
+  
   }
   async function getFriends(){
     let response = await axios.get(`http://127.0.0.1:8000/api/friends/?id=${user.id}` , {cancelToken: source.token,})
@@ -226,6 +261,7 @@ function setAddLocation(item){
   async function createLocation(newLocation){
     let response = await axios.post('http://127.0.0.1:8000/api/locations/', newLocation , {cancelToken: source.token,})
     setLocations(response.data)
+    await getLocations()
     }
   async function createComment(newComment){
     let response = await axios.post('http://127.0.0.1:8000/api/comments/', newComment , {cancelToken: source.token,})
@@ -248,12 +284,12 @@ function setAddLocation(item){
     }
 
   async function assignUserEvent(user, event){
-    console.log(event)
+    
     let response = await axios.patch(`http://127.0.0.1:8000/api/events/accept/${event.id}?id=${user.id}`)
     setEvent(response.data)
     
   }
- 
+  console.log(event)
 
   //3rd party api calls start here
 
@@ -269,20 +305,23 @@ function setAddLocation(item){
 async function createEvent(formData){
  
   formData.location_id=addLocation.id
+  formData.event_leader_id=user.id
+  formData.isPrivate=isPrivate
+  
   let response = await axios.post('http://127.0.0.1:8000/api/events/', formData , {cancelToken: source.token,})
-  console.log(formData.isPrivate)
+  
   if (formData.isPrivate === "False"){
-  assignUserEvent(user, response.data)
-  console.log(response.data)
+    assignUserEvent(user, response.data)
   let newEvent = [response.data, ...events]
   setEvents(newEvent)
   }
   else {
-  assignUserEvent(user, response.data)
+    assignUserEvent(user, response.data)
   let newEvent = [response.data, ...privateEvents]
   setPrivateEvents(newEvent)
   }
 }
+console.log(privateEvents)
 
 
 async function getEvent(eventId){
@@ -401,12 +440,15 @@ console.log(privateEvents)
 // setEventReq(newEventReq)
 //     },[])
 
+  
 
-
-  async function acceptEvent(eventId, userId){
+  async function acceptEvent(eventId, userId, item){
     let response = await axios.patch(`http://127.0.0.1:8000/api/events/accept/${eventId}?id=${userId}`)
     setEvent(response.data)
     setToggleReq(false)
+    let privEventReq = privateEventRequests
+    privEventReq.pop(item)
+    setPrivateEventRequests()
     console.log(response.data)
   
   }
@@ -482,25 +524,21 @@ console.log(userSearch)
     
    
    
- 
+if (event.event_leader.username ===  user.username){
+  setEventAlready(true)
+}
    
-    if(!check.data.user[0]){
-    
-    let response = await axios.patch(`http://127.0.0.1:8000/api/events/${eventId}?id=${user.id}`, {cancelToken: source.token,})
-    setShowConfirm(true)
-    setEvent(response.data)
- 
+else if (userList.includes(user.id)){
+      setEventAlready(true)
     }
-    else if (userList.includes(user.id)){
-      alert("You are already signed up for this event!")
-    }
-    else if(deniedList.includes(user.id)){
-      alert("Sorry, this event is closed!")
+else if(deniedList.includes(user.id)){
+      setEventDenied(true)
 
     }
-    else{
+else{
       let response = await axios.patch(`http://127.0.0.1:8000/api/events/pending/${eventId}?id=${user.id}`)
       setEvent(response.data)
+      setEventSent(true)
     }
   }
 
@@ -509,6 +547,8 @@ console.log(userSearch)
 
   }
 
+
+  
   async function fetchCurrentUser(userId) {
     try {
         let response = await axios.get(`http://127.0.0.1:8000/api/auth/users/${userId}`,{cancelToken: source.token,})
@@ -528,10 +568,28 @@ source.cancel("Request Aborted!")
   }
 
 async function fetchRecentEvents(userId){
-    let response = await axios.get(`http://127.0.0.1:8000/api/events/user?id=${userId}`, {cancelToken: source.token,})
+    let response = await axios.get(`http://127.0.0.1:8000/api/events/public?isPrivate=False&id=${userId}`, {cancelToken: source.token,})
     setRecentEvents(response.data)
 }
   async function handleClickFriend(userId){
+    let deniedFriendsProfile = friendsProfile && friendsProfile.denied.map((item)=>{
+   
+      return item.id
+    })
+    let pendingFriendsProfile = friendsProfile && friendsProfile.denied.map((item)=>{
+      return item.id
+    })
+    
+
+    if(deniedFriendsProfile.denied && deniedFriendsProfile.denied.includes(user.id)){
+
+      setFriendDenied(true)
+    }
+
+    else if(pendingFriendsProfile.denied && pendingFriendsProfile.pending.includes(user.id)){
+      setFriendPending(true)
+    }
+    else{
     
     try {
         await axios.patch(`http://127.0.0.1:8000/api/friends/pending/?id=${userId}&pk=${user.id}`, {cancelToken: source.token,})
@@ -541,15 +599,18 @@ async function fetchRecentEvents(userId){
     } catch (error) {
         console.log(error.message)
     }
-    alert("Your friend request has been sent!")
+    setFriendSent(true)
+}}
+
+function handleClickLocation(){
+  setLocationCreated(true)
 }
-
-
 async function buildFriendsList(){
  
   let response = await axios.post(`http://127.0.0.1:8000/api/friends/?id=${user.id}`,{cancelToken: source.token,})
 
 }
+
 
 function friendReset(){
   setJumbotronEvent('')
@@ -577,12 +638,17 @@ function getCountdownEvent(event){
 // }
 
 
+console.log(friendPending)
+
+console.log(friendDenied)
+
+
 console.log(friends)
   async function handleClickFriendDeny(userId){
    
     try {
         let response = await axios.patch(`http://127.0.0.1:8000/api/friends/decline/?id=${userId}&pk=${user.id}`, {cancelToken: source.token,})
-        setFriends(response.data)
+      setFriends(response.data)
 
 
     } catch (error) {
@@ -613,7 +679,25 @@ function resetInvite(){
 
 function backReset(){
   setInviteMessage(false)
+  setNewLocation(null)
+  setJumbotronEvent('')
+  setUserSearch('')
+  setInvitees([])
+  
 }
+
+function handleClickPrivate(){
+  if (isPrivate == "False"){
+  setIsPrivate("True")
+  }
+  else{
+  setIsPrivate("False")
+  }
+}
+
+ function resetSearch(){
+   setNewLocation('')
+ }
 
   return (
     <div>
@@ -628,22 +712,25 @@ function backReset(){
           element={
             <PrivateRoute>
             
-              <HomePage getPrivateEventRequests={getPrivateEventRequests} privateEvents={privateEvents}privateEventRequests={privateEventRequests} getPrivateEvents={getPrivateEvents}getJumbotronEvent={getJumbotronEvent}getCountdownEvent={getCountdownEvent} countdownEvent={countdownEvent} buildFriendsList={buildFriendsList}setShowList={setShowList} showList={showList} handleClickShowList={handleClickShowList} handleClickFriendAccept={handleClickFriendAccept} handleClickFriendDeny={handleClickFriendDeny}newEvents={newEvents}source={source} addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} setLocations={setLocations} getLocations={getLocations} acceptEvent={acceptEventPrivate}declineEvent={declineEvent} />
+              <HomePage handleClickPrivate={handleClickPrivate}isPrivate={isPrivate} removeInvitee={removeInvitee} getPrivateEventRequests={getPrivateEventRequests} privateEvents={privateEvents}privateEventRequests={privateEventRequests} getPrivateEvents={getPrivateEvents}getJumbotronEvent={getJumbotronEvent}getCountdownEvent={getCountdownEvent} countdownEvent={countdownEvent} buildFriendsList={buildFriendsList}setShowList={setShowList} showList={showList} handleClickShowList={handleClickShowList} handleClickFriendAccept={handleClickFriendAccept} handleClickFriendDeny={handleClickFriendDeny}newEvents={newEvents}source={source} addLocation={addLocation} setAddLocation={setAddLocation}createEvent={createEvent}trigger1={trigger1} trigger={trigger} setTrigger1={setTrigger1} imageURL={imageURL} setImageURL={setImageURL} events={events} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} locations={locations} newLocation={newLocation} friends={friends} setFriends={setFriends} setLocations={setLocations} getLocations={getLocations} acceptEvent={acceptEventPrivate}declineEvent={declineEvent} />
             </PrivateRoute>
           }
         />
         }
-      
+        {event &&
         <Route
           path="/EventPage/:eventId"
           element={
             <PrivateRoute>
+            
+              <ViewEventPage closeModal={closeModal}eventSent={eventSent} eventDenied={eventDenied} eventAlready={eventAlready}disable={disable} eventReq={eventReq}  getEventReq={getEventReq} declineEvent={declineEvent}toggleReq={toggleReq}eventNew={eventNew} acceptEvent={acceptEvent} newEvents={newEvents}source={source} getEvent={getEvent} showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies}  events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments}   />
               
-              <ViewEventPage  eventReq={eventReq}  getEventReq={getEventReq} declineEvent={declineEvent}toggleReq={toggleReq}eventNew={eventNew} acceptEvent={acceptEvent} newEvents={newEvents}source={source} getEvent={getEvent} showConfirm={showConfirm}joinEvent={joinEvent} setCurrentComment={setCurrentComment} replies={replies} setReplies={setReplies}  events={events} event={event} setEvent={setEvent} setCurrentUser={setCurrentUser} comments={comments} setComments={setComments}   />
-                
             </PrivateRoute>
           }
+        
         />
+}
+{event &&
         <Route
           path="/PrivateEventPage/:eventId"
           element={
@@ -654,12 +741,12 @@ function backReset(){
             </PrivateRoute>
           }
         />
-
+        }
         <Route
           path="/CreateLocation"
           element={
             <PrivateRoute>
-              <CreateLocationPage trigger={trigger} setTrigger={setTrigger} getLocations={getLocations} events={events} event={event} setEvent={setEvent} location={location} setLocation={setLocation}setNewLocation={setNewLocation} newLocation={newLocation} createLocation={createLocation}/>
+              <CreateLocationPage handleClick={closeModal} locationCreated={locationCreated} handleClickLocation={handleClickLocation} createLocation={createLocation}trigger={trigger} setTrigger={setTrigger} getLocations={getLocations} events={events} event={event} setEvent={setEvent} location={location} setLocation={setLocation}setNewLocation={setNewLocation} newLocation={newLocation} createLocation={createLocation}/>
             </PrivateRoute>
           }
         />
@@ -669,7 +756,7 @@ function backReset(){
           element={
             <PrivateRoute>
             
-              <ViewProfilePage friendReset={friendReset}friendStatus={friendStatus} checkFriendStatus={checkFriendStatus}getFriendsProfile={getFriendsProfile} jumbotronEvent={jumbotronEvent} getJumbotronEvent={getJumbotronEvent}friends={friendsProfile} source={source} fetchCurrentUser={fetchCurrentUser}fetchRecentEvents={fetchRecentEvents}handleClickFriend={handleClickFriend} recentEvents={recentEvents} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} />
+              <ViewProfilePage closeModal={closeModal} friendDenied={friendDenied} friendPending={friendPending} friendSent={friendSent} friendReset={friendReset}friendStatus={friendStatus} checkFriendStatus={checkFriendStatus}getFriendsProfile={getFriendsProfile} jumbotronEvent={jumbotronEvent} getJumbotronEvent={getJumbotronEvent}friends={friendsProfile} source={source} fetchCurrentUser={fetchCurrentUser}fetchRecentEvents={fetchRecentEvents}handleClickFriend={handleClickFriend} recentEvents={recentEvents} event={event} setEvent={setEvent} currentUser={currentUser} setCurrentUser={setCurrentUser} handleClick={handleClick} />
     
             </PrivateRoute>
           }
@@ -682,18 +769,18 @@ function backReset(){
           element={
             <PrivateRoute>
            
-              <ViewLocationPage  event={event} locationPage={locationPage} getLocationPage={getLocationPage}/>
+              <ViewLocationPage  countdownEvent={countdownEvent} setEvent={setEvent}locationEvents={locationEvents} getLocationEvents={getLocationEvents} event={event} locationPage={locationPage} getLocationPage={getLocationPage}/>
           
             </PrivateRoute>
           }
         />
-         {friends && 
+         {friends && event &&
         <Route
           path="/Invite/:eventId"
           element={
             <PrivateRoute>
           
-            <InvitePage submitPrivateRequest={submitPrivateRequest}inviteMessage={inviteMessage}resetInvite={resetInvite}invitees={invitees}handleClick={handleClickInvite}updateEvent={updateEvent}event={event} userSearch={userSearch} friends={friends} users={users} submitUserSearch={submitUserSearch}/>
+            <InvitePage removeInvitee={removeInvitee}submitPrivateRequest={submitPrivateRequest}inviteMessage={inviteMessage}resetInvite={resetInvite}invitees={invitees}handleClick={handleClickInvite}updateEvent={updateEvent}event={event} userSearch={userSearch} friends={friends} users={users} submitUserSearch={submitUserSearch}/>
            
             </PrivateRoute>
           }

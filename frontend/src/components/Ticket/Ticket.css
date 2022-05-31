@@ -16,7 +16,9 @@
 
 .join-info-ticket{
     padding: 2px;
+    border: 2px solid green;
     background-color: orange;
+    padding: .5rem;
     
 }
 .join-info-ticket:hover{
@@ -27,7 +29,8 @@
 
 .join-button-container{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    font-size: .75rem;
+  
 }
 

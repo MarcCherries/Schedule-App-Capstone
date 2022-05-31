@@ -4,6 +4,7 @@ import DisplayReplies from "../DisplayReplies/DisplayReplies";
 import './Comment.css'
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const Comment = (props) => {
 
@@ -85,11 +86,14 @@ function getReplyCount(){
                             <div className="comment-font">
                         <h5>{props.item.user.username}:</h5>
                         <p>{props.item.comment_text}</p>
+                        <Link to={`/ViewProfile/${props.item.user.id}`}><div><img src={`${props.item.user.user_photo}`} width="50" height="35"></img></div></Link>
                         </div>
-
+                        <div className="comment-pic-col">
                         <div>
-                        <button className='comments-btn' onClick={handleClick}>View Replies({replyCount})</button>
-                        <button className='comments-btn' onClick={handleClickAdd}>Add Reply</button>
+                        <button className='comments-btn' onClick={handleClick}>View({replyCount})</button>
+                        <button className='comments-btn' onClick={handleClickAdd}>Add</button>
+                        </div>
+                     
                         </div>
                         </div>
                         <div className={hideShow}>

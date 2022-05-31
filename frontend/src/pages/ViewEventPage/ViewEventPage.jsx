@@ -8,13 +8,16 @@ import useAuth from '../../hooks/useAuth.js'
 import DisplayAttendanceRequests from '../../components/DisplayAttendanceRequests/DisplayAttendanceRequests';
 import { Link } from 'react-router-dom';
 import Countdown from 'react-countdown'
-
+import Modal from '../../components/Modal/Modal'
+import moment from 'moment'
 
 
 const ViewEventPage = (props) => {
     const {eventId} = useParams ()
     const [user, token]= useAuth()
     const [eventComments, setEventComments] = useState()
+    const month = moment(props.event.date).format('MMMM Do YYYY')
+    
 
     function fetchEventComments(){
       let newComments = props.comments && props.comments.filter((comment)=>{
@@ -33,7 +36,7 @@ const ViewEventPage = (props) => {
   
   
 
- 
+ console.log(props.event.event_leader.username)
       
     useEffect(()=>{
       fetchEventComments()
@@ -52,16 +55,20 @@ const ViewEventPage = (props) => {
     return ( 
      
         <div>
+          <Modal handleClick={props.closeModal} title="Event Request" message={`Your Request Has Been Sent to the Event Leader (${props.event.event_leader.username})`}  eventTrigger={props.eventSent}/>
+          <Modal handleClick={props.closeModal} title="Event Request" message="You Are Already Signed Up For This Event!" eventTrigger={props.eventAlready}/>
+          <Modal handleClick={props.closeModal} title="Event Request" message="Sorry, This Event is Closed!" eventTrigger={props.eventDenied} />
           <div className='join-count-cont'>
-            <h3>{props.event && props.event.event_type} @ {props.event && props.event.location.location_name}</h3>
+            <h3 className='event-header'>{props.event && props.event.event_type} @ {props.event && props.event.location.location_name}</h3>
             <div className='join-button' >
               <div className='join-info'>
                   <h4>Info: {props.event && props.event.event_specialInstructions} </h4>
                   <h4>Experience Level:{props.event && props.event.experience_level} </h4>
-                  <h4>Date/Time: {props.event && props.event.date}@{props.event && props.event.time}</h4>
+                  <h4>Date/Time: {props.event && month} @ {props.event.time}</h4>
                   </div>
-
+              <div>
                 <button onClick={()=>props.joinEvent(eventId)}>Joyn Event</button>
+                </div>
                 </div>
                          <div className='countdown'>
                            <span> Event Begins In:</span> <Countdown date={props.event && props.event.date}/></div>
@@ -71,9 +78,9 @@ const ViewEventPage = (props) => {
             <div className='left-col-event'>
             <div className='leader-container'>
               <h1>Event Leader: </h1>
-              <p>{props.event && props.event.user[0] && props.event.user[0].username}</p>
+              <p>{props.event  && props.event.event_leader.username}</p>
 
-              <img className="profile-pic" width="250" height="300" alt={require(`https://images.unsplash.com/photo-1607434472257-d9f8e57a643d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872`)}src={`${props.event && props.event.user[0] && props.event.user[0].user_photo}`}></img>  
+              <img className="profile-pic" width="250" height="300" src={`${props.event && props.event.event_leader.user_photo}`}></img>  
             </div>
       
             {props.eventReq &&

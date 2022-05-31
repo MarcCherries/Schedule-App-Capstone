@@ -6,7 +6,7 @@
     display: block;
     position: absolute;
     z-index: 5;
-    background-color: white;
+    background-color: rgb(247, 223, 4);
     
 }
 
@@ -14,9 +14,10 @@
     padding: 2px;
     margin-left: .75rem;
     height: 2rem;
-    background-color: rgba(209, 155, 55, 0.753);
+    background-color: rgb(251, 255, 14);
 }
 .locations-button:hover{
 
     background-color: rgba(105, 211, 35, 0.753);
+    border: 2px solid white;
 }

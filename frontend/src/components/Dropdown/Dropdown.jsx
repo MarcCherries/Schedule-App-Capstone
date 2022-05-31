@@ -4,7 +4,7 @@ import './Dropdown.css'
 
 const Dropdown = (props) => {
 
-   
+   console.log(props.showList)
 
     return ( 
         <div>

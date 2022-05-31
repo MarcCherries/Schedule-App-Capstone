@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-
+import './PrivateRequest.css'
+import { Link } from 'react-router-dom';
 const PrivateRequest = (props) => {
     const [user, token] = useAuth()
     console.log(props.item)
@@ -8,10 +9,17 @@ const PrivateRequest = (props) => {
 
     return ( <div>
        
-        <div>
-           {props.item.event_type}
-                <button onClickCapture={()=>props.acceptEvent(props.item.id, user.id)} >Accept</button>
-                <button onClickCapture={()=>props.declineEvent(props.item.id, user.id)}>Decline</button>
+        <div className='invite-request'>
+          
+            <div>
+
+
+           <Link to={`/PrivateEventPage/${props.item.id}`}>{props.item.event_type}</Link>
+           </div>
+           <div>
+                <button  onClick={()=>props.acceptEvent(props.item.id, user.id, props.item)} >+</button>
+                <button onClick={()=>props.declineEvent(props.item.id, user.id)}>-</button>
+                </div>
                 </div>
 
     </div> );

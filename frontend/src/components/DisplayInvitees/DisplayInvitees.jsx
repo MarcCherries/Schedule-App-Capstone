@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const DisplayInvitees = (props) => {
+  console.log(props.invitees)
     return ( <div>
              {props.invitees && props.invitees[0] && props.invitees.map((item)=>{
               return(
@@ -11,6 +12,7 @@ const DisplayInvitees = (props) => {
                   <p>{item.username}</p>
            
              </Link>
+             <button onClick={()=>props.removeInvitee(item)}>Remove</button>
              </div>
             
               )

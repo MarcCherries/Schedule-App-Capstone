@@ -1,0 +1,11 @@
+.invite-request{
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 10rem;
+    border: 2px solid black;
+    font-size: .75rem;
+    justify-content: space-between;
+}
+

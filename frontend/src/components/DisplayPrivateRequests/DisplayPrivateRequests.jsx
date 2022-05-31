@@ -9,7 +9,7 @@ const DisplayPrivateRequests = (props) => {
         return ( 
         <div>
             {props.event && props.event.map((item)=>{
-                console.log(item)
+             
                 return(
                     <div>
                    

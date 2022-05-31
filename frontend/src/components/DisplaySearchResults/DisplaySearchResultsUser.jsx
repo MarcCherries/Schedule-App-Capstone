@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 const DisplaySearchResultsUser = (props) => {
- console.log(props.results)
+ 
     return ( 
         <div>
               
@@ -11,7 +11,7 @@ const DisplaySearchResultsUser = (props) => {
                 return(
                     <div>
                       
-                        <input type="radio" name="location" id={`${item.id}`} onClick={()=>props.setNewLocation(item)} />
+                        <input type="radio" name="location" id={`${item.id}`} onClick={()=> props.handleClick(item)} />
               
                     <p> {item.username}</p>
                     

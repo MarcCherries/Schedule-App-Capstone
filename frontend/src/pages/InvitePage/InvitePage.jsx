@@ -13,6 +13,7 @@ const InvitePage = (props) => {
         props.invitees.map((item)=>{
             props.submitPrivateRequest(props.event.id, item.id)
         })
+       props.resetInvite()
     }
 
 console.log(props.invitees)
@@ -31,11 +32,12 @@ console.log(props.invitees)
             <input type="text" value={searchTermUser} onChange={(e)=>setSearchTermUser(e.target.value)}>
             </input>
         </form>
-        <DisplaySearchResultsUser results={props.userSearch}/>
+        <DisplaySearchResultsUser handleClick={props.handleClick} results={props.userSearch}/>
         </div> 
         <div className='invite-card'>
+            <p className='invite-card-head'>You're Invited:</p>
             {props.invitees &&
-        <DisplayInvitees invitees={props.invitees}/>
+        <DisplayInvitees removeInvitee={props.removeInvitee}invitees={props.invitees}/>
             }
 
         </div>

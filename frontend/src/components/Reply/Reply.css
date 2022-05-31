@@ -1,11 +1,12 @@
 
-.reply-box-text:hover{
-    background-color: rgb(160, 86, 86);
-   
-}
+
 
 .reply-box-full{
-    border: 2px solid black;
-    background-color: rgba(218, 218, 27, 0.733);
+    border: 2px solid white;
+    background-color: rgba(218, 218, 27, 0.534);
     width: 30rem;
+}
+.reply-box-full:hover{
+    border: 2px solid orange;
+    
 }

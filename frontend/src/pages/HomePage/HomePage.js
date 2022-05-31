@@ -42,14 +42,14 @@ useEffect(() => {
   
   }, [user]);
 
-  console.log(props.countdownEvent)
+
 
  
 useEffect(()=>{
   props.getPrivateEventRequests()
 },[user])
 
-console.log(props.privateEventRequests)
+
 
   
   return (
@@ -70,28 +70,30 @@ console.log(props.privateEventRequests)
 
 }
 
-  <DisplayPrivateRequests acceptEvent={props.acceptEvent}declineEvent={props.declineEvent}event={props.privateEventRequests}/>
-
-
           {props.friends.friends &&
           <DisplayFriends buddies={props.friends}/>
         
 }
         </div>
         </div>
-    
-    
+        <div className="private-container">
+        {props.privateEventRequests && props.privateEventRequests[0]
+ &&<div>
+<h6 className="invite-header">You have <span className="green-request">({props.privateEventRequests.length}) new </span>Private Invites!</h6>
+  <DisplayPrivateRequests acceptEvent={props.acceptEvent}declineEvent={props.declineEvent}event={props.privateEventRequests}/>
+</div>
+}
         <DisplayPrivateEvents countdownEvent={props.countdownEvent}getJumbotronEvent={props.getJumbotronEvent}getCountdown={props.getCountdown} events={props.privateEvents} event={props.event} setEvent={props.setEvent} />
-    
+    </div>
     
         <div className="add-event">
-        <Link to={'/CreateLocation'}><button className="create-loc-button">Create New Location</button></Link>
+        <Link to={'/CreateLocation'}><button className="create-loc-button">New Location</button></Link>
 
         <h4 className='create-header'>Create New Event</h4>
         <div className="select-button">
         <Dropdown handleClickShowList={props.handleClickShowList}setShowList={props.setShowList} showList={props.showList}locations={props.locations} addLocation={props.addLocation} setAddLocation={props.setAddLocation}/>
         </div>
-        <AddEvent handleLocationSubmit={props.handleLocationSubmit} createEvent={props.createEvent} events={props.events}setEvent={props.setEvent} setAddLocation={props.setAddLocation} addLocation={props.addLocation} />
+        <AddEvent handleClickPrivate={props.handleClickPrivate}isPrivate={props.isPrivate}handleLocationSubmit={props.handleLocationSubmit} createEvent={props.createEvent} events={props.events}setEvent={props.setEvent} setAddLocation={props.setAddLocation} addLocation={props.addLocation} />
       
         </div>
         

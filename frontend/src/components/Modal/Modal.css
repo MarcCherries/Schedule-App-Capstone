@@ -1,0 +1,37 @@
+.modal-backdrop{
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    overflow:auto;
+    background-color: rgba(0, 0, 0, 0.527);
+    position: absolute;
+    top: 0;
+}
+
+.modal-overlay{
+    margin-left: 30rem;
+    margin-top: 15rem;
+    width: 30%;
+    height: 30vh;
+
+    border: 2px solid black
+}
+
+.modal-overlay body{
+    height: 70%;
+    background-color: rgb(255, 255, 0);
+    border-top: 3px solid white;
+    border-bottom: 3px solid white
+}
+
+
+.modal-overlay button{
+    background-color: rgb(208, 255, 0);
+}
+
+.modal-overlay{
+    background-color: rgb(255, 145, 0);
+}
+.modal-overlay button:hover{
+    background-color: rgba(22, 190, 22, 0.815)
+}

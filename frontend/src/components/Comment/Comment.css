@@ -15,11 +15,32 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    border: 2px solid orange;
+    background-color: rgba(255, 166, 0, 0.74);
+    border: 2px solid white;
     width: 37rem;
-    height: 5rem;
+    height: fit-content;
+  
+}
+.comment-box:hover{
+    border: 2px solid orange
 }
 
 .comments-btn{
-    height: 100%;
+    height: 2rem;
+    width: 3rem;
+    background-color: yellow;
+    border: 1px solid black;
+    
+}
+.comments-btn:hover{
+   
+    background-color: rgba(28, 209, 28, 0.712);
+    border: 1px solid white;
+
+}
+
+.comment-pic-col{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

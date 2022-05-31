@@ -14,5 +14,6 @@ class Event(models.Model):
     event_specialInstructions = models.CharField(max_length=255)
     experience_level = models.CharField(max_length=50)
     isPrivate = models.BooleanField()
+    event_leader = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
    

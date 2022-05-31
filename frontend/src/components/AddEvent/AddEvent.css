@@ -14,15 +14,21 @@
 
 }
 
+.private-event{
+    font-size: .75rem;
+    margin-left: 4.7rem
+}
+
 .create-header{
     align-self: center;
 }
 
-.submit-event {
+.submit-event-button {
     padding: 2px;
     font-size: 10px;
     font-weight: bold;
-    color: black;
+    background-color: yellow;
+    margin-left: 5rem;
     width: 4rem;
     height: 2.5rem;
     text-align: center;
@@ -30,8 +36,13 @@
    
 
 }
+.submit-event-button:hover {
+   
+background-color: rgba(71, 228, 39, 0.589);
+border: 2px solid white
+}
 
 .green-title{
     font-weight: 600;
-    color: green;
+    color: white;
 }

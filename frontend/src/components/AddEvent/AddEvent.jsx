@@ -5,20 +5,22 @@ import axios from 'axios';
 import "./AddEvent.css"
 
 const   AddEvent = (props) => {
-    const [priv, setPrivate] = useState(false)
+   
     const [user, token] = useAuth()
     const [locationSearch, setLocationSearch] = useState()
     const [searchLocations, setSearchLocations] = useState()
+    
     let initialValues = {
         location_id: 5,
-        user_id: 1,
+        user_id: null,
         date: "",
         time:"",
         event_type:"Event Type",
         event_description:"Description",
         event_specialInstructions:"Special Instructions",
         experience_level:"Experience Level",
-        isPrivate: "False"
+        isPrivate: props.isPrivate
+  
 
    
       
@@ -28,23 +30,22 @@ const   AddEvent = (props) => {
   
     const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(initialValues, props.createEvent)    
   
-   console.log(priv)
+ 
     async function handleLocationSubmit(event){
         event.preventDefault()
         let response = await axios.get(`http://127.0.0.1:8000/api/locations?keyword=${locationSearch}`)
         setSearchLocations(response.data)
       }
   
+     
 
-   
-   
        
     return ( 
         <div>
             
             
             <form  className="create-event"onSubmitCapture={handleSubmit}   onSubmit={reset}>
-            <h4>Selected Location:</h4>{props.addLocation && <p className='green-title'>{props.addLocation.location_name}</p>}
+            <h4 >Selected Location:</h4>{props.addLocation && <p className='green-title'>{props.addLocation.location_name}</p>}
 
              
                 <input 
@@ -55,7 +56,7 @@ const   AddEvent = (props) => {
                 name="date"
                 id="date"
                 
-                
+                onDoubleClick={reset}
                 value={formData.date}
                 onChange={handleInputChange} 
                >
@@ -64,10 +65,10 @@ const   AddEvent = (props) => {
                 className='time-input'
                 type="time"
                 name="time"
-                id="timme"
+                id="time"
                 value={formData.time}
                 onChange={handleInputChange} 
-               x
+               
                >
                 </input>
                 <input 
@@ -105,19 +106,20 @@ const   AddEvent = (props) => {
                 <input 
                 
                 className='private-input'
-                type="text"
+                type="checkbox"
                 name="isPrivate"
+                onClick={props.handleClickPrivate}
 
          
               
-                value={formData.isPrivate}
-                onChange={handleInputChange}
+               
+               
                  >
                 
               
                 </input>
-                <label for="isPrivate" ></label>
-                <button className="submit-event" type='submit'>Create Event</button>
+                <label className='private-event' htmlFor="isPrivate" >Private Event?</label>
+                <button className="submit-event-button" type='submit'>Create Event</button>
             </form>
             <div>
                 

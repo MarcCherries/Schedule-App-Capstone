@@ -11,11 +11,11 @@ const RegisterPage = (props) => {
     firstName: "",
     lastName: "",
     user_bio: "",
-    user_reputation: "",
-    is_verified: "False",
-    is_admin: "False",
-    user_photo: "none",
-    user_theme: "",
+    user_reputation: 50.0,
+    is_verified: false,
+    is_admin: false,
+    user_photo: "",
+    user_theme: "none",
   };
 
   
@@ -92,33 +92,8 @@ const RegisterPage = (props) => {
             onChange={handleInputChange}
           />
         </label>
-        <label>
-          Reputation Score:{" "}
-          <input
-            type="number"
-            name="user_reputation"
-            value={formData.user_reputation}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Verified?:{" "}
-          <input
-            type="checkbox"
-            name="is_verified"
-            value={formData.is_verified}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Admin?:{" "}
-          <input
-            type="checkbox"
-            name="is_admin"
-            value={formData.is_admin}
-            onChange={handleInputChange}
-          />
-        </label>
+  
+ 
         <label>
           Photo:{" "}
           <input
@@ -131,15 +106,7 @@ const RegisterPage = (props) => {
             
           />
         </label>
-        <label>
-          Theme:{" "}
-          <input
-            type="text"
-            name="user_theme"
-            value={formData.user_theme}
-            onChange={handleInputChange}
-          />
-        </label>
+    
         <p style={{ fontSize: "12px" }}>
           NOTE: Make this an uncommon password with characters, numbers, and
           special characters!

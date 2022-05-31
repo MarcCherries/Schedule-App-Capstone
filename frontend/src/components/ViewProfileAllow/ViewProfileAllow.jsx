@@ -15,7 +15,7 @@ const ViewProfilePage = (props) => {
     const {userId} = useParams()
    
 
-
+console.log(props.currentUser)
 
    
     return ( 
@@ -36,7 +36,6 @@ const ViewProfilePage = (props) => {
             <div className='reputation'>
                 <h4>Reputation Score:</h4>
                 <h2>{props.currentUser && props.currentUser.user_reputation}</h2>
-                <AddFriend handleClickFriend={props.handleClickFriend}currentUser={props.currentUser} userId={userId}/>
                 </div>
       
             {props.friends &&

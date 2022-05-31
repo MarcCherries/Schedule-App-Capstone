@@ -4,6 +4,7 @@ import DisplaySearchResults from '../../components/DisplaySearchResults/DisplayS
 import DisplaySearchItem from '../../components/DisplaySearchItem/DisplaySearchItem';
 import './CreateLocationPage.css'
 import {useNavigate, Link} from 'react-router-dom'
+import Modal from '../../components/Modal/Modal';
 
 const CreateLocationPage = (props) => {
     const [places, setPlaces] = useState()
@@ -43,6 +44,8 @@ function handleClick(){
     }
     props.createLocation(postLocation)
     handleClickBack()
+    props.handleClickLocation()
+    
 
  
    
@@ -64,8 +67,10 @@ function handleClickBack(){
 
 
 
+
     return ( 
         <div>
+            <Modal resetSearch={props.resetSearch}title="Create Location" message="Your Location has been Created!" handleClick={props.handleClick}eventTrigger={props.locationCreated}/>
             <div className='create-container'>
             <div className='search-div'>
             {props.newLocation && 
@@ -80,7 +85,7 @@ function handleClickBack(){
             </form>
             <DisplaySearchResults places={places} setNewLocation={props.setNewLocation} newLocation={props.newLocation}/>
             </div>
-            <DisplaySearchItem showMap={showMap} displayInfo={displayInfo} newLocation={props.newLocation}/>
+            <DisplaySearchItem searchTerm={searchTerm}showMap={showMap} displayInfo={displayInfo} newLocation={props.newLocation}/>
             </div>
         </div>
      );

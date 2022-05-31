@@ -1,0 +1,13 @@
+.location-container{
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.map-container{
+    display: flex;
+    flex-direction: column;
+
+}

@@ -7,7 +7,13 @@
 }
 
 .invite-card{
-    width: 20rem;
-    height: 20rem;
+    width: 25rem;
+    height: 40rem;
     background-color: rgba(231, 218, 34, 0.699);
+}
+
+.invite-card-head{
+    margin-bottom: .5rem;
+    font-size: 3rem;
+    font-family:fantasy
 }

@@ -28,7 +28,7 @@ const Navbar = (props) => {
       <div className="nav-btn-container">
        
       
-          <li><button onClick={()=> navigate('/')}>Home</button></li>
+          <li><button onClickCapture={props.backReset} onClick={()=> navigate('/')}>Home</button></li>
           <li><button onClickCapture={props.backReset}onClick={()=> navigate(-1)}>Back</button></li>
           <li>
           {user ? (
