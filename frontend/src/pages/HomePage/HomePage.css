@@ -1,8 +1,9 @@
 .create-loc-button{
-    width: 4rem;
-    height: 2rem;
-    font-weight: bold;
-    background-color: rgb(248, 232, 1)
+    width: auto;
+    height: auto;
+    padding: .25rem;
+    background-color: rgb(248, 232, 1);
+    margin-top: .25rem;
 }
 .create-loc-button:hover{
     
@@ -24,7 +25,8 @@
 }
 
 .select-button{
-    align-self: flex-start;
+    margin-right: 5.5rem;
+    margin-top: .25rem;
 }
 
 .body-container {
@@ -48,6 +50,12 @@
     width: auto;
     display: flex;
     flex-direction: column
+}
+
+.create-event-top-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .green-request{
@@ -98,7 +106,9 @@ div a{
 }
 
 .create-header{
-    color: rgb(255, 255, 255);
+    font-family: 'Cooper BT';
+    color: black;
+    margin: 1rem;
 }
 
 .profile-pic {

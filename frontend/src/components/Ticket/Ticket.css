@@ -12,6 +12,10 @@
   
 }
 
+.event-span{
+    color: green;
+    font-size: .9rem;
+}
 
 
 .join-info-ticket{
@@ -32,5 +36,9 @@
     flex-direction: column;
     font-size: .75rem;
   
+}
+
+h4{
+    font-family: 'Cooper BT';
 }
 

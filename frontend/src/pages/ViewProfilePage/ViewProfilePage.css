@@ -40,6 +40,15 @@
 
 }
 
+.orange-header{
+    background-color: orange;
+    padding: .25rem;
+}
+
+.center-text{
+    margin-left: 6rem;
+}
+
 .joyn {
     font-size: 1.5rem;
 }
@@ -67,6 +76,11 @@
     align-items: center;
     align-content: space-between
 }
+
+.profile-bio{
+    border: 1px solid orange;
+    padding: .25rem;
+}
 .snapshot{
  
     margin: 1rem;
@@ -81,3 +95,7 @@
     ;
 }
 
+.profile-head{
+    margin-left: 27rem;
+    margin-bottom: 1rem
+}

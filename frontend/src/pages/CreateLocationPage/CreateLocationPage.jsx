@@ -72,19 +72,30 @@ function handleClickBack(){
         <div>
             <Modal resetSearch={props.resetSearch}title="Create Location" message="Your Location has been Created!" handleClick={props.handleClick}eventTrigger={props.locationCreated}/>
             <div className='create-container'>
+                <div className='left-column-create-page'>
+
             <div className='search-div'>
             {props.newLocation && 
-            <button onClick={handleClick}>Create {props.newLocation.name}</button>
+            <button className='create-new-loc-btn'onClick={handleClick}>Create {props.newLocation.name}</button>
             }
+                <div className='search-header-box'>
+         
            
             <form onSubmitCapture={handleSubmitLocation}  onSubmit={()=> setSearchTerm('')}>
                 <p>Please Enter a Keyword to Search:</p>
                 <input type="text" name="searchTerm"   onChange={(event) => setSearchTerm(event.target.value)}/>
-                <button type="submit">submit</button>
+                <button className="submit-location-search">submit</button>
             
             </form>
-            <DisplaySearchResults places={places} setNewLocation={props.setNewLocation} newLocation={props.newLocation}/>
             </div>
+            <DisplaySearchResults places={places} setNewLocation={props.setNewLocation} newLocation={props.newLocation}/>
+   
+            </div>
+            <div className='create-location-image'>
+                <img src={require('./Images/point.jpg')} height='400' width='250'></img>
+            </div>
+            </div>
+           
             <DisplaySearchItem searchTerm={searchTerm}showMap={showMap} displayInfo={displayInfo} newLocation={props.newLocation}/>
             </div>
         </div>

@@ -7,10 +7,10 @@ const Dropdown = (props) => {
    console.log(props.showList)
 
     return ( 
-        <div>
-            <button className='locations-button' onClick={props.handleClickShowList}>Locations</button>
+        <div >
+            <button className='locations-button'  onClick={props.handleClickShowList}>Locations</button>
             
-            <div className={`${props.showList}`}>
+            <div className={`${props.showList}`} >
                {props.locations &&
             <Element locations={props.locations} addLocation={props.addLocation} setLocations={props.setLocations} setAddLocation={props.setAddLocation} setShowList={props.setShowList}/>
                }

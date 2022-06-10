@@ -87,11 +87,16 @@ useEffect(()=>{
     </div>
     
         <div className="add-event">
-        <Link to={'/CreateLocation'}><button className="create-loc-button">New Location</button></Link>
+       
 
-        <h4 className='create-header'>Create New Event</h4>
+        <h2 className='create-header'>Create New Event</h2>
+        <div className="create-event-top-row">
         <div className="select-button">
         <Dropdown handleClickShowList={props.handleClickShowList}setShowList={props.setShowList} showList={props.showList}locations={props.locations} addLocation={props.addLocation} setAddLocation={props.setAddLocation}/>
+        </div>
+        <div>
+        <Link to={'/CreateLocation'}><button className="create-loc-button">Add Location</button></Link>
+        </div>
         </div>
         <AddEvent handleClickPrivate={props.handleClickPrivate}isPrivate={props.isPrivate}handleLocationSubmit={props.handleLocationSubmit} createEvent={props.createEvent} events={props.events}setEvent={props.setEvent} setAddLocation={props.setAddLocation} addLocation={props.addLocation} />
       

@@ -11,17 +11,10 @@ import { Link } from 'react-router-dom';
 
 
 const ViewProfilePage = (props) => {
-    const [user, token] = useAuth()
-    const {userId} = useParams()
-   
-
-console.log(props.currentUser)
-
-   
     return ( 
         <div>
           
-            <h1 className='profile-head'>Profile Page for {props.currentUser && props.currentUser.username}!</h1>
+            <h1 className='profile-head'>Profile Page for <a className='orange-link'>{props.currentUser && props.currentUser.username}!</a></h1>
             <div>
             <div className='top-row-container'>
                 <div className='left-side-top'>
@@ -30,12 +23,12 @@ console.log(props.currentUser)
                     <div className='left-image-info'>
                     <img className="profile-pic" width="250" height="300" src={`${props.currentUser && props.currentUser.user_photo}`}></img>
            
-            <h5>Name: {props.currentUser && props.currentUser.first_name}</h5>
-            <p>About Me: {props.currentUser && props.currentUser.user_bio}</p>
+            <h3 className='center-text'>{props.currentUser && props.currentUser.first_name}</h3>
             </div>
             <div className='reputation'>
-                <h4>Reputation Score:</h4>
+                <h3>Reputation Score:</h3>
                 <h2>{props.currentUser && props.currentUser.user_reputation}</h2>
+                <h2 className='orange-header'>About Me:</h2> <p className='profile-bio'> {props.currentUser && props.currentUser.user_bio}</p>
                 </div>
       
             {props.friends &&

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
+import './RegisterPage.css'
 
 const RegisterPage = (props) => {
   const { registerUser } = useContext(AuthContext);
@@ -26,16 +27,17 @@ const RegisterPage = (props) => {
   
 
 
-  // useEffect(()=>{
-  //     if (props.image){
-        
-  //       let newURL = URL.createObjectURL(props.image)
-  //       props.setImageURL(newURL)
-  //     }
-  // },[props.image])
+  
     
   
   return (
+
+    <div>
+      <h3 className="welcome-message">Welcome, New User!</h3>
+    <div className="container-row-register">
+       
+        <img className="register-image" src={require('./Images/jogging.jpg')} height='400' width='300'></img>
+      
     <div className="container">
       <form className="form" onSubmit={handleSubmit} encType='multipart/form-data'>
         <label>
@@ -113,6 +115,8 @@ const RegisterPage = (props) => {
         </p>
         <button>Register!</button>
       </form>
+    </div>
+    </div>
     </div>
   );
 };

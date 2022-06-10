@@ -63,7 +63,7 @@ const ViewEventPage = (props) => {
             <div className='join-button' >
               <div className='join-info'>
                   <h4>Info: {props.event && props.event.event_specialInstructions} </h4>
-                  <h4>Experience Level:{props.event && props.event.experience_level} </h4>
+                  <h4>Experience Level: {props.event && props.event.experience_level} </h4>
                   <h4>Date/Time: {props.event && month} @ {props.event.time}</h4>
                   </div>
               <div>
@@ -108,10 +108,10 @@ const ViewEventPage = (props) => {
 {/* 
       </iframe> */}
       <div className='location-table'>
-        <h5>Location:</h5>
+        <h5 className='notes-other'>Location:</h5>
         <p className='notes'>{props.event && props.event.location.location_name}</p>
         <p className='notes'>{props.event && props.event.location.location_info}</p>
-        <h5>Event Notes:</h5>
+        <h5 className='notes-other'>Event Notes:</h5>
         <p className='notes'>{props.event && props.event.event_specialInstructions}</p>
         <Link to={`/ViewLocation/${props.event && props.event.location.id}`}><p>Location Page</p></Link>
       </div>

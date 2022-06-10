@@ -1,0 +1,17 @@
+.attendee-item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: .75rem;
+}
+.attendee-item button{
+    background-color: red;
+    padding: 1px;
+  
+}
+.attendee-item button:hover{
+    background-color: green;
+    border: 2px solid white;
+  
+}

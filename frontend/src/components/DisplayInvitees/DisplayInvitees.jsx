@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './DisplayInvitees.css'
 
 const DisplayInvitees = (props) => {
   console.log(props.invitees)
     return ( <div>
+          
              {props.invitees && props.invitees[0] && props.invitees.map((item)=>{
               return(
                 <div className='attendee-item'>

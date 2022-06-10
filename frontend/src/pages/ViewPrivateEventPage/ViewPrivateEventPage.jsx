@@ -61,7 +61,7 @@ const ViewPrivateEventPage = (props) => {
             <div className='join-button' >
               <div className='join-info'>
                   <h4>Info: {props.event && props.event.event_specialInstructions} </h4>
-                  <h4>Experience Level:{props.event && props.event.experience_level} </h4>
+                  <h4>Experience Level: {props.event && props.event.experience_level} </h4>
                   <h4>Date/Time: {props.event && date} @ {props.event && props.event.time}</h4>
                   </div>
                   {props.eventUser &&

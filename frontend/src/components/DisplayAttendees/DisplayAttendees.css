@@ -1,6 +1,4 @@
-.attendee-item {
+.attendee-item{
     text-decoration: none;
-}
-.attendee-item:hover {
-    text-decoration: underline;
+    color: rgb(255, 72, 0);
 }

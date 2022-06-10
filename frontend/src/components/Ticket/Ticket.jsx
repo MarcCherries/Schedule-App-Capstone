@@ -13,7 +13,7 @@ const Ticket = (props) => {
     return ( <div className='join-button-container'>
                   
               <div onPointerOver={()=>setHideCount(true)} onPointerLeave={()=>setHideCount(false)} className='join-info-ticket' >
-                  <h4>Event Type: {props.event.event_type} </h4>
+                  <h4>Event Type: <span className='event-span'>{props.event.event_type}</span> </h4>
                   <h4>Experience Level:{props.event.experience_level} </h4>
                   <h4>Date/Time: {date} @ {props.event.time}</h4>
                   </div>

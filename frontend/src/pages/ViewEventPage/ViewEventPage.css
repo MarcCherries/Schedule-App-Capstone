@@ -10,7 +10,11 @@
 
 .event-header{
     margin-top: .5rem;
+    margin-bottom: .5rem;
+
     font-size: 3rem;
+    background-color: rgba(42, 228, 42, 0.815);
+    color: yellow
 }
 
 .notes {
@@ -109,3 +113,22 @@
     font-weight: bold;
 }
 
+.location-table{
+    border: 2px solid orange;
+    margin-top: 2rem;
+    padding: .5rem;
+    background-color: yellow;
+    width: auto;
+}
+
+.notes-other{
+    margin-bottom: 1rem;
+    color: rgb(255, 123, 0);
+   
+ 
+}
+.notes{
+    background-color: rgba(228, 141, 42, 0.836);
+  
+    
+}

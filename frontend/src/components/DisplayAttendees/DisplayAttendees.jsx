@@ -10,8 +10,8 @@ const DisplayAttendees = (props) => {
           
           {props.event && props.event.user.map((item)=>{
               return(
-                <div className='attendee-item'>
-                <Link to={`/ViewProfile/${item.id}`}  >
+                <div >
+                <Link  className='attendee-item' to={`/ViewProfile/${item.id}`}  >
           
                   <p>{item.username}</p>
            
